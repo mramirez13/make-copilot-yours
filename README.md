@@ -10,11 +10,11 @@ Open `index.html` in a browser.
 
 `coseb-prompt-builder.html` hosts **Make Your Prompt Work**, the companion HR prompting activity. The filename is retained so existing links, including `https://aka.ms/cosebpromptbuilder`, continue to work; the participant-facing framework is **Context, Goal, Source, Expectations**.
 
-The guided activity follows the personalization site's one-screen-at-a-time pattern: setup, framework, task selection, four prompt fields, an editable prompt to copy into Copilot, response review, a follow-up, and a reusable toolkit. Allow eight minutes to build and try, then four minutes for partner comparison and refinement.
+The builder follows the personalization site's one-screen-at-a-time pattern: setup, framework, task selection, four prompt fields, and an editable prompt canvas to copy into Copilot. The canvas is the final screen, with controls to edit the four parts, copy repeatedly, choose another task, or clear drafts. There are no response-analysis steps, checkboxes, partner-debrief screens, or toolkit gates.
 
 Seven HR starters include fictional source material: communications, meeting preparation, process changes, role descriptions, learning plans, aggregate feedback, and draft-plan review. A custom task can start blank. Source naming does not grant Copilot access to a file; participants must supply or attach actual approved material inside Copilot.
 
-Drafts, final prompt edits, and review selections live only in memory in the current tab. There is no sign-in, tracking, storage, or network submission. Refresh clears the activity. Changing fields protects manually edited final prompts with a keep-or-rebuild choice. Clipboard failures open a manual-copy dialog. Review checks reset when the prompt changes and do not represent approval of an AI response.
+Drafts and final prompt edits live only in memory in the current tab and are preserved separately for each task. There is no sign-in, tracking, storage, or network submission. Refresh clears the activity. Changing fields protects manually edited final prompts with a keep-or-rebuild choice. Clipboard failures open a manual-copy dialog. Empty prompts produce an explicit copy message without preventing navigation to another task.
 
 ## Host with GitHub Pages
 
