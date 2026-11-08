@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Make Your Prompt Work: a guided HR workshop using Context, Goal, Source, and Expectations. Build, try, and refine a prompt alongside Microsoft 365 Copilot.">
+  <meta name="description" content="Make Your Prompt Work: an editable HR prompt canvas using Context, Goal, Source, and Expectations. Adapt prompts and copy them into Microsoft 365 Copilot.">
   <meta name="referrer" content="no-referrer">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
   <link rel="icon" href="data:,">
@@ -95,7 +95,7 @@
     .primary:hover { background: var(--cp-accent-hover); }
     .theme { font-size: 12px; padding: 8px 12px; }
     .journey { margin-top: 24px; }
-    .journey ol { display: grid; grid-template-columns: repeat(5, 1fr); list-style: none; padding: 0; margin: 0; gap: 10px; }
+    .journey ol { display: grid; grid-template-columns: repeat(4, 1fr); list-style: none; padding: 0; margin: 0; gap: 10px; }
     .journey li { border-top: 3px solid var(--cp-border); padding-top: 8px; font-size: 13px; color: var(--cp-text-muted); }
     .journey li.active, .journey li.done { border-color: var(--cp-accent); }
     .journey li.active { color: var(--cp-accent); font-weight: 700; }
@@ -135,11 +135,6 @@
     .mini span { background: var(--cp-accent-soft); color: var(--cp-accent); border-radius: 10px; padding: 4px 8px; font-size: 12px; }
     details { margin-top: 16px; padding: 16px; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 10px; }
     summary { cursor: pointer; font-size: 15px; font-weight: 650; }
-    .checklist { display: grid; gap: 10px; }
-    .checklist label { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 10px; }
-    .checklist input { width: 20px; height: 20px; margin: 3px 0 0; accent-color: var(--cp-accent); flex-shrink: 0; }
-    .checklist strong { display: block; font-size: 15px; }
-    .checklist span span { display: block; font-size: 14px; color: var(--cp-text-muted); }
     .status { min-height: 22px; margin-top: 8px; font-size: 14px; color: var(--cp-text-muted); }
     .error { color: var(--cp-danger); font-weight: 650; margin-top: 16px; }
     .nav { display: flex; gap: 16px; justify-content: space-between; align-items: center; border-top: 1px solid var(--cp-border); margin-top: 28px; padding: 20px 0; position: sticky; bottom: 0; z-index: 2; background: var(--cp-bg); }
@@ -151,7 +146,7 @@
     dialog p { margin-top: 12px; }
     .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
     html[data-theme="dark"] .small, html[data-theme="dark"] .intro, html[data-theme="dark"] .choice span span,
-    html[data-theme="dark"] .checklist span span, html[data-theme="dark"] footer,
+    html[data-theme="dark"] footer,
     html[data-theme="dark"] .status, html[data-theme="dark"] .progress-meta, html[data-theme="dark"] .brand-sub { color: var(--cp-text-soft); }
     @media (max-width: 760px) {
       .shell { padding: 0 20px; }
@@ -177,7 +172,7 @@
       <div class="brand"><span class="mark" aria-hidden="true">✦</span><div>Make Your Prompt Work<div class="brand-sub">HR AI in Practice</div></div></div>
       <button class="btn theme" id="theme" type="button" aria-label="Switch color theme">Dark theme</button>
     </header>
-    <nav class="journey" aria-label="Workshop journey"><ol id="journey"></ol><div class="progress-meta"><span id="step-label">Your 12-minute prompt workshop</span><span id="step-count">Ready when you are</span></div></nav>
+    <nav class="journey" aria-label="Prompt builder steps"><ol id="journey"></ol><div class="progress-meta"><span id="step-label">Your HR prompt canvas</span><span id="step-count">Ready when you are</span></div></nav>
     <main id="main" tabindex="-1"></main>
     <p class="error" id="error" role="alert" hidden></p>
     <div class="nav"><button class="btn" id="back" type="button">← Back</button><div class="nav-right"><span class="small nav-hint" id="nav-hint"></span><button class="btn primary" id="next" type="button">Let's get started →</button></div></div>
@@ -187,7 +182,7 @@
   <div id="status" class="sr" role="status" aria-live="polite"></div>
   <dialog id="manual-copy" aria-labelledby="manual-title"><h2 id="manual-title">Copy manually</h2><p>Clipboard access is unavailable. Select this text and use Ctrl+C, Command+C, or your device's Copy command.</p><textarea id="manual-text" readonly aria-label="Text to copy"></textarea><div class="actions"><button class="btn primary" id="manual-close" type="button">Done</button></div></dialog>
   <dialog id="replace" aria-labelledby="replace-title"><h2 id="replace-title">Keep your edits or rebuild?</h2><p>Your four prompt fields changed after you edited the final prompt. Keep your edited prompt, or replace it with a new version from those fields.</p><div class="actions"><button class="btn" id="keep" type="button">Keep my edited prompt</button><button class="btn primary" id="rebuild" type="button">Replace from my fields</button></div></dialog>
-  <dialog id="restart" aria-labelledby="restart-title"><h2 id="restart-title">Start a fresh activity?</h2><p>This clears all prompt drafts, edits, and review checks in this tab. Copy your toolkit first if you want to keep it.</p><div class="actions"><button class="btn" id="restart-cancel" type="button">Keep my work</button><button class="btn primary" id="restart-confirm" type="button">Start fresh</button></div></dialog>
+  <dialog id="restart" aria-labelledby="restart-title"><h2 id="restart-title">Start a fresh activity?</h2><p>This clears all prompt drafts and edits in this tab. Copy your prompt first if you want to keep it.</p><div class="actions"><button class="btn" id="restart-cancel" type="button">Keep my work</button><button class="btn primary" id="restart-confirm" type="button">Start fresh</button></div></dialog>
   <script>
     "use strict";
     const tasks = [
@@ -231,28 +226,16 @@
     ];
     const fields = ["context", "goal", "source", "expectations"];
     const labels = { context: "Context", goal: "Goal", source: "Source", expectations: "Expectations" };
-    const groups = ["Start", "Choose", "Build", "Try", "Refine"];
-    const stages = [0, 0, 1, 2, 2, 2, 2, 3, 4, 4];
-    const screenLabels = ["Welcome", "The four-part framework", "Choose your HR task", "Context", "Goal", "Source", "Expectations", "Try in Copilot", "Review and refine", "Your prompt toolkit"];
-    const nextLabels = ["Let's get started →", "Choose my HR task →", "Shape my prompt →", "Next: Goal →", "Next: Source →", "Next: Expectations →", "Review my prompt →", "Review the response →", "Save my toolkit →", "Start a new task →"];
+    const groups = ["Start", "Choose", "Build", "Copy"];
+    const stages = [0, 0, 1, 2, 2, 2, 2, 3];
+    const screenLabels = ["Welcome", "The four-part framework", "Choose your HR task", "Context", "Goal", "Source", "Expectations", "Your prompt canvas"];
+    const nextLabels = ["Let's get started →", "Choose my HR task →", "Shape my prompt →", "Next: Goal →", "Next: Source →", "Next: Expectations →", "Open my prompt canvas →", "Choose another task →"];
     const guides = {
       context: { title: "Who is this work for?", intro: "Give Copilot the situation and audience. This is the task's context, not your whole professional profile.", label: "My context", tip: "Situation + audience", example: "I am an HR partner helping people managers understand a new learning session.", help: "Include your role, what is happening, and who will use the result." },
       goal: { title: "What do you want to accomplish?", intro: "Name the action and the outcome. A topic tells Copilot what to talk about; a goal tells it what to do.", label: "My goal", tip: "Action + useful outcome", example: "Draft an invitation that explains why the session matters and makes the next action clear.", help: "Start with a verb: draft, summarize, prepare, compare, organize, or challenge." },
       source: { title: "What should Copilot work from?", intro: "Give it the material, not just the name of a document. The practice brief below will travel with your prompt.", label: "My source material", tip: "Ground the work in supplied information", example: "Use only the fictional brief below. If a date or link is missing, leave a placeholder.", help: "Keep or edit the fictional brief. For your own task, paste approved non-sensitive facts, or explicitly say no source is available and ask for an outline with placeholders." },
       expectations: { title: "What does a useful result look like?", intro: "Set the format, tone, length, and quality bar. Include how Copilot should handle missing facts here; there is no separate fifth prompt element.", label: "My expectations", tip: "Format + tone + quality", example: "Write an approachable email under 175 words with a subject line. Use placeholders for missing facts and list what needs confirmation.", help: "Be specific about the output you can use. Ask it not to invent policy or unsupported facts." }
     };
-    const followups = [
-      { title: "Make the action clearer", text: "Revise the draft so the reader's next action is unmistakable. Keep the supplied facts, remove repetition, and use a short 'What to do' section. Do not invent dates, links, or requirements." },
-      { title: "Check the grounding", text: "Review your response against only the source material I supplied. Identify unsupported statements and separate facts from assumptions. Replace unsupported details with placeholders or questions." },
-      { title: "Adjust the audience and tone", text: "Revise for the audience named in my Context. Use clear, approachable language, explain unfamiliar terms, and preserve the original goal and supplied facts." },
-      { title: "Expose missing information", text: "List the information still needed before this draft is ready to use. Explain why each item matters. Do not fill gaps with invented facts; use placeholders in the draft." }
-    ];
-    const reviewItems = [
-      ["context", "Context: fits the audience", "Does the response make sense for the intended reader?"],
-      ["goal", "Goal: accomplishes the task", "Did it deliver the action and outcome you asked for?"],
-      ["source", "Source: claims are grounded", "Can you trace factual claims to the supplied material?"],
-      ["expectations", "Expectations: usable and reviewable", "Does it follow the format and show missing facts rather than inventing them?"]
-    ];
     const $ = id => document.getElementById(id);
     const esc = value => String(value).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
     let state = { step: 0, task: "manager", drafts: {} };
@@ -260,7 +243,7 @@
     function draft() {
       if (!state.drafts[state.task]) {
         const task = tasks.find(item => item.id === state.task);
-        state.drafts[state.task] = { ...Object.fromEntries(fields.map(key => [key, task[key]])), prompt: "", signature: "", edited: false, checks: [], followup: 0 };
+        state.drafts[state.task] = { ...Object.fromEntries(fields.map(key => [key, task[key]])), prompt: "", signature: "", edited: false };
       }
       return state.drafts[state.task];
     }
@@ -289,13 +272,13 @@
       $("step-count").textContent = `Step ${s + 1} of ${screenLabels.length}`;
       $("back").hidden = s === 0;
       $("next").textContent = nextLabels[s];
-      $("nav-hint").textContent = s < 7 ? "8 min to build and try" : s < 9 ? "4 min to compare and refine" : "Copy before you leave";
+      $("nav-hint").textContent = s < 7 ? "Build at your own pace" : "Edit, copy, and keep working";
       let html = "";
       if (s === 0) {
         html = heading("Make your prompt work.", "A clear ask. A useful draft. A better next version. Build an HR prompt using the same four parts from your workshop deck.") +
           `<p class="formula section">Context → Goal → Source → Expectations</p>
           <div class="grid section"><div class="card"><h2>Set up side by side</h2><ol class="steps"><li>Keep this guide in one window.</li><li>Open your organization's approved Copilot in another.</li><li>Follow a step here, then try the prompt there.</li></ol><div class="actions"><a class="btn" href="https://m365.cloud.microsoft/chat" target="_blank" rel="noopener noreferrer">Open Microsoft 365 Copilot ↗</a></div><p class="small">On Windows, use Win+Left / Win+Right to snap the windows. Opening Copilot does not transfer your prompt.</p></div>
-          <div class="card"><h2>Your 12-minute activity</h2><p><strong>8 minutes:</strong> choose a task, shape four parts, and try your prompt.</p><p><strong>4 minutes:</strong> compare with a partner, check the response, and try one follow-up.</p><p class="small">No blank-page problem: every practice task includes fictional source material.</p></div></div>
+          <div class="card"><h2>Your prompt canvas</h2><p>Choose an HR task and adapt its Context, Goal, Source, and Expectations.</p><p>Edit the assembled prompt and copy it into Copilot. Come back here to change the wording or work on another task.</p><p class="small">Every practice task includes fictional source material.</p></div></div>
           <div class="callout tint section"><strong>Practice safely, then review.</strong><p>Use the fictional examples or approved non-sensitive details. Do not paste employee records, candidate materials, compensation, or employee-relations cases. You decide what is ready to use; a polished draft is not proof.</p></div>`;
       } else if (s === 1) {
         html = heading("Four parts. One clear ask.", "The goal is not a longer prompt. It is work that fits your audience, uses the right information, and is easier to review.") +
@@ -309,25 +292,17 @@
         html = fieldScreen(fields[s - 3]);
         if (s === 5) html += `<details><summary>Using a real file instead of this practice brief?</summary><p class="small">Attach or reference the actual approved file inside Copilot using the tools your organization permits. Naming a file on this page does not give Copilot access to it. Keep sensitive information out of this exercise.</p></details>`;
       } else if (s === 7) {
-        html = heading("Try your prompt in Copilot.", "Review your four-part prompt, make any final edits, then copy it. Keep this page beside Copilot so you can check the response next.") +
+        html = heading("Your prompt canvas.", "Alter the wording here and copy it into Copilot. Keep this canvas open beside Copilot so you can return, edit, and copy again.") +
           `<div class="prompt-top"><label for="prompt"><strong>Your editable prompt</strong></label><button class="btn primary" type="button" data-copy="prompt">Copy prompt</button></div>
-          <textarea class="prompt-editor" id="prompt" spellcheck="true">${esc(d.prompt)}</textarea><p class="status" id="copy-status" role="status" aria-live="polite">Copy includes the source material shown above.</p>
-          <div class="callout section"><strong>In Copilot</strong><ol class="steps"><li>Start a new conversation for this task.</li><li>Paste the prompt and send it. Supply any real source you reference using approved tools.</li><li>Read the result. Leave that conversation open for your follow-up.</li></ol><div class="actions"><a href="https://m365.cloud.microsoft/chat" target="_blank" rel="noopener noreferrer">Open Microsoft 365 Copilot ↗</a></div></div>`;
-      } else if (s === 8) {
-        html = heading("Check it. Change one thing.", "Read the response in Copilot, not just the prompt here. Check what you can verify; unchecked items are clues for your next instruction.") +
-          `<div class="checklist section">${reviewItems.map(([key, title, help]) => `<label><input type="checkbox" data-check="${key}" ${d.checks.includes(key) ? "checked" : ""}><span><strong>${title}</strong><span>${help}</span></span></label>`).join("")}</div>
-          <fieldset class="section"><legend>Choose one follow-up to try</legend><div class="choices">${followups.map((item, i) => `<label class="choice"><input type="radio" name="followup" value="${i}" ${d.followup === i ? "checked" : ""}><span><strong>${item.title}</strong></span></label>`).join("")}</div></fieldset>
-          <div class="card section"><p class="example" id="followup-text">${esc(followups[d.followup].text)}</p><div class="actions"><button class="btn primary" type="button" data-copy="followup">Copy follow-up</button><button class="btn" type="button" data-edit-fields>Edit my four parts</button></div><p class="status" id="copy-status" role="status" aria-live="polite">Paste the follow-up into the same Copilot conversation.</p></div>
-          <div class="callout tint section"><strong>Compare with a partner · 4 minutes</strong><p>Which of the four parts made the biggest difference? What did Copilot get right or miss? Try your follow-up and compare the first response with the revised version.</p></div>`;
-      } else {
-        html = heading("Take the pattern into your work.", "Keep your prompt and a useful follow-up. Next time, change the task details rather than starting from a blank page.") +
-          `<div class="card section"><h2>Your reusable framework</h2><p class="formula">Context → Goal → Source → Expectations</p><p class="small">Who and why. What outcome. Which information. What good looks like.</p><div class="actions"><button class="btn primary" type="button" data-copy="toolkit">Copy my prompt toolkit</button><button class="btn" type="button" data-return-prompt>View my prompt</button></div><p class="status" id="copy-status" role="status" aria-live="polite">Includes your current prompt, selected follow-up, and review reminders.</p></div>
-          <div class="grid section"><div class="card"><h2>A habit worth keeping</h2><p>Make the ask clear. Ground it in actual material. Review the response. Refine one thing.</p><p class="small">${d.checks.length} of 4 review checks marked. This records your checks, not an approval of the output.</p></div><div class="card"><h2>Choose another HR task</h2><p>The task menu doubles as your prompt-pattern library. Drafts are kept separately while this tab is open.</p><div class="actions"><button class="btn" type="button" data-restart>Clear and start fresh</button></div></div></div>`;
+          <textarea class="prompt-editor" id="prompt" spellcheck="true">${esc(d.prompt)}</textarea><p class="status" id="copy-status" role="status" aria-live="polite">Copies the current text exactly as you have edited it.</p>
+          <div class="actions"><button class="btn" type="button" data-edit-fields>Edit my four parts</button><a class="btn" href="https://m365.cloud.microsoft/chat" target="_blank" rel="noopener noreferrer">Open Microsoft 365 Copilot ↗</a><button class="btn" type="button" data-restart>Clear and start fresh</button></div>
+          <p class="small section">Paste into Copilot and send. If you reference a real file, supply or attach it there using approved tools. This page does not send your prompt or source material automatically.</p>`;
       }
       $("main").innerHTML = html;
       if (focus) { $("screen-title").focus({ preventScroll: true }); window.scrollTo(0, 0); }
     }
     function validate() {
+      if (state.step === 7) return true;
       const required = state.step >= 6 ? fields : state.step >= 3 && state.step <= 5 ? [fields[state.step - 3]] : [];
       const missing = required.filter(key => !draft()[key].trim());
       if (missing.length) {
@@ -336,13 +311,6 @@
         const input = $(missing[0]);
         if (input) { input.setAttribute("aria-invalid", "true"); input.focus(); }
         else { state.step = 3 + fields.indexOf(missing[0]); render(); $("error").textContent = `Add your ${labels[missing[0]]} before continuing.`; $("error").hidden = false; $(missing[0]).focus(); }
-        return false;
-      }
-      if (state.step === 7 && !draft().prompt.trim()) {
-        $("error").textContent = "Your prompt is empty. Add a prompt before reviewing the response.";
-        $("error").hidden = false;
-        $("prompt").setAttribute("aria-invalid", "true");
-        $("prompt").focus();
         return false;
       }
       return true;
@@ -356,13 +324,10 @@
           $("replace").showModal();
           return;
         }
-        if (!d.prompt || d.signature !== sig) { d.prompt = makePrompt(); d.signature = sig; d.edited = false; d.checks = []; }
+        if (!d.signature || d.signature !== sig) { d.prompt = makePrompt(); d.signature = sig; d.edited = false; }
       }
       state.step = step;
       render();
-    }
-    function toolkit() {
-      return `MY HR PROMPT\n\n${draft().prompt}\n\nFOLLOW-UP (in the same Copilot conversation)\n${followups[draft().followup].text}\n\nREUSABLE FRAMEWORK\nContext: situation and audience.\nGoal: action and outcome.\nSource: supplied or actually attached material.\nExpectations: format, tone, length, and quality; show unknowns.\n\nREVIEW BEFORE USE\nCheck audience fit, task outcome, source grounding, and output quality. Validate facts and missing information with a human owner.`;
     }
     async function copy(text, button) {
       const status = $("copy-status");
@@ -386,36 +351,26 @@
     $("main").addEventListener("input", event => {
       const input = event.target;
       if (fields.includes(input.id)) {
-        if (draft()[input.id] !== input.value) draft().checks = [];
         draft()[input.id] = input.value; input.removeAttribute("aria-invalid");
       }
       if (input.id === "prompt") {
-        if (draft().prompt !== input.value) draft().checks = [];
         draft().prompt = input.value; draft().edited = true; input.removeAttribute("aria-invalid");
       }
     });
     $("main").addEventListener("change", event => {
       const input = event.target;
       if (input.name === "task") { state.task = input.value; draft(); }
-      if (input.name === "followup") { draft().followup = Number(input.value); $("followup-text").textContent = followups[draft().followup].text; }
-      if (input.dataset.check) {
-        const checks = new Set(draft().checks);
-        if (input.checked) checks.add(input.dataset.check); else checks.delete(input.dataset.check);
-        draft().checks = [...checks];
-      }
     });
     $("main").addEventListener("click", event => {
       const button = event.target.closest("button");
       if (!button) return;
       if (button.dataset.copy) {
-        const text = button.dataset.copy === "prompt" ? draft().prompt : button.dataset.copy === "followup" ? followups[draft().followup].text : toolkit();
-        void copy(text, button);
+        void copy(draft().prompt, button);
       }
       if (button.hasAttribute("data-edit-fields")) go(3);
-      if (button.hasAttribute("data-return-prompt")) go(7);
       if (button.hasAttribute("data-restart")) $("restart").showModal();
     });
-    $("next").addEventListener("click", () => { if (validate()) go(state.step === 9 ? 2 : state.step + 1); });
+    $("next").addEventListener("click", () => { if (validate()) go(state.step === 7 ? 2 : state.step + 1); });
     $("back").addEventListener("click", () => go(Math.max(0, state.step - 1)));
     $("manual-close").addEventListener("click", () => $("manual-copy").close());
     $("keep").addEventListener("click", () => {
@@ -426,7 +381,7 @@
       if (target !== null) { state.step = target; render(); }
     });
     $("rebuild").addEventListener("click", () => {
-      draft().prompt = makePrompt(); draft().signature = signature(); draft().edited = false; draft().checks = [];
+      draft().prompt = makePrompt(); draft().signature = signature(); draft().edited = false;
       const target = pendingStep;
       pendingStep = null;
       $("replace").close();
