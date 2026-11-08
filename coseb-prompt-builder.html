@@ -170,6 +170,37 @@
     .notice p { color: var(--cp-text-muted); }
     .safe { border-left: 4px solid var(--cp-accent); }
     .safe ul { margin: .5rem 0 0; padding-left: 1.25rem; color: var(--cp-text-muted); }
+    .section-intro { max-width: 760px; margin: 2rem 0 1rem; }
+    .section-intro p { color: var(--cp-text-muted); }
+    .formula-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .65rem; }
+    .formula-card { padding: .9rem; border: 1px solid var(--cp-border); border-radius: .625rem; background: var(--cp-surface); }
+    .formula-letter { display: grid; width: 1.9rem; height: 1.9rem; place-items: center; border-radius: .5rem; background: var(--cp-accent-soft); color: var(--cp-accent); font-weight: 800; }
+    .formula-card h3 { margin-top: .55rem; }
+    .formula-card p { margin-top: .3rem; color: var(--cp-text-muted); font-size: .88rem; }
+    .compare { display: grid; grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); gap: .75rem; margin-top: 1rem; }
+    .compare-card { padding: 1rem; border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-surface); }
+    .compare-card.basic { border-top: 4px solid var(--cp-warning); }
+    .compare-card.strong { border-top: 4px solid var(--cp-success); }
+    .compare-card h3 { margin-bottom: .65rem; }
+    .example-prompt { margin: 0; padding: .85rem; border: 1px solid var(--cp-border); border-radius: .625rem; background: var(--cp-surface-soft); white-space: pre-wrap; overflow-wrap: anywhere; font: .9rem/1.6 Consolas, "Courier New", Courier, monospace; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .65rem; }
+    .tag { white-space: normal; }
+    .callout-note { margin-top: .75rem; padding: .8rem .9rem; border-radius: .625rem; background: var(--cp-accent-soft); color: var(--cp-text); }
+    .pattern-list { display: grid; gap: .65rem; }
+    .pattern { border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-surface); overflow: hidden; }
+    .pattern summary { display: flex; align-items: center; justify-content: space-between; gap: .8rem; padding: .9rem 1rem; cursor: pointer; list-style: none; }
+    .pattern summary::-webkit-details-marker { display: none; }
+    .pattern summary strong { display: block; }
+    .pattern summary span { color: var(--cp-text-muted); font-size: .88rem; }
+    .pattern-body { padding: 0 1rem 1rem; }
+    .pattern-body .example-prompt { margin-top: .55rem; }
+    .pattern-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin-top: .65rem; }
+    .pattern-status { color: var(--cp-text-muted); font-size: .88rem; }
+    .followup-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .65rem; }
+    .followup-card { padding: .9rem; border: 1px solid var(--cp-border); border-radius: .625rem; background: var(--cp-bg-elevated); }
+    .followup-card strong { display: block; }
+    .followup-card p { color: var(--cp-text-muted); font-size: .9rem; }
+    .followup-card q { display: block; margin-top: .55rem; color: var(--cp-text); font-weight: 650; }
     .step-panel { margin-top: 1rem; padding: clamp(1rem, 3vw, 1.5rem); }
     .step-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1.1rem; }
     .step-head p { color: var(--cp-text-muted); }
@@ -242,6 +273,8 @@
     @media (max-width: 700px) {
       .journey { grid-template-columns: repeat(2, 1fr); }
       .scenario-grid, .try-grid { grid-template-columns: 1fr; }
+      .formula-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .compare, .followup-grid { grid-template-columns: 1fr; }
       .step-head { display: block; }
       .time-chip { margin-top: .7rem; }
     }
@@ -281,6 +314,34 @@
         <li>Use placeholders for facts you do not have.</li>
         <li>Do not present generated language as approved company policy.</li>
       </ul>
+    </section>
+
+    <section aria-labelledby="formula-heading">
+      <div class="section-intro">
+        <div class="eyebrow">The prompt formula</div>
+        <h2 id="formula-heading">A useful prompt makes five things clear.</h2>
+        <p>Prompting Essentials teaches Goal, Context, Expectations, and Sources. This workshop uses COSEB: Objective is the goal, and Boundaries make the responsible-use expectations explicit.</p>
+      </div>
+      <div class="formula-grid">
+        <article class="formula-card"><span class="formula-letter">C</span><h3>Context</h3><p>Situation + audience. Why does this request matter, and who will use the result?</p></article>
+        <article class="formula-card"><span class="formula-letter">O</span><h3>Objective</h3><p>The goal. What should Copilot help accomplish?</p></article>
+        <article class="formula-card"><span class="formula-letter">S</span><h3>Sources</h3><p>What information should ground the response? Name it; do not assume Copilot has it.</p></article>
+        <article class="formula-card"><span class="formula-letter">E</span><h3>Expectations</h3><p>What should the response look like? Specify format, tone, length, and quality.</p></article>
+        <article class="formula-card"><span class="formula-letter">B</span><h3>Boundaries</h3><p>What should it avoid, label, or leave for a person to review?</p></article>
+      </div>
+      <div class="compare" aria-label="Basic prompt compared with a stronger HR prompt">
+        <article class="compare-card basic">
+          <h3>Basic prompt</h3>
+          <pre class="example-prompt">Write an email about manager training.</pre>
+          <div class="tag-row"><span class="tag">Topic only</span><span class="tag">No audience or source</span></div>
+        </article>
+        <article class="compare-card strong">
+          <h3>Stronger prompt</h3>
+          <pre class="example-prompt">You are helping an HR business partner communicate with people managers about a new learning session. Explain why it matters, who should attend, and the next action. Use only supplied program information. Keep it under 175 words with a subject line. Use placeholders for missing facts. Do not invent mandatory attendance, policy, or leadership endorsements.</pre>
+          <div class="tag-row"><span class="tag">Audience + situation</span><span class="tag">Clear outcome</span><span class="tag">Approved source</span><span class="tag">Reviewable format</span><span class="tag">Boundaries + placeholders</span></div>
+        </article>
+      </div>
+      <div class="callout-note"><strong>The point is not to make every prompt longer.</strong> It is to make the work clear and grounded enough to review. A preference is not policy, and a polished response is not proof that its claims are correct.</div>
     </section>
 
     <section class="step-panel" aria-labelledby="scenario-heading">
@@ -410,6 +471,32 @@
         <span class="status" id="refine-status" role="status" aria-live="polite"></span>
       </div>
     </section>
+
+    <section class="step-panel" aria-labelledby="followups-heading">
+      <div class="step-head">
+        <div>
+          <div class="eyebrow">Keep the conversation going</div>
+          <h2 id="followups-heading">Refine the result with a useful follow-up.</h2>
+          <p>Prompting Essentials treats prompting as an iterative habit. Once you inspect the first response, use a focused follow-up rather than starting over.</p>
+        </div>
+      </div>
+      <div class="followup-grid">
+        <article class="followup-card"><strong>Fill a gap</strong><p>Make missing information visible before drafting further.</p><q>List the facts you still need. Use placeholders for anything I have not supplied.</q></article>
+        <article class="followup-card"><strong>Challenge the draft</strong><p>Look for unsupported claims and alternate interpretations.</p><q>Identify statements that are not supported by the supplied information. Separate facts from assumptions.</q></article>
+        <article class="followup-card"><strong>Refine one thing</strong><p>Change a specific part while preserving what already works.</p><q>Keep the content and boundaries. Make the next action easier to scan.</q></article>
+      </div>
+    </section>
+
+    <section class="step-panel" aria-labelledby="patterns-heading">
+      <div class="step-head">
+        <div>
+          <div class="eyebrow">Reusable HR prompt patterns</div>
+          <h2 id="patterns-heading">Start from a pattern. Adapt it to the task.</h2>
+          <p>These are reusable starting points, not ready-made policy. Expand a pattern, review the boundaries, and copy it into your approved Copilot.</p>
+        </div>
+      </div>
+      <div class="pattern-list" id="pattern-list"></div>
+    </section>
   </main>
   <footer>
     <div class="shell">
@@ -451,6 +538,73 @@
     const fields = ["context", "objective", "sources", "expectations", "boundaries"];
     const $ = id => document.getElementById(id);
     let activeScenario = "manager";
+    const hrPatterns = [
+      {
+        title: "Prepare me for an HR meeting",
+        use: "Meeting preparation · Briefing · Questions"
+      },
+      {
+        title: "Catch me up on a program or policy change",
+        use: "Change awareness · Program updates · Actions"
+      },
+      {
+        title: "Analyze themes without overclaiming",
+        use: "Survey themes · Feedback · Aggregate analysis"
+      },
+      {
+        title: "Draft an HR communication",
+        use: "Manager updates · Learning · Process communication"
+      },
+      {
+        title: "Challenge a plan before it moves forward",
+        use: "Learning plans · Communications · Process proposals"
+      }
+    ];
+    const hrPatternFields = [
+      {
+        context: "I am preparing for a meeting about [topic] with [audience].",
+        objective: "Prepare me for the meeting and help me use the time well.",
+        sources: "Use only approved information I provide or name: [meeting materials or sources].",
+        expectations: "Create a concise briefing with background, recent developments, decisions or questions, risks, open issues, and neutral questions I can ask. Include supporting sources when available.",
+        boundaries: "Separate confirmed facts from assumptions. Identify important information gaps. Do not infer individual employee views or invent policy."
+      },
+      {
+        context: "I need to understand a recent change to [approved policy, program, or process] and explain it to [audience].",
+        objective: "Summarize what changed, why it matters, and who may need to take action.",
+        sources: "Use only this approved source material: [named source or supplied content]. State the source and date when available.",
+        expectations: "Organize the response into what changed, why it matters, actions, and open questions. Keep it concise and use plain language.",
+        boundaries: "Do not infer eligibility, obligations, or policy details not explicit in the source. Flag conflicts or missing information for HR review."
+      },
+      {
+        context: "I am reviewing approved, appropriately de-identified feedback or aggregate information about [topic].",
+        objective: "Identify useful themes and questions for further review without overstating what the information shows.",
+        sources: "Use only the aggregate or de-identified information I provide: [approved data or feedback source].",
+        expectations: "Summarize recurring themes, meaningful differences, supporting evidence, outliers, limitations, and questions for follow-up. Distinguish observation from interpretation.",
+        boundaries: "Do not identify, rank, diagnose, or infer attributes about individuals. Do not claim causation from a pattern. A human owner validates interpretations before action."
+      },
+      {
+        context: "I am an HR partner preparing a [type of communication] for [audience] about [topic or change].",
+        objective: "Help the reader understand [key point] and take [next action].",
+        sources: "Use only these approved facts: [supplied facts or named source].",
+        expectations: "Write in a clear, professional, approachable tone using [format and length]. Include a subject line if this is an email.",
+        boundaries: "Do not invent policy, dates, eligibility, mandatory participation, approvals, or endorsements. Use placeholders for missing facts and list what needs confirmation. Require human review before use."
+      },
+      {
+        context: "I am reviewing a draft [plan or communication] before it moves forward.",
+        objective: "Surface what needs more evidence, clarification, or human judgment.",
+        sources: "Review only this approved draft or supplied content: [draft or named source].",
+        expectations: "Identify unsupported assumptions, missing perspectives, risks, unintended consequences, alternative interpretations, and questions to answer. Point to relevant wording or evidence and separate confirmed issues from possibilities.",
+        boundaries: "Do not make a people decision or treat this as legal, policy, or employee-relations advice. Recommend what a human owner should validate."
+      }
+    ];
+    const patternLabels = {
+      context: "CONTEXT — Situation + audience",
+      objective: "OBJECTIVE — What must be accomplished?",
+      sources: "SOURCES — What should ground the work?",
+      expectations: "EXPECTATIONS — Format + quality bar",
+      boundaries: "BOUNDARIES — What to avoid, label, or review"
+    };
+    const formatCoseb = values => fields.map(field => `${patternLabels[field]}\n${values[field]}`).join("\n\n");
 
     function selectScenario(name) {
       activeScenario = name;
@@ -507,6 +661,47 @@
       $("refine-status").textContent = "Change one COSEB field, rebuild the prompt, and run it again.";
     });
 
+    function renderPatterns() {
+      $("pattern-list").innerHTML = hrPatterns.map((pattern, index) => `
+        <details class="pattern" ${index === 0 ? "open" : ""}>
+          <summary><div><strong>${pattern.title}</strong><span>${pattern.use}</span></div><span aria-hidden="true">⌄</span></summary>
+          <div class="pattern-body">
+            <pre class="example-prompt" id="hr-pattern-${index}"></pre>
+            <div class="pattern-actions">
+              <button class="btn" type="button" data-copy-pattern="${index}">Copy pattern</button>
+              <button class="btn" type="button" data-load-pattern="${index}">Load COSEB draft</button>
+              <span class="pattern-status" id="pattern-status-${index}" role="status" aria-live="polite"></span>
+            </div>
+          </div>
+        </details>`).join("");
+      hrPatterns.forEach((pattern, index) => {
+        $(`hr-pattern-${index}`).textContent = formatCoseb(hrPatternFields[index]);
+      });
+    }
+
+    $("pattern-list").addEventListener("click", async event => {
+      const button = event.target.closest("button");
+      if (!button) return;
+      const index = Number(button.dataset.copyPattern ?? button.dataset.loadPattern);
+      const pattern = hrPatterns[index];
+      if (!pattern) return;
+      if (button.hasAttribute("data-load-pattern")) {
+        fields.forEach(field => { $(field).value = hrPatternFields[index][field]; });
+        activeScenario = "";
+        document.querySelectorAll(".scenario").forEach(item => item.setAttribute("aria-pressed", "false"));
+        $("result").hidden = true;
+        $("build-status").textContent = "Pattern loaded. Adjust any COSEB part for your task, then build your prompt.";
+        $("builder-heading").scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(formatCoseb(hrPatternFields[index]));
+        $("pattern-status-" + index).textContent = "Copied. Review and adapt it before use.";
+      } catch {
+        $("pattern-status-" + index).textContent = "Select the pattern text above and copy it manually.";
+      }
+    });
+
     function updateThemeLabel() {
       $("theme").textContent = document.documentElement.dataset.theme === "dark" ? "Light theme" : "Dark theme";
     }
@@ -514,6 +709,7 @@
       document.documentElement.dataset.theme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
       updateThemeLabel();
     });
+    renderPatterns();
     updateThemeLabel();
     selectScenario(activeScenario);
   </script>
