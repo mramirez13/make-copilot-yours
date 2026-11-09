@@ -70,6 +70,8 @@
       --cp-highlight: rgba(253, 142, 161, 0.12);
     }
     * { box-sizing: border-box; }
+    body { overflow-wrap: anywhere; }
+    .family-inner a { max-width: 100%; }
     html { scroll-behavior: smooth; scroll-padding-top: 24px; }
     body { margin: 0; background: var(--cp-bg); color: var(--cp-text); font: 17px/1.55 "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif; }
     button, input, textarea { font: inherit; }
@@ -83,7 +85,7 @@
     h3 { font-size: 1.1rem; line-height: 1.35; font-weight: 650; }
     strong, label { font-weight: 650; }
     p + p { margin-top: 12px; }
-    a { color: var(--cp-link); text-underline-offset: 3px; overflow-wrap: anywhere; }
+    a { color: var(--cp-accent); text-underline-offset: 3px; overflow-wrap: anywhere; }
     .container { width: min(calc(100% - 80px),1040px); margin-inline: auto; }
     .skip { position: absolute; top: -100px; left: 16px; padding: 12px; background: var(--cp-surface); z-index: 20; }
     .skip:focus { top: 8px; }
@@ -93,7 +95,7 @@
     .brand small { display: block; margin-top: 4px; color: var(--cp-text-muted); font-size: 12px; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; }
     .mark { display: grid; place-items: center; flex-shrink: 0; width: 40px; height: 40px; border-radius: 10px; background: var(--cp-accent); color: var(--cp-accent-fg); font-size: 25px; }
     .family-nav { border-block: 1px solid var(--cp-border); background: var(--cp-surface); }
-    .family-inner { display: flex; min-height: 58px; align-items: center; gap: 8px; overflow-x: auto; padding-block: 4px; }
+    .family-inner { display: flex; flex-wrap: wrap; min-height: 60px; align-items: center; gap: 8px; padding-block: 8px; }
     .family-inner a { display: inline-flex; align-items: center; min-height: 44px; flex-shrink: 0; padding: 7px 12px; border-radius: 10px; background: var(--cp-accent-soft); color: var(--cp-accent); font-size: 14px; font-weight: 650; text-decoration: none; overflow-wrap: normal; }
     .family-inner a[aria-current="page"] { background: var(--cp-accent); color: var(--cp-accent-fg); }
     .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 11px 20px; border: 1px solid var(--cp-border-strong); border-radius: 10px; background: var(--cp-surface); color: var(--cp-text); font-size: 15px; font-weight: 650; text-decoration: none; }
@@ -148,11 +150,13 @@
     dialog p, dialog textarea { margin-top: 16px; }
     dialog textarea { min-height: 240px; }
     dialog::backdrop { background: var(--cp-overlay); }
+    html[data-theme="dark"] :is(input, textarea, .btn) { border-color: var(--cp-text-soft); }
+    html[data-theme="dark"] .finish .eyebrow { color: var(--cp-text); }
     html[data-theme="dark"] .small, html[data-theme="dark"] .lead, html[data-theme="dark"] .status,
     html[data-theme="dark"] .brand small, html[data-theme="dark"] .section-head > p:last-child,
     html[data-theme="dark"] footer { color: var(--cp-text-soft); }
     @media(max-width:900px) { .hero-grid, .canvas { grid-template-columns: 1fr; } .tests { grid-template-columns: 1fr; } #build-description { min-height: 460px; } }
-    @media(max-width:640px) { .container { width: calc(100% - 32px); } .hero, .section { padding-block: 32px; } .brand { font-size: 14px; gap: 8px; } .brand small { font-size: 10px; } .header-inner { gap: 8px; } .card { padding: 20px; } summary { padding: 18px; } .details-body { padding: 0 18px 20px; } .lead { font-size: 18px; } }
+    @media(max-width:680px) { .container { width: calc(100% - 32px); } .hero, .section { padding-block: 32px; } .brand { font-size: 14px; gap: 8px; } .brand small { font-size: 10px; } .header-inner { gap: 8px; } .card { padding: 20px; } summary { padding: 18px; } .details-body { padding: 0 18px 20px; } .lead { font-size: 18px; } }
     @media(prefers-reduced-motion:reduce) { html { scroll-behavior: auto; } }
     @media print { .actions, button, dialog { display: none; } .hero-grid, .canvas, .tests { display: block; } .card { break-inside: avoid; } }
   </style>
@@ -170,7 +174,7 @@
       <a href="https://mramirez13.github.io/make-copilot-yours/delegate-the-work.html">Delegate the Work</a>
       <a href="https://mramirez13.github.io/make-copilot-yours/build-your-guidelines-guide.html" aria-current="page">Build Your Guidelines Guide</a>
     </div></nav>
-  <main id="main">
+  <main id="main" tabindex="-1">
     <section class="hero"><div class="container">
       <div class="hero-grid">
         <div><p class="eyebrow">Microsoft 365 Copilot · 10–12 minute practice</p>
