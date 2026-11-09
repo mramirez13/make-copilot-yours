@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A practical HR workshop exercise for turning a fictional manager enablement brief into a clear Copilot Chat conversation or Copilot Cowork assignment.">
+  <meta name="description" content="Choose between Copilot Chat and Cowork: compare when to use each, how to write the request, and what outputs to expect. Edit and copy a request for your own work.">
   <meta name="referrer" content="no-referrer">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
   <link rel="icon" href="data:,">
@@ -120,15 +120,13 @@
     .alt { background: var(--cp-bg-elevated); }
     .section-head { max-width: 760px; margin-bottom: 28px; }
     .section-head p:last-child { margin-top: 14px; color: var(--cp-text-muted); font-size: 17px; }
-    .scenario { margin-top: 24px; padding: 0; overflow: hidden; border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-surface); }
-    .scenario summary { min-height: 56px; padding: 14px 20px; cursor: pointer; font-weight: 650; }
-    .scenario-body { padding: 0 20px 20px; }
-    .scenario-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; }
-    .scenario-grid article { padding: 16px; border: 1px solid var(--cp-border); border-radius: 10px; }
-    .scenario-grid p { margin-top: 8px; color: var(--cp-text-muted); font-size: 15px; }
     .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 28px; }
     .compare .card { border-top: 4px solid var(--cp-border-strong); }
     .compare .strong { border-top-color: var(--cp-accent); }
+    .comparison-points { margin: 20px 0 0; }
+    .comparison-points dt { margin-top: 16px; font-weight: 650; }
+    .comparison-points dd { margin: 4px 0 0; color: var(--cp-text-muted); }
+    .output-expectation { margin-top: 16px; padding: 16px; border: 1px solid var(--cp-border); border-radius: 10px; background: var(--cp-bg-elevated); font-size: 15px; }
     .example { margin-top: 14px; padding: 18px; overflow-wrap: anywhere; border: 1px solid var(--cp-border); border-radius: 10px; background: var(--cp-surface-soft); color: var(--cp-text); white-space: pre-wrap; font: inherit; line-height: 1.65; }
     .small { color: var(--cp-text-muted); font-size: 14px; }
     .builder { padding: 24px; border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-surface); }
@@ -144,7 +142,7 @@
     .field label, .prompt-label { display: block; margin-bottom: 4px; font-weight: 650; }
     .field p { margin-bottom: 8px; }
     textarea { display: block; width: 100%; min-height: 116px; padding: 14px; border: 1px solid var(--cp-border-strong); border-radius: 10px; background: var(--cp-surface-soft); color: var(--cp-text); font-size: 16px; line-height: 1.6; resize: vertical; }
-    #source-pack { min-height: 260px; }
+    #source-pack { min-height: 140px; }
     .output { min-width: 0; }
     .output-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
     .draft-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
@@ -166,9 +164,10 @@
     .final-card .actions { justify-content: center; }
     html[data-theme="dark"] .small, html[data-theme="dark"] .lead, html[data-theme="dark"] .brand small,
     html[data-theme="dark"] .pill, html[data-theme="dark"] .hero-card > p,
-    html[data-theme="dark"] .section-head p:last-child, html[data-theme="dark"] .scenario-grid p,
+    html[data-theme="dark"] .section-head p:last-child, html[data-theme="dark"] .comparison-points dd,
     html[data-theme="dark"] .mode-note, html[data-theme="dark"] .status,
-    html[data-theme="dark"] .continuation p, html[data-theme="dark"] footer { color: var(--cp-text-soft); }
+    html[data-theme="dark"] .continuation p, html[data-theme="dark"] .continuation-status,
+    html[data-theme="dark"] footer { color: var(--cp-text-soft); }
     footer { padding: 0 0 36px; color: var(--cp-text-muted); font-size: 13px; }
     .footer-inner { display: flex; justify-content: space-between; gap: 24px; padding-top: 24px; border-top: 1px solid var(--cp-border); }
     .footer-links { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 12px; }
@@ -182,7 +181,6 @@
     @media(max-width:950px) {
       .hero-grid { grid-template-columns: 1fr; gap: 28px; }
       .canvas-grid { grid-template-columns: 1fr; }
-      .scenario-grid { grid-template-columns: 1fr; }
       #assignment { min-height: 440px; }
     }
     @media(max-width:680px) {
@@ -225,130 +223,102 @@
     <section class="hero" id="home">
       <div class="container hero-grid">
         <div>
-          <p class="eyebrow">A 6–8 minute practice · Copilot for HR</p>
-          <h1>Delegate the work.<br><span>Keep the judgment.</span></h1>
-          <p class="lead">Try the same fictional manager-enablement assignment two ways: a step-by-step conversation in Chat, or a scoped piece of work in Cowork. Give either one a useful brief—and keep a human review point.</p>
+          <p class="eyebrow">Copilot Chat or Cowork?</p>
+          <h1>Work it through.<br><span>Or hand it over.</span></h1>
+          <p class="lead">Sometimes you want a thinking partner. Sometimes you want a piece of work carried through. Choose the working style that fits—then give it the right kind of request.</p>
           <div class="actions">
-            <a class="btn primary" href="#assignment-builder">Shape your assignment →</a>
-            <a class="btn" href="#compare">See the two approaches</a>
+            <a class="btn primary" href="#compare">Compare the approaches →</a>
+            <a class="btn" href="#assignment-builder">Shape your own request</a>
           </div>
-          <div class="pills"><span class="pill">One scenario, already supplied</span><span class="pill">Editable, copyable assignment</span><span class="pill">Nothing saved or sent</span></div>
+          <div class="pills"><span class="pill">When to use each</span><span class="pill">Different prompt styles</span><span class="pill">Different outputs</span></div>
         </div>
         <aside class="card hero-card">
-          <h2>Try it in a few minutes</h2>
-          <p>No files to find and no perfect prompt to write. Start with the fictional pack below and adapt the request to your chosen tool.</p>
+          <h2>Same goal. Different handoff.</h2>
+          <p>Think of a task on your own list. Are you still shaping the answer, or ready to delegate a clear outcome?</p>
           <ol class="time-list">
-            <li><span class="time">1 min</span><span>Scan the scenario and its supplied materials.</span></li>
-            <li><span class="time">2 min</span><span>Choose Chat or Cowork; tune the outcome and working agreement.</span></li>
-            <li><span class="time">2–3 min</span><span>Copy the assignment into a tool you can access and review its first response.</span></li>
-            <li><span class="time">1–2 min</span><span>Ask for one next deliverable—or compare notes with a partner.</span></li>
+            <li><span class="time">Choose</span><span>A conversation to explore and refine—or a task to plan and carry out.</span></li>
+            <li><span class="time">Frame</span><span>A clear ask for Chat—or a work brief for Cowork.</span></li>
+            <li><span class="time">Expect</span><span>An answer or draft to shape—or deliverables and a completion report to review.</span></li>
           </ol>
         </aside>
       </div>
     </section>
 
-    <section class="section alt" id="scenario">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">One fictional HR scenario</p>
-          <h2>Prepare a manager enablement package</h2>
-          <p>The practice company, program details, research digest, and learning summary below are invented for this exercise. They are not Weatherford information, research findings, or claims about any real organization.</p>
-        </div>
-        <details class="scenario">
-          <summary>Open the included input pack: program facts, fictional digest, and synthetic learning summary</summary>
-          <div class="scenario-body">
-            <div class="scenario-grid">
-              <article>
-                <h3>Program facts</h3>
-                <p>Juniper Works is a made-up company. Its learning team is considering a 30-day “Everyday Coaching” manager enablement initiative for 12 volunteer people managers. A draft concept is four 30-minute virtual practice sessions across 30 days, with brief practice between sessions. A learning partner may be available to facilitate; the start date, accountable owner, and evaluation approach are not confirmed. Participation is voluntary. The initiative has not been approved, and no business impact has been demonstrated.</p>
-              </article>
-              <article>
-                <h3>Fictional research digest</h3>
-                <p>For this scenario only, an invented learning-design note suggests using short, spaced practice; showing a worked example before role-play; and making time for peer reflection. These are fictional design ideas, not sourced or validated research. Treat them as options to consider, not evidence that a program will work.</p>
-              </article>
-              <article>
-                <h3>Synthetic learning summary</h3>
-                <p>A fictional concept check-in shared with 12 volunteer managers had 9 responses: 6 requested more practice examples, 5 appreciated peer practice, and 4 said a 30-minute session felt manageable. This is preference feedback before any initiative; it is not evidence of program outcomes. There is no comparison group, pre/post measure, demographic or individual-level data. The small volunteer sample cannot represent all managers.</p>
-              </article>
-            </div>
-            <p class="small" style="margin-top:16px">The editable source field below already contains this full pack, so you can use the exercise without finding or attaching anything.</p>
-          </div>
-        </details>
-      </div>
-    </section>
-
-    <section class="section" id="compare">
+    <section class="section alt" id="compare">
       <div class="container">
         <div class="section-head">
           <p class="eyebrow">A conversation or an assignment?</p>
-          <h2>Different working styles. Same clear boundaries.</h2>
-          <p>Chat is a good fit when you want to think together and request one piece at a time. Cowork is a fit for a scoped task that can work across connected experiences—with a plan and review points. Availability and controls vary.</p>
+          <h2>Choose how you want to work</h2>
+          <p>Start with the help you need, not the size of the prompt. Explore and refine in Chat. Delegate a defined, multi-step outcome in Cowork.</p>
         </div>
         <div class="compare">
           <article class="card">
-            <h3>Chat · work it through together</h3>
-            <pre class="example">Using the supplied fictional Juniper Works pack, propose a manager enablement package for a 30-day Everyday Coaching initiative. The primary deliverables are a one-page executive brief, a manager communication draft, and a 30-day implementation outline. First show a short plan, how the supplied facts support each deliverable, and open questions or dependencies. Then stop and wait for me to choose what to draft. Do not create the materials yet.</pre>
-            <p class="small" style="margin-top:12px">Chat drafts in the conversation. It does not execute background work or create a connected-work assignment for you.</p>
+            <h3>Copilot Chat · think with me</h3>
+            <dl class="comparison-points">
+              <dt>Use it when</dt><dd>You want an explanation, ideas, a summary, a draft, or help deciding what to do next. You expect to steer the conversation as the answer takes shape.</dd>
+              <dt>Write the request as</dt><dd>Context + Goal + Source + Expectations. Name the immediate help you want and what a useful response looks like.</dd>
+              <dt>Expect to get</dt><dd>An answer, analysis, draft, or table you can refine with follow-ups. File and app features depend on your experience; Chat is not limited to plain text.</dd>
+            </dl>
+            <pre class="example">Help me prepare for an upcoming project review. Using the notes I provide, summarize progress, surface open decisions, and suggest five questions to ask. Return a concise briefing in this chat; flag gaps rather than inventing details.</pre>
           </article>
           <article class="card strong">
-            <h3>Cowork · commission scoped work</h3>
-            <pre class="example">Use the supplied fictional Juniper Works pack to prepare a manager enablement package for a 30-day Everyday Coaching initiative: a one-page executive brief, a manager communication draft, and a 30-day implementation outline. First show your work plan, source boundaries, assumptions, open questions, dependencies, and owner-review checkpoints; then pause for my approval. After approval, create drafts only in the authorized connected workspace and return the executive brief for review before proceeding. Do not send, publish, finalize, or make employee-level decisions.</pre>
-            <p class="small" style="margin-top:12px">Cowork access is not available to everyone; it depends on your organization’s setup and your account. If you don’t see it, use the Chat path.</p>
+            <h3>Copilot Cowork · carry this through</h3>
+            <dl class="comparison-points">
+              <dt>Use it when</dt><dd>The outcome is clear and you want several steps carried out across available files and Microsoft 365 tools—not just advice about how to do them.</dd>
+              <dt>Write the request as</dt><dd>Outcome + Sources + Deliverables + Working agreement. Add formats, destination, scope, and where you want approval or review.</dd>
+              <dt>Expect to get</dt><dd>A visible work sequence, completed deliverables such as documents or spreadsheets, and a report of what was done or blocked. Available tools, permissions, and your approvals determine what can actually happen.</dd>
+            </dl>
+            <pre class="example">Prepare my project review package using only the notes I provide. Create a one-page Word briefing and an Excel action tracker. Show your plan first and wait for approval. Then create new draft files in the folder I confirm, and return their links with unresolved items. Do not send or share anything.</pre>
           </article>
         </div>
+        <p class="notice"><strong>The difference is the working agreement—not a magic phrase.</strong> Chat can help with complex work too, and Cowork can answer questions. Use Chat when you want to steer the thinking; use Cowork when you can define the work to carry through. Cowork access and usage limits depend on your organization and account. You can compare both request styles here even if only Chat is available.</p>
       </div>
     </section>
 
     <section class="section alt" id="assignment-builder">
       <div class="container">
         <div class="section-head">
-          <p class="eyebrow">Make the assignment yours</p>
-          <h2>Shape the request before you hand it over</h2>
-          <p>The supplied pack is included in the draft. Adjust the outcome, source boundaries, deliverables, and working agreement; your assignment rebuilds as you edit until you change the assignment text itself.</p>
+          <p class="eyebrow">One goal. Two request styles.</p>
+          <h2>See how your prompt changes</h2>
+          <p>Replace the brackets with your own task. Switch between Chat and Cowork to see the same goal framed as a conversation or a work brief. Edit and copy whichever fits.</p>
         </div>
         <div class="builder">
           <fieldset class="mode-box">
-            <legend>Where will you use this assignment?</legend>
+            <legend>Which request style would you like to see?</legend>
             <div class="mode-options">
-              <label class="mode-option" for="mode-chat"><input id="mode-chat" name="mode" type="radio" value="chat" checked> Chat · collaborate in conversation</label>
-              <label class="mode-option" for="mode-cowork"><input id="mode-cowork" name="mode" type="radio" value="cowork"> Cowork · commission connected work</label>
+              <label class="mode-option" for="mode-chat"><input id="mode-chat" name="mode" type="radio" value="chat" checked> Copilot Chat · think with me</label>
+              <label class="mode-option" for="mode-cowork"><input id="mode-cowork" name="mode" type="radio" value="cowork"> Cowork · carry this through</label>
             </div>
-            <p class="mode-note" id="mode-note">Chat drafts in the conversation; it does not run background tasks. Cowork access varies by account and organization—if you do not have it, use the Chat path.</p>
+            <p class="mode-note" id="mode-note">Switching here changes the prompt, not the tool you are using. This page does not connect to Copilot or Cowork.</p>
           </fieldset>
 
           <div class="canvas-grid">
             <div class="fields">
               <div class="field">
-                <label for="outcome">Outcome</label>
-                <p class="small" id="outcome-help">What should the work help the team decide or prepare?</p>
-                <textarea id="outcome" aria-describedby="outcome-help">Prepare a clear manager enablement package for the fictional 30-day Everyday Coaching initiative. Help its owners review a practical proposal without implying approval, commitment, or proven impact.</textarea>
+                <label for="outcome">Context and goal</label>
+                <p class="small" id="outcome-help">Who is the work for, and what are you trying to accomplish?</p>
+                <textarea id="outcome" aria-describedby="outcome-help">I am [your role], preparing [task or decision] for [audience]. Help me [the outcome you need].</textarea>
               </div>
               <div class="field">
-                <label for="source-pack">Source pack</label>
-                <p class="small" id="source-help">The complete fictional brief is included here and in the assignment. Keep or edit it; no attachment is needed.</p>
-                <textarea id="source-pack" aria-describedby="source-help">FICTIONAL PRACTICE SCENARIO — JUNIPER WORKS (not Weatherford or any real organization)
-
-Program facts: The fictional learning team is considering a 30-day “Everyday Coaching” manager enablement initiative for 12 volunteer people managers. Draft concept: four 30-minute virtual practice sessions across 30 days, with brief practice between sessions. A learning partner may be available to facilitate. The start date, accountable owner, and evaluation approach are not confirmed. Participation is voluntary. The initiative has not been approved; no business impact has been demonstrated.
-
-Fictional research digest (invented for this exercise; not external research): A learning-design note suggests short, spaced practice; a worked example before role-play; and time for peer reflection. These are options to consider, not validated findings or proof of effectiveness.
-
-Synthetic learning summary (invented concept check-in before the initiative): 12 volunteer managers were invited; 9 responded. Six requested more practice examples, five appreciated peer practice, and four said a 30-minute session felt manageable. This is preference feedback, not evidence of initiative outcomes. No comparison group, pre/post measure, demographic or individual-level data is supplied. This small volunteer sample does not represent all managers.</textarea>
+                <label for="source-pack">Sources to use</label>
+                <p class="small" id="source-help">Paste approved, non-sensitive notes or name the exact material you will attach or select inside Copilot. Naming a file here does not attach it.</p>
+                <textarea id="source-pack" aria-describedby="source-help">[Approved notes, attached files, or exact sources to use. Specify what is in scope and what must not be used.]</textarea>
               </div>
               <div class="field">
-                <label for="deliverables">Deliverables</label>
-                <p class="small" id="deliverables-help">Name the useful outputs and the order you want them in.</p>
-                <textarea id="deliverables" aria-describedby="deliverables-help">Prepare these three primary deliverables, in order: (1) a one-page executive brief explaining the proposed 30-day initiative, rationale grounded in the supplied pack, and decisions needed; (2) a draft communication for the 12 volunteer managers, with placeholders for unconfirmed details and clear voluntary participation; and (3) a practical 30-day implementation outline with phases, proposed activities, timing, dependencies, and items to confirm. Finish with a concise section for open questions, dependencies, and owner-review notes. Keep each deliverable separate and reviewable.</textarea>
+                <label for="deliverables">Outputs and expectations</label>
+                <p class="small" id="deliverables-help">For Chat, describe the response you want. For Cowork, name the deliverables, file formats, and destination as well.</p>
+                <textarea id="deliverables" aria-describedby="deliverables-help">[The output(s) you need, with format, audience, tone, and length. For Cowork file creation, add file types and the destination folder you will confirm.]</textarea>
               </div>
               <div class="field">
                 <label for="agreement">Working agreement</label>
-                <p class="small" id="agreement-help">Set the source limits, approval point, and what must remain human-led.</p>
-                <textarea id="agreement" aria-describedby="agreement-help">Use only the supplied pack; do not search connected files or add outside research. Label all scenario details as fictional. Separate supplied facts, suggestions, and unknowns. Do not invent dates, owners, approvals, policies, or results. Treat the digest as an unverified fictional design note, and the check-in as a small volunteer sample—not proof or a workforce-wide view. Keep all work as drafts for human review; do not send, publish, finalize, or make employee-level decisions.</textarea>
+                <p class="small" id="agreement-help">Set the boundaries and the point where you want to review or approve.</p>
+                <textarea id="agreement" aria-describedby="agreement-help">Use only the sources I provide or explicitly authorize. Flag missing information and separate facts from suggestions. Keep outputs as drafts for my review. Do not send, share, publish, overwrite files, or make consequential decisions on my behalf.</textarea>
               </div>
             </div>
 
             <div class="output">
               <div class="output-top">
-                <label class="prompt-label" for="assignment">Your assignment</label>
+                <label class="prompt-label" for="assignment">Your copy-ready request</label>
                 <button class="btn primary" id="copy-assignment" type="button">Copy Chat draft</button>
               </div>
               <div class="draft-tags" aria-label="Draft and selected mode">
@@ -356,13 +326,14 @@ Synthetic learning summary (invented concept check-in before the initiative): 12
                 <span class="draft-tag">Selected mode: <strong id="selected-mode">Chat</strong></span>
               </div>
               <textarea id="assignment" spellcheck="true" aria-describedby="assignment-help draft-status"></textarea>
-              <p class="small" id="assignment-help">Edit this assignment directly if you like. Once you do, ingredient and mode changes will not replace your wording.</p>
+              <p class="small" id="assignment-help">Replace any remaining brackets before using it. Edit directly if you like; field and mode changes will not overwrite your edits.</p>
+              <p class="output-expectation" id="output-expectation"></p>
               <p class="status" id="draft-status" role="status" aria-live="polite">Your draft is ready. Copy it into the tool you can access.</p>
               <div class="sync-note" id="sync-note" role="status" aria-live="polite" hidden>
                 <p id="sync-copy"></p>
                 <div class="actions"><button class="btn" id="update-assignment" type="button">Update assignment…</button></div>
               </div>
-              <p class="notice"><strong>Practice safely:</strong> The scenario and numbers are fictional and not Weatherford claims. For real work, use only approved material and minimize personal information. A reference here does not give a tool access to a file. Review outputs before anyone acts on them.</p>
+              <p class="notice"><strong>You stay in control.</strong> Use approved, non-sensitive material. Attach or select sources in the actual tool, and check its access. This page only helps you write the request; it does not run tasks, upload files, or save your inputs.</p>
             </div>
           </div>
         </div>
@@ -373,21 +344,21 @@ Synthetic learning summary (invented concept check-in before the initiative): 12
       <div class="container">
         <div class="section-head">
           <p class="eyebrow">Keep the work moving</p>
-          <h2>In Chat, ask for the next piece—not everything at once</h2>
-          <p>Start with the plan. If it looks right, request a single deliverable with one of these follow-ups, then review it before continuing.</p>
+          <h2>Your follow-up changes, too</h2>
+          <p>In Chat, steer the answer. In Cowork, steer the work and review what was actually completed. Use these after your initial request.</p>
         </div>
         <div class="continuations">
           <article class="continuation">
-            <div><h3>1 · Draft the executive brief</h3><p>Start with the one-page proposal and the decisions its owner needs to review.</p></div>
-            <button class="btn" type="button" data-copy="brief">Copy next-step prompt</button>
+            <div><h3>Chat · refine the response</h3><p>Adjust the structure, depth, or tone while keeping the same source boundaries.</p></div>
+            <button class="btn" type="button" data-copy="refine">Copy Chat follow-up</button>
           </article>
           <article class="continuation">
-            <div><h3>2 · Draft the manager communication</h3><p>Continue after reviewing the brief; keep dates and other unknowns as placeholders.</p></div>
-            <button class="btn" type="button" data-copy="communication">Copy next-step prompt</button>
+            <div><h3>Cowork · approve a scoped plan</h3><p>Use only after reading the plan and confirming its sources, destination, and permitted work.</p></div>
+            <button class="btn" type="button" data-copy="approve">Copy Cowork approval</button>
           </article>
           <article class="continuation">
-            <div><h3>3 · Draft the 30-day implementation outline</h3><p>After reviewing the communication, map a practical sequence and its dependencies across 30 days.</p></div>
-            <button class="btn" type="button" data-copy="implementation">Copy next-step prompt</button>
+            <div><h3>Cowork · ask for the handoff</h3><p>See the results, file links, and anything that still needs your attention.</p></div>
+            <button class="btn" type="button" data-copy="handoff">Copy handoff request</button>
           </article>
         </div>
         <p class="continuation-status" id="continuation-status" role="status" aria-live="polite"></p>
@@ -397,9 +368,9 @@ Synthetic learning summary (invented concept check-in before the initiative): 12
     <section class="final">
       <div class="container">
         <div class="final-card">
-          <h2>Clear scope. Human review.<br>A better handoff.</h2>
-          <p>Choose the working style that fits, make the boundaries explicit, and keep the decisions that matter with people.</p>
-          <div class="actions"><a class="btn" href="#assignment-builder">Return to your assignment ↑</a></div>
+          <h2>Need to think? Chat.<br>Ready to delegate? Cowork.</h2>
+          <p>A clearer ask for the conversation. A clearer brief for the work. Your judgment in both.</p>
+          <div class="actions"><a class="btn" href="#assignment-builder">Make your request yours ↑</a></div>
         </div>
       </div>
     </section>
@@ -410,13 +381,14 @@ Synthetic learning summary (invented concept check-in before the initiative): 12
         <span>Delegate the Work · Copilot for HR<br>Private by design. No sign-in, tracking, or saved responses.</span>
         <nav class="footer-links" aria-label="More workshop resources">
           <a href="https://learn.microsoft.com/en-us/copilot/cowork/cowork-access" target="_blank" rel="noopener noreferrer">Microsoft Learn: Cowork access ↗</a>
-          <a href="https://learn.microsoft.com/en-us/copilot/agents" target="_blank" rel="noopener noreferrer">Microsoft Learn: Copilot agents ↗</a>
+          <a href="https://learn.microsoft.com/en-us/copilot/cowork/" target="_blank" rel="noopener noreferrer">Microsoft Learn: What Cowork can do ↗</a>
+          <a href="https://learn.microsoft.com/en-us/copilot/plan/copilot-overview" target="_blank" rel="noopener noreferrer">Microsoft Learn: Copilot experiences ↗</a>
         </nav>
       </div>
       <span>Your edits stay in this tab and in your browser’s current page only. Refresh clears them.<br>Copy anything you would like to keep.</span>
     </div>
   </footer>
-  <noscript><p class="container">Enable JavaScript to build and copy the assignment. The supplied fictional scenario and the two working approaches are described on this page.</p></noscript>
+  <noscript><p class="container">Enable JavaScript to build and copy your request. The comparison and example prompt styles remain readable on this page.</p></noscript>
 
   <dialog id="replace-dialog" aria-labelledby="replace-title" aria-describedby="replace-message">
     <h2 id="replace-title">Keep your draft or update it?</h2>
@@ -439,9 +411,9 @@ Synthetic learning summary (invented concept check-in before the initiative): 12
     const fieldIds = ["outcome", "source-pack", "deliverables", "agreement"];
     const modeNames = { chat: "Chat", cowork: "Cowork" };
     const continuationPrompts = {
-      brief: "Continue with primary deliverable 1 only: draft a one-page executive brief for the fictional 30-day Everyday Coaching manager enablement initiative. Use only the supplied pack; distinguish the proposed program, fictional design suggestions, concept-check-in preferences, and unknowns. State that the initiative is unapproved and that the small volunteer feedback is not outcome evidence. Include the decision needed and concise open questions, dependencies, and owner-review notes. Do not draft the other deliverables yet; return a reviewable draft and pause.",
-      communication: "Continue with primary deliverable 2 only: draft a clear communication for the 12 volunteer managers about the fictional 30-day Everyday Coaching initiative, using the supplied pack and the brief we reviewed. Make participation voluntary; use placeholders for the unconfirmed start date, owner, and other missing details. Do not imply approval, commitments, or proven impact. Do not send it or draft the other deliverable; return a reviewable draft and pause.",
-      implementation: "Continue with primary deliverable 3 only: draft a practical implementation outline spanning the full 30 days for the fictional Everyday Coaching initiative, using the supplied pack and the brief and communication we reviewed. Show a proposed sequence, activities, timing, dependencies, and what the owner must confirm; clearly label suggestions and do not invent dates or commitments. Do not create other deliverables; end with concise open questions and owner-review notes, then pause."
+      refine: "Refine the response for the audience I specified. Lead with the main takeaway, make the actions easy to scan, and put unanswered questions at the end. Use the same authorized sources; do not add unsupported facts.",
+      approve: "I approve the plan as written, limited to the sources, deliverables, and destination we confirmed. Carry out that drafting work. Pause if the scope, permissions, or destination need to change. Do not send, share, publish, or overwrite existing files.",
+      handoff: "Summarize what you actually completed against the agreed deliverables. Link to files you created, if any. Separate completed work from blocked or unfinished work, and list the decisions or review steps that still need me. Do not claim an action succeeded unless it did."
     };
     const state = { mode: "chat", builtMode: "chat", builtSignature: "", manuallyEdited: false };
     const signature = () => JSON.stringify(fieldIds.map(id => $(id).value));
@@ -453,11 +425,11 @@ Synthetic learning summary (invented concept check-in before the initiative): 12
       const source = valueFor("source-pack");
       const deliverables = valueFor("deliverables");
       const agreement = valueFor("agreement");
-      const sourceRules = `Use only the source pack included below. Do not search connected files, add outside research, or assume access to referenced files. The company and all scenario details are fictional and are not claims about Weatherford or any real organization. Distinguish supplied facts, fictional design suggestions, and unknowns.`;
+      const sourceRules = `Use only the material I provide or explicitly authorize below. A named file is not proof of access: ask me to attach or select it if it is unavailable. Do not expand the search scope without approval.`;
       if (mode === "cowork") {
-        return `WORK REQUEST — COPILOT COWORK\n\nOUTCOME\n${outcome}\n\nSOURCE BOUNDARIES\n${sourceRules}\n\nSUPPLIED SOURCE PACK\n${source}\n\nDELIVERABLES\n${deliverables}\n\nWORKING AGREEMENT AND REVIEW CHECKPOINT\n${agreement}\n\nFirst, return a concise work plan that names the sequence, deliverables, which supplied material supports each, assumptions or missing decisions, and the review checkpoint. Then pause and wait for my explicit approval before doing the work. After approval, carry out only the approved drafting work in the authorized connected workspace; if the destination or required access is unclear, ask before writing. Return the first deliverable as a draft for human review, then pause before proceeding to another deliverable. Do not send, publish, finalize, overwrite existing work, or make employee-level decisions.`;
+        return `WORK REQUEST — COPILOT COWORK\n\nOUTCOME AND CONTEXT\n${outcome}\n\nSOURCES\n${source}\n\nSOURCE BOUNDARIES\n${sourceRules}\n\nDELIVERABLES AND ACCEPTANCE CRITERIA\n${deliverables}\n\nWORKING AGREEMENT\n${agreement}\n\nPLAN AND CARRY THROUGH\nFirst, show a concise plan covering the steps, sources, deliverables, required tools, destination, and any missing decisions. Resolve blockers and confirm the destination before file creation. Pause for my approval of the plan.\n\nAfter approval, carry out the agreed drafting work across the available tools within that scope. Create new draft files only where authorized; do not overwrite existing work. If a capability or permission is unavailable, report the limitation and ask how to proceed rather than claiming completion.\n\nReturn the completed deliverables, links to any files actually created, and a short handoff listing what was completed, what remains blocked, and what needs my review. Do not send, share, publish, or make consequential decisions on my behalf.`;
       }
-      return `CHAT REQUEST — COLLABORATE IN THIS CONVERSATION\n\nOUTCOME\n${outcome}\n\nSOURCE BOUNDARIES\n${sourceRules}\n\nSUPPLIED SOURCE PACK\n${source}\n\nDELIVERABLES\n${deliverables}\n\nWORKING AGREEMENT\n${agreement}\n\nFirst, propose a concise plan for the deliverables, the supplied facts you would use, assumptions or questions to resolve, and a review point. Do not draft any deliverable yet. Stop and wait for my response. If I approve the plan, wait for me to explicitly request a specific first deliverable; approval alone is not permission to draft it. Produce only the one deliverable I request, as a draft, then pause for review. Continue only when I explicitly ask for the next piece. Chat works in this conversation; it does not run background tasks or create connected-work assignments.`;
+      return `CHAT REQUEST — THINK WITH ME\n\nCONTEXT AND GOAL\n${outcome}\n\nSOURCE\n${source}\n\nSOURCE BOUNDARIES\n${sourceRules}\n\nEXPECTATIONS\n${deliverables}\n\nWORKING AGREEMENT\n${agreement}\n\nHelp me work through this in the conversation. If an essential detail is missing, ask a focused clarifying question before drafting. Otherwise, give me a useful first answer or draft in this chat, using the requested format. Flag uncertainty and distinguish facts from suggestions. Offer a specific next refinement so I can steer the result. Do not create or change files or take actions outside this conversation for this request.`;
     }
 
     function updateModeLabels() {
@@ -466,8 +438,11 @@ Synthetic learning summary (invented concept check-in before the initiative): 12
       $("copy-assignment").textContent = `Copy ${modeNames[state.builtMode]} draft`;
       const modeDiffers = state.builtMode !== selectedMode();
       $("mode-note").textContent = modeDiffers
-        ? `Your assignment is still a ${modeNames[state.builtMode]} draft; the selected mode is ${modeNames[selectedMode()]}. Update it explicitly if you want a ${modeNames[selectedMode()]} version. Chat does not run background work, and Cowork access varies.`
-        : "Chat drafts in the conversation; it does not run background tasks. Cowork access varies by account and organization—if you do not have it, use the Chat path.";
+        ? `Your request is still a ${modeNames[state.builtMode]} draft; the selected style is ${modeNames[selectedMode()]}. Update it explicitly to apply the other style without losing your edits.`
+        : "Switching here changes the prompt, not the tool you are using. Cowork access varies; you can compare both styles here even if only Chat is available.";
+      $("output-expectation").textContent = state.builtMode === "cowork"
+        ? "What this request asks for: a plan first, then the agreed deliverables after approval, with links to created files and a completion or blockers report. File creation depends on the tools and permissions available in Cowork."
+        : "What this request asks for: a useful first answer or draft in the conversation, followed by refinement with you. It deliberately keeps this request in chat; that is a scope choice, not a limit on every Copilot Chat capability.";
     }
 
     function refreshSyncNotice() {
