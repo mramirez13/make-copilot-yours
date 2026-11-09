@@ -92,12 +92,11 @@
     .brand { display: flex; gap: 12px; align-items: center; color: var(--cp-text); font-size: 16px; font-weight: 650; line-height: 1.15; text-decoration: none; }
     .mark { display: grid; place-items: center; flex-shrink: 0; width: 40px; height: 40px; border-radius: 10px; background: var(--cp-accent); color: var(--cp-accent-fg); font-size: 25px; }
     .brand small { display: block; margin-top: 4px; color: var(--cp-text-muted); font-size: 12px; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; }
-    .header-actions, .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
     .btn { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; padding: 10px 18px; border: 1px solid var(--cp-border-strong); border-radius: 10px; background: var(--cp-surface); color: var(--cp-text); font-size: 15px; font-weight: 650; text-align: center; text-decoration: none; }
     .btn:hover { border-color: var(--cp-accent); }
     .primary { border-color: var(--cp-accent); background: var(--cp-accent); color: var(--cp-accent-fg); }
     .primary:hover { background: var(--cp-accent-hover); }
-    .theme { padding-inline: 12px; font-size: 13px; }
     .family-nav { border-block: 1px solid var(--cp-border); background: var(--cp-surface); }
     .family-inner { display: flex; min-height: 58px; align-items: center; gap: 8px; overflow-x: auto; padding-block: 4px; }
     .family-inner a { display: inline-flex; align-items: center; min-height: 44px; flex-shrink: 0; padding: 7px 12px; border-radius: 10px; background: var(--cp-accent-soft); color: var(--cp-accent); font-size: 14px; font-weight: 650; text-decoration: none; }
@@ -184,7 +183,6 @@
     @media(max-width:680px) {
       .container { width: calc(100% - 32px); }
       .header-inner { gap: 8px; }
-      .header-actions > a { display: none; }
       .brand { gap: 8px; font-size: 14px; }
       .brand small { font-size: 10px; }
       .hero { padding: 36px 0; }
@@ -208,10 +206,6 @@
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="https://mramirez13.github.io/make-copilot-yours/"><span class="mark" aria-hidden="true">✦</span><span>Cowork Delegation<small>HR AI IN PRACTICE</small></span></a>
-      <div class="header-actions">
-        <a class="btn" href="#assignment-builder">Build an assignment</a>
-        <button class="btn theme" id="theme-button" type="button" aria-label="Switch color theme">Dark theme</button>
-      </div>
     </div>
   </header>
   <nav class="family-nav" aria-label="Workshop microsites">
@@ -563,13 +557,6 @@ Synthetic learning summary (invented concept check-in before the initiative): 12
       $("assignment").focus();
     });
     $("manual-close").addEventListener("click", () => $("manual-copy-dialog").close());
-
-    $("theme-button").addEventListener("click", () => {
-      const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-      document.documentElement.dataset.theme = next;
-      $("theme-button").textContent = next === "dark" ? "Light theme" : "Dark theme";
-    });
-    $("theme-button").textContent = document.documentElement.dataset.theme === "dark" ? "Light theme" : "Dark theme";
 
     document.querySelectorAll("button[data-copy]").forEach(button => {
       button.addEventListener("click", () => void copyText(continuationPrompts[button.dataset.copy], $("continuation-status")));
