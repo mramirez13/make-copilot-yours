@@ -426,9 +426,9 @@
           </div>
           <div>
             <h2>See what to look for</h2>
-            <button class="btn" type="button" data-guide aria-expanded="false" aria-controls="visual-guide">Show animated guide</button>
-            <img class="guide-animation" id="visual-guide" hidden alt="Visual guide highlighting Personalization, Saved memories Manage, then Customize Copilot Manage" aria-describedby="guide-caption">
-            <p class="guide-caption" id="guide-caption">Optional 8-second looping visual, with no audio. Use the button to show or stop it. The numbered instructions provide the same steps without animation. Your Copilot may look different.</p>
+            <button class="btn" type="button" data-guide aria-expanded="true" aria-controls="visual-guide">Stop and hide animated guide</button>
+            <img class="guide-animation" id="visual-guide" src="${GUIDE_GIF}" alt="Visual guide highlighting Personalization, Saved memories Manage, then Customize Copilot Manage" aria-describedby="guide-caption">
+            <p class="guide-caption" id="guide-caption">8-second looping visual, with no audio. It plays automatically; use the button to stop it or show it again. The numbered instructions provide the same steps without animation. Your Copilot may look different.</p>
           </div>
         </div>
         ${stale ? `<div class="section callout safety"><strong>Your selections have changed.</strong>Your edited text has been preserved. Use “Update from selections” to include your latest answers, or keep your edits.</div>` : ""}
