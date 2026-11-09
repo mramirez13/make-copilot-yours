@@ -22,7 +22,7 @@ Drafts and final prompt edits live only in memory in the current tab and are pre
 
 ## Companion exercises
 
-All four pages include top-level workshop navigation linking the four experiences, with the current exercise identified. This family navigation is separate from the personalization journey and the prompt page's section links; those existing exercise flows remain intact. The two additional pages use the same visual family and open, editable-copy interaction.
+All four pages use one cohesive top-level workshop navigation: identical exercise names, order, rose button styling, 44px touch targets, and a filled current-page indicator. It scrolls horizontally on narrow screens and scrolls away with the page, rather than adding stacked sticky menus. Build Your Prompt has no additional section-navigation row, and Guidelines Guide has no separate underlined-link family navigation or duplicate footer site tree. The personalization journey remains an activity progress indicator, not another site menu. Preserve this shared navigation treatment across future changes; matching colors alone is not enough to make the experiences familial. The two additional pages use the same visual family and open, editable-copy interaction.
 
 ### Delegate the Work
 
