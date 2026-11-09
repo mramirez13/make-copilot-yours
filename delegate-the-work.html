@@ -153,10 +153,6 @@
     .sync-note { margin-top: 12px; padding: 14px; border: 1px solid var(--cp-accent); border-radius: 10px; background: var(--cp-accent-soft); }
     .sync-note .actions { margin-top: 12px; }
     .notice { margin-top: 20px; padding: 14px 16px; border-radius: 10px; background: var(--cp-accent-soft); font-size: 14px; }
-    .continuations { display: grid; gap: 14px; }
-    .continuation { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; padding: 16px; border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-surface); }
-    .continuation p { margin-top: 6px; color: var(--cp-text-muted); font-size: 14px; }
-    .continuation-status { min-height: 24px; margin-top: 10px; color: var(--cp-text-muted); font-size: 14px; }
     .final { padding: 40px 0 64px; }
     .final-card { padding: clamp(28px,5vw,48px); border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-accent-soft); text-align: center; }
     .final-card h2 { font-size: clamp(2rem,4vw,3.3rem); }
@@ -166,7 +162,6 @@
     html[data-theme="dark"] .pill, html[data-theme="dark"] .hero-card > p,
     html[data-theme="dark"] .section-head p:last-child, html[data-theme="dark"] .comparison-points dd,
     html[data-theme="dark"] .mode-note, html[data-theme="dark"] .status,
-    html[data-theme="dark"] .continuation p, html[data-theme="dark"] .continuation-status,
     html[data-theme="dark"] footer { color: var(--cp-text-soft); }
     footer { padding: 0 0 36px; color: var(--cp-text-muted); font-size: 13px; }
     .footer-inner { display: flex; justify-content: space-between; gap: 24px; padding-top: 24px; border-top: 1px solid var(--cp-border); }
@@ -196,8 +191,6 @@
       .builder { padding: 18px; }
       .output-top { align-items: flex-start; flex-wrap: wrap; }
       .output-top .btn { width: 100%; }
-      .continuation { grid-template-columns: 1fr; }
-      .continuation .btn { width: 100%; }
       .footer-inner { flex-direction: column; }
       .time-list li { grid-template-columns: 54px 1fr; }
     }
@@ -340,31 +333,6 @@
       </div>
     </section>
 
-    <section class="section" id="next-prompts">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">Keep the work moving</p>
-          <h2>Your follow-up changes, too</h2>
-          <p>In Chat, steer the answer. In Cowork, steer the work and review what was actually completed. Use these after your initial request.</p>
-        </div>
-        <div class="continuations">
-          <article class="continuation">
-            <div><h3>Chat · refine the response</h3><p>Adjust the structure, depth, or tone while keeping the same source boundaries.</p></div>
-            <button class="btn" type="button" data-copy="refine">Copy Chat follow-up</button>
-          </article>
-          <article class="continuation">
-            <div><h3>Cowork · approve a scoped plan</h3><p>Use only after reading the plan and confirming its sources, destination, and permitted work.</p></div>
-            <button class="btn" type="button" data-copy="approve">Copy Cowork approval</button>
-          </article>
-          <article class="continuation">
-            <div><h3>Cowork · ask for the handoff</h3><p>See the results, file links, and anything that still needs your attention.</p></div>
-            <button class="btn" type="button" data-copy="handoff">Copy handoff request</button>
-          </article>
-        </div>
-        <p class="continuation-status" id="continuation-status" role="status" aria-live="polite"></p>
-      </div>
-    </section>
-
     <section class="final">
       <div class="container">
         <div class="final-card">
@@ -410,11 +378,6 @@
     const $ = id => document.getElementById(id);
     const fieldIds = ["outcome", "source-pack", "deliverables", "agreement"];
     const modeNames = { chat: "Chat", cowork: "Cowork" };
-    const continuationPrompts = {
-      refine: "Refine the response for the audience I specified. Lead with the main takeaway, make the actions easy to scan, and put unanswered questions at the end. Use the same authorized sources; do not add unsupported facts.",
-      approve: "I approve the plan as written, limited to the sources, deliverables, and destination we confirmed. Carry out that drafting work. Pause if the scope, permissions, or destination need to change. Do not send, share, publish, or overwrite existing files.",
-      handoff: "Summarize what you actually completed against the agreed deliverables. Link to files you created, if any. Separate completed work from blocked or unfinished work, and list the decisions or review steps that still need me. Do not claim an action succeeded unless it did."
-    };
     const state = { mode: "chat", builtMode: "chat", builtSignature: "", manuallyEdited: false };
     const signature = () => JSON.stringify(fieldIds.map(id => $(id).value));
     const selectedMode = () => document.querySelector('input[name="mode"]:checked').value;
@@ -537,10 +500,6 @@
       $("assignment").focus();
     });
     $("manual-close").addEventListener("click", () => $("manual-copy-dialog").close());
-
-    document.querySelectorAll("button[data-copy]").forEach(button => {
-      button.addEventListener("click", () => void copyText(continuationPrompts[button.dataset.copy], $("continuation-status")));
-    });
 
     rebuild();
   </script>
