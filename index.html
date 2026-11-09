@@ -70,6 +70,8 @@
       --cp-highlight: rgba(253, 142, 161, 0.12);
     }
     * { box-sizing: border-box; }
+    body { overflow-wrap: anywhere; }
+    .family-inner a { max-width: 100%; }
     html { scroll-behavior: smooth; }
     body { margin: 0; background: var(--cp-bg); color: var(--cp-text); font: 17px/1.55 "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif; }
     button, textarea, input { font: inherit; }
@@ -83,19 +85,20 @@
     h3 { font-size: 1.08rem; line-height: 1.35; }
     p + p { margin-top: 12px; }
     strong { font-weight: 650; }
-    a { color: var(--cp-link); text-underline-offset: 3px; }
+    a { color: var(--cp-accent); text-underline-offset: 3px; }
     [hidden] { display: none !important; }
     .skip { position: absolute; left: 16px; top: -100px; z-index: 10; background: var(--cp-surface); padding: 12px; }
     .skip:focus { top: 12px; }
-    .shell { max-width: 1120px; margin: auto; padding: 0 40px; }
-    .topbar { padding-top: 28px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .shell { width: min(calc(100% - 80px), 1040px); margin-inline: auto; }
+    .topbar { min-height: 72px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
     .brand { display: flex; gap: 12px; align-items: center; }
-    .brand-mark { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: var(--cp-accent); color: var(--cp-accent-fg); font-size: 25px; }
+    .brand-mark { width: 40px; height: 40px; flex-shrink: 0; border-radius: 10px; display: grid; place-items: center; background: var(--cp-accent); color: var(--cp-accent-fg); font-size: 25px; }
+    .brand { line-height: 1.15; }
     .brand-title { font-size: 16px; font-weight: 650; }
-    .brand-sub { font-size: 12px; color: var(--cp-text-muted); letter-spacing: .08em; text-transform: uppercase; }
+    .brand-sub { margin-top: 4px; font-size: 12px; color: var(--cp-text-muted); letter-spacing: .08em; text-transform: uppercase; }
     .journey { padding-top: 28px; }
-    .family-nav { margin-top: 20px; border-block: 1px solid var(--cp-border); background: var(--cp-surface); }
-    .family-inner { display: flex; min-height: 58px; align-items: center; gap: 8px; overflow-x: auto; padding-block: 4px; }
+    .family-nav { border-block: 1px solid var(--cp-border); background: var(--cp-surface); }
+    .family-inner { display: flex; flex-wrap: wrap; min-height: 60px; align-items: center; gap: 8px; padding-block: 8px; }
     .family-inner a { display: inline-flex; align-items: center; min-height: 44px; flex-shrink: 0; padding: 7px 12px; border-radius: 10px; background: var(--cp-accent-soft); color: var(--cp-accent); font-size: 14px; font-weight: 650; text-decoration: none; }
     .family-inner a[aria-current="page"] { background: var(--cp-accent); color: var(--cp-accent-fg); }
     .journey-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
@@ -146,7 +149,7 @@
     .choice-title { font-size: 16px; line-height: 1.35; }
     .choice-sub { display: block; margin-top: 5px; font-size: 14px; color: var(--cp-text-muted); font-weight: 400; }
     .choice-section + .choice-section { margin-top: 24px; }
-    .choice-section h3 { margin-bottom: 12px; }
+    .choice-section h2 { margin-bottom: 12px; font-size: 1.08rem; line-height: 1.35; }
     .custom-entry { margin-top: 24px; }
     .custom-entry input { width: 100%; padding: 12px 16px; border: 1px solid var(--cp-border-strong); border-radius: 10px; background: var(--cp-surface); color: var(--cp-text); }
     .prompt-card { border: 1px solid var(--cp-border); background: var(--cp-surface); border-radius: 16px; overflow: hidden; }
@@ -215,9 +218,16 @@
     dialog::backdrop { background: var(--cp-overlay); }
     dialog p { margin-top: 12px; }
     dialog textarea { width: 100%; min-height: 180px; margin-top: 16px; padding: 12px; background: var(--cp-surface); color: var(--cp-text); border: 1px solid var(--cp-border-strong); }
+    dialog { max-height: calc(100dvh - 32px); overflow-y: auto; }
+    html[data-theme="dark"] :is(input, textarea, .btn, .choice, .step-dot) { border-color: var(--cp-text-soft); }
+    @media (max-width: 680px) {
+      .shell { width: calc(100% - 32px); }
+      .brand { gap: 8px; }
+      .brand-title { font-size: 14px; }
+      .brand-sub { font-size: 10px; }
+    }
     @media (min-width: 1200px) { main { padding-top: 48px; } }
     @media (max-width: 800px) {
-      .shell { padding: 0 24px; }
       .grid.three, .choices.three { grid-template-columns: 1fr; }
       .welcome-grid { grid-template-columns: 1fr; gap: 24px; }
       .setup-guide { grid-template-columns: 1fr; }
@@ -225,9 +235,6 @@
       .nav-hint { display: none; }
     }
     @media (max-width: 520px) {
-      .shell { padding: 0 16px; }
-      .topbar { padding-top: 16px; }
-      .brand-mark { width: 32px; height: 32px; font-size: 22px; }
       .brand { gap: 8px; }
       .brand-title { font-size: 14px; }
       .brand-sub { font-size: 10px; }
@@ -262,14 +269,16 @@
     <header class="topbar">
       <div class="brand"><span class="brand-mark" aria-hidden="true">✦</span><div><div class="brand-title">Make Copilot Yours</div><div class="brand-sub">HR AI IN PRACTICE</div></div></div>
     </header>
+  </div>
     <nav class="family-nav" aria-label="Workshop microsites">
-      <div class="family-inner">
+      <div class="shell family-inner">
         <a href="https://mramirez13.github.io/make-copilot-yours/" aria-current="page">Make Copilot Yours</a>
         <a href="https://mramirez13.github.io/make-copilot-yours/coseb-prompt-builder.html">Build Your Prompt</a>
         <a href="https://mramirez13.github.io/make-copilot-yours/delegate-the-work.html">Delegate the Work</a>
         <a href="https://mramirez13.github.io/make-copilot-yours/build-your-guidelines-guide.html">Build Your Guidelines Guide</a>
       </div>
     </nav>
+  <div class="shell">
     <nav class="journey" aria-label="Workshop journey">
       <ol class="journey-list" id="journey"></ol>
       <div class="progress-meta"><span id="step-label">Your 10-minute personalization journey</span><span id="percent">Ready when you are</span></div>
@@ -373,7 +382,7 @@
       const single = options.single || false;
       const sub = options.sub || [];
       const renderChoices = values => `<div class="choices ${options.three ? "three" : ""}">${values.map(value => { const i = data[key].indexOf(value); return `<label class="choice"><input type="${single ? "radio" : "checkbox"}" name="${key}" value="${esc(value)}" ${state[key].includes(value) ? "checked" : ""}><span class="choice-title">${esc(value)}${sub[i] ? `<span class="choice-sub">${esc(sub[i])}</span>` : ""}</span></label>`; }).join("")}</div>`;
-      const content = options.sections ? options.sections.map(section => `<div class="choice-section"><h3>${section.title}</h3>${renderChoices(section.values)}</div>`).join("") : renderChoices(data[key]);
+      const content = options.sections ? options.sections.map(section => `<div class="choice-section"><h2>${section.title}</h2>${renderChoices(section.values)}</div>`).join("") : renderChoices(data[key]);
       return `<fieldset data-group="${key}" aria-describedby="${key}-help"><legend>${title}</legend><div class="group-help" id="${key}-help"><span>${help}</span><span class="count" id="${key}-count">${state[key].length}${limits[key] ? ` / ${limits[key]}` : ""} selected</span></div>${content}</fieldset>`;
     }
     function customEntry(id, label, placeholder, help) {
@@ -417,8 +426,9 @@
           </div>
           <div>
             <h2>See what to look for</h2>
-            <img class="guide-animation" src="${GUIDE_GIF}" alt="Looping visual guide highlighting Personalization, Saved memories Manage, then Customize Copilot Manage" aria-describedby="guide-caption">
-            <p class="guide-caption" id="guide-caption">8-second looping GIF, no audio or playback controls. It highlights Personalization, Saved memories → Manage, then Customize Copilot → Manage. Your Copilot may look different.</p>
+            <button class="btn" type="button" data-guide aria-expanded="false" aria-controls="visual-guide">Show animated guide</button>
+            <img class="guide-animation" id="visual-guide" hidden alt="Visual guide highlighting Personalization, Saved memories Manage, then Customize Copilot Manage" aria-describedby="guide-caption">
+            <p class="guide-caption" id="guide-caption">Optional 8-second looping visual, with no audio. Use the button to show or stop it. The numbered instructions provide the same steps without animation. Your Copilot may look different.</p>
           </div>
         </div>
         ${stale ? `<div class="section callout safety"><strong>Your selections have changed.</strong>Your edited text has been preserved. Use “Update from selections” to include your latest answers, or keep your edits.</div>` : ""}
@@ -563,6 +573,15 @@
     $("main").addEventListener("click", event => {
       const button = event.target.closest("button");
       if (!button) return;
+      if (button.hasAttribute("data-guide")) {
+        const image = $("visual-guide");
+        const show = image.hidden;
+        image.hidden = !show;
+        if (show) image.src = GUIDE_GIF;
+        else image.removeAttribute("src");
+        button.setAttribute("aria-expanded", String(show));
+        button.textContent = show ? "Stop and hide animated guide" : "Show animated guide";
+      }
       if (button.dataset.copy) {
         const key = button.dataset.copy;
         const text = key === "discover" ? DISCOVER : key === "test" ? practicePrompt() : key.startsWith("challenge-") ? challenges[Number(key.split("-")[1])][1] : state[key].text;
