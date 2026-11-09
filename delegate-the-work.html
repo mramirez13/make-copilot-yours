@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A practical HR workshop exercise for turning a fictional manager enablement brief into a clear Copilot Chat conversation or Copilot Cowork assignment.">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+  <link rel="icon" href="data:,">
+  <title>Delegate the Work | Copilot for HR</title>
+  <script>
+    (() => {
+      const param = new URLSearchParams(window.location.search).get("scoutTheme");
+      const theme =
+        param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --cp-bg: #f7f4ef;
+      --cp-bg-elevated: #fcfbf8;
+      --cp-surface: #ffffff;
+      --cp-surface-soft: #f5f5f5;
+      --cp-border: #dedede;
+      --cp-border-strong: #919191;
+      --cp-text: #242424;
+      --cp-text-muted: #5c5c5c;
+      --cp-text-soft: #6f6f6f;
+      --cp-accent: #b11f4b;
+      --cp-accent-hover: #9a1a41;
+      --cp-accent-soft: rgba(177, 31, 75, 0.08);
+      --cp-accent-fg: #ffffff;
+      --cp-success: #16a34a;
+      --cp-danger: #dc2626;
+      --cp-warning: #f59e0b;
+      --cp-link: #0078d4;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+      --cp-overlay: rgba(255, 255, 255, 0.8);
+      --cp-panel: rgba(255, 255, 255, 0.86);
+      --cp-panel-strong: rgba(255, 255, 255, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.55);
+      --cp-highlight: rgba(177, 31, 75, 0.12);
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --cp-bg: #3d3b3a;
+      --cp-bg-elevated: #343231;
+      --cp-surface: #292929;
+      --cp-surface-soft: #2e2e2e;
+      --cp-border: #474747;
+      --cp-border-strong: #5f5f5f;
+      --cp-text: #dedede;
+      --cp-text-muted: #919191;
+      --cp-text-soft: #b0b0b0;
+      --cp-accent: #fd8ea1;
+      --cp-accent-hover: #fb7b91;
+      --cp-accent-soft: rgba(253, 142, 161, 0.14);
+      --cp-accent-fg: #1a1a1a;
+      --cp-success: #4ade80;
+      --cp-danger: #f87171;
+      --cp-warning: #fbbf24;
+      --cp-link: #4da6ff;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+      --cp-overlay: rgba(41, 41, 41, 0.88);
+      --cp-panel: rgba(41, 41, 41, 0.72);
+      --cp-panel-strong: rgba(41, 41, 41, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.04);
+      --cp-highlight: rgba(253, 142, 161, 0.12);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 150px; }
+    body { margin: 0; background: var(--cp-bg); color: var(--cp-text); font: 17px/1.55 "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif; }
+    button, textarea, input { font: inherit; }
+    button { cursor: pointer; }
+    :focus-visible { outline: 3px solid var(--cp-accent); outline-offset: 3px; }
+    [hidden] { display: none !important; }
+    h1, h2, h3, p { margin: 0; }
+    h1 { font-size: clamp(2.15rem, 4.8vw, 3.75rem); line-height: 1.08; letter-spacing: -.045em; font-weight: 650; }
+    h1 span { color: var(--cp-accent); }
+    h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); line-height: 1.25; letter-spacing: -.025em; font-weight: 650; }
+    h3 { font-size: 1.08rem; line-height: 1.35; font-weight: 650; }
+    strong, legend { font-weight: 650; }
+    a { color: var(--cp-link); text-underline-offset: 3px; }
+    p + p { margin-top: 12px; }
+    .container { width: min(calc(100% - 80px), 1040px); margin-inline: auto; }
+    .skip { position: fixed; top: -100px; left: 16px; z-index: 20; padding: 12px; background: var(--cp-surface); color: var(--cp-text); }
+    .skip:focus { top: 8px; }
+    .site-header { position: sticky; top: 0; z-index: 10; background: var(--cp-bg); border-bottom: 1px solid var(--cp-border); }
+    .header-inner { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .brand { display: flex; gap: 12px; align-items: center; color: var(--cp-text); font-size: 16px; font-weight: 650; line-height: 1.15; text-decoration: none; }
+    .mark { display: grid; place-items: center; flex-shrink: 0; width: 40px; height: 40px; border-radius: 10px; background: var(--cp-accent); color: var(--cp-accent-fg); font-size: 22px; }
+    .brand small { display: block; margin-top: 4px; color: var(--cp-text-muted); font-size: 12px; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; }
+    .header-actions, .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+    .btn { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; padding: 10px 18px; border: 1px solid var(--cp-border-strong); border-radius: 10px; background: var(--cp-surface); color: var(--cp-text); font-size: 15px; font-weight: 650; text-align: center; text-decoration: none; }
+    .btn:hover { border-color: var(--cp-accent); }
+    .primary { border-color: var(--cp-accent); background: var(--cp-accent); color: var(--cp-accent-fg); }
+    .primary:hover { background: var(--cp-accent-hover); }
+    .theme { padding-inline: 12px; font-size: 13px; }
+    .family-nav { position: sticky; top: 72px; z-index: 9; border-bottom: 1px solid var(--cp-border); background: var(--cp-surface); }
+    .family-inner { display: flex; min-height: 58px; align-items: center; gap: 8px; overflow-x: auto; }
+    .family-inner a { flex-shrink: 0; padding: 7px 12px; border-radius: 10px; background: var(--cp-accent-soft); color: var(--cp-accent); font-size: 14px; font-weight: 650; text-decoration: none; }
+    .family-inner a[aria-current="page"] { background: var(--cp-accent); color: var(--cp-accent-fg); }
+    .hero { padding: 56px 0 40px; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(300px,.8fr); gap: 32px; align-items: center; }
+    .eyebrow { display: inline-block; margin-bottom: 12px; color: var(--cp-accent); font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .lead { max-width: 720px; margin-top: 20px; color: var(--cp-text-muted); font-size: 19px; }
+    .actions { margin-top: 24px; }
+    .pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .pill { padding: 8px 11px; border: 1px solid var(--cp-border); border-radius: 10px; background: var(--cp-surface); color: var(--cp-text-muted); font-size: 13px; }
+    .card { min-width: 0; padding: 24px; border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-surface); }
+    .hero-card h2 { font-size: 24px; letter-spacing: -.02em; }
+    .hero-card > p { margin-top: 8px; color: var(--cp-text-muted); }
+    .time-list { display: grid; gap: 10px; margin: 20px 0 0; padding: 0; list-style: none; }
+    .time-list li { display: grid; grid-template-columns: 58px 1fr; gap: 12px; align-items: start; padding: 12px; border: 1px solid var(--cp-border); border-radius: 10px; }
+    .time { color: var(--cp-accent); font-weight: 650; }
+    .section { padding: 48px 0; }
+    .alt { background: var(--cp-bg-elevated); }
+    .section-head { max-width: 760px; margin-bottom: 28px; }
+    .section-head p:last-child { margin-top: 14px; color: var(--cp-text-muted); font-size: 17px; }
+    .scenario { margin-top: 24px; padding: 0; overflow: hidden; border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-surface); }
+    .scenario summary { min-height: 56px; padding: 14px 20px; cursor: pointer; font-weight: 650; }
+    .scenario-body { padding: 0 20px 20px; }
+    .scenario-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; }
+    .scenario-grid article { padding: 16px; border: 1px solid var(--cp-border); border-radius: 10px; }
+    .scenario-grid p { margin-top: 8px; color: var(--cp-text-muted); font-size: 15px; }
+    .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 28px; }
+    .compare .card { border-top: 4px solid var(--cp-border-strong); }
+    .compare .strong { border-top-color: var(--cp-accent); }
+    .example { margin-top: 14px; padding: 18px; overflow-wrap: anywhere; border: 1px solid var(--cp-border); border-radius: 10px; background: var(--cp-surface-soft); color: var(--cp-text); white-space: pre-wrap; font: inherit; line-height: 1.65; }
+    .small { color: var(--cp-text-muted); font-size: 14px; }
+    .builder { padding: 24px; border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-surface); }
+    .mode-box { padding: 18px; border: 1px solid var(--cp-border); border-radius: 10px; background: var(--cp-bg-elevated); }
+    .mode-box legend { padding-inline: 6px; font-size: 18px; }
+    .mode-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .mode-option { display: flex; min-height: 52px; align-items: center; gap: 10px; padding: 12px; border: 1px solid var(--cp-border-strong); border-radius: 10px; background: var(--cp-surface); cursor: pointer; font-weight: 650; }
+    .mode-option:has(input:checked) { border-color: var(--cp-accent); background: var(--cp-accent-soft); }
+    input[type="radio"] { width: 20px; height: 20px; accent-color: var(--cp-accent); }
+    .mode-note { min-height: 48px; margin-top: 12px; color: var(--cp-text-muted); font-size: 14px; }
+    .canvas-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 28px; margin-top: 24px; align-items: start; }
+    .field + .field { margin-top: 20px; }
+    .field label, .prompt-label { display: block; margin-bottom: 4px; font-weight: 650; }
+    .field p { margin-bottom: 8px; }
+    textarea { display: block; width: 100%; min-height: 116px; padding: 14px; border: 1px solid var(--cp-border-strong); border-radius: 10px; background: var(--cp-surface-soft); color: var(--cp-text); font-size: 16px; line-height: 1.6; resize: vertical; }
+    #source-pack { min-height: 260px; }
+    .output { min-width: 0; }
+    .output-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+    .draft-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+    .draft-tag { padding: 5px 9px; border: 1px solid var(--cp-border); border-radius: 10px; background: var(--cp-bg-elevated); color: var(--cp-text-muted); font-size: 13px; }
+    .draft-tag strong { color: var(--cp-text); }
+    #assignment { min-height: 570px; background: var(--cp-surface); }
+    .status { min-height: 24px; margin-top: 8px; color: var(--cp-text-muted); font-size: 14px; }
+    .sync-note { margin-top: 12px; padding: 14px; border: 1px solid var(--cp-accent); border-radius: 10px; background: var(--cp-accent-soft); }
+    .sync-note .actions { margin-top: 12px; }
+    .notice { margin-top: 20px; padding: 14px 16px; border-radius: 10px; background: var(--cp-accent-soft); font-size: 14px; }
+    .continuations { display: grid; gap: 14px; }
+    .continuation { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; padding: 16px; border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-surface); }
+    .continuation p { margin-top: 6px; color: var(--cp-text-muted); font-size: 14px; }
+    .continuation-status { min-height: 24px; margin-top: 10px; color: var(--cp-text-muted); font-size: 14px; }
+    .final { padding: 40px 0 64px; }
+    .final-card { padding: clamp(28px,5vw,48px); border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-accent-soft); text-align: center; }
+    .final-card h2 { font-size: clamp(2rem,4vw,3.3rem); }
+    .final-card p { margin-top: 16px; }
+    .final-card .actions { justify-content: center; }
+    html[data-theme="dark"] .small, html[data-theme="dark"] .lead, html[data-theme="dark"] .brand small,
+    html[data-theme="dark"] .pill, html[data-theme="dark"] .hero-card > p,
+    html[data-theme="dark"] .section-head p:last-child, html[data-theme="dark"] .scenario-grid p,
+    html[data-theme="dark"] .mode-note, html[data-theme="dark"] .status,
+    html[data-theme="dark"] .continuation p, html[data-theme="dark"] footer { color: var(--cp-text-soft); }
+    footer { padding: 0 0 36px; color: var(--cp-text-muted); font-size: 13px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 24px; padding-top: 24px; border-top: 1px solid var(--cp-border); }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 12px; }
+    dialog { width: min(560px,calc(100% - 32px)); padding: 24px; border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-surface); color: var(--cp-text); }
+    dialog h2 { font-size: 24px; }
+    dialog p, dialog textarea { margin-top: 16px; }
+    dialog::backdrop { background: var(--cp-overlay); }
+    @media(max-width:950px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 28px; }
+      .canvas-grid { grid-template-columns: 1fr; }
+      .scenario-grid { grid-template-columns: 1fr; }
+      #assignment { min-height: 440px; }
+    }
+    @media(max-width:680px) {
+      .container { width: calc(100% - 32px); }
+      .header-inner { gap: 8px; }
+      .header-actions > a { display: none; }
+      .brand { gap: 8px; font-size: 14px; }
+      .brand small { font-size: 10px; }
+      .hero { padding: 36px 0; }
+      .hero h1 { font-size: 2.4rem; }
+      .lead { font-size: 18px; }
+      .section { padding: 36px 0; }
+      .compare, .mode-options { grid-template-columns: 1fr; }
+      .builder { padding: 18px; }
+      .output-top { align-items: flex-start; flex-wrap: wrap; }
+      .output-top .btn { width: 100%; }
+      .continuation { grid-template-columns: 1fr; }
+      .continuation .btn { width: 100%; }
+      .footer-inner { flex-direction: column; }
+      .family-inner { min-height: 54px; }
+      .time-list li { grid-template-columns: 54px 1fr; }
+    }
+    @media(prefers-reduced-motion:reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to main content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="https://mramirez13.github.io/make-copilot-yours/"><span class="mark" aria-hidden="true">↗</span><span>Copilot for HR<small>Make the work yours</small></span></a>
+      <div class="header-actions">
+        <a class="btn" href="#assignment-builder">Build an assignment</a>
+        <button class="btn theme" id="theme-button" type="button" aria-label="Switch color theme">Dark theme</button>
+      </div>
+    </div>
+  </header>
+  <nav class="family-nav" aria-label="Workshop microsites">
+    <div class="container family-inner">
+      <a href="https://mramirez13.github.io/make-copilot-yours/">Make Copilot Yours</a>
+      <a href="https://mramirez13.github.io/make-copilot-yours/coseb-prompt-builder.html">Build a prompt</a>
+      <a href="https://mramirez13.github.io/make-copilot-yours/delegate-the-work.html" aria-current="page">Delegate the work</a>
+      <a href="https://mramirez13.github.io/make-copilot-yours/build-your-guidelines-guide.html">Build your guidelines</a>
+    </div>
+  </nav>
+  <main id="main">
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">A 6–8 minute practice · Copilot for HR</p>
+          <h1>Delegate the work.<br><span>Keep the judgment.</span></h1>
+          <p class="lead">Try the same fictional manager-enablement assignment two ways: a step-by-step conversation in Chat, or a scoped piece of work in Cowork. Give either one a useful brief—and keep a human review point.</p>
+          <div class="actions">
+            <a class="btn primary" href="#assignment-builder">Shape your assignment →</a>
+            <a class="btn" href="#compare">See the two approaches</a>
+          </div>
+          <div class="pills"><span class="pill">One scenario, already supplied</span><span class="pill">Editable, copyable assignment</span><span class="pill">Nothing saved or sent</span></div>
+        </div>
+        <aside class="card hero-card">
+          <h2>Try it in a few minutes</h2>
+          <p>No files to find and no perfect prompt to write. Start with the fictional pack below and adapt the request to your chosen tool.</p>
+          <ol class="time-list">
+            <li><span class="time">1 min</span><span>Scan the scenario and its supplied materials.</span></li>
+            <li><span class="time">2 min</span><span>Choose Chat or Cowork; tune the outcome and working agreement.</span></li>
+            <li><span class="time">2–3 min</span><span>Copy the assignment into a tool you can access and review its first response.</span></li>
+            <li><span class="time">1–2 min</span><span>Ask for one next deliverable—or compare notes with a partner.</span></li>
+          </ol>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section alt" id="scenario">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">One fictional HR scenario</p>
+          <h2>Prepare a manager enablement package</h2>
+          <p>The practice company, program details, research digest, and learning summary below are invented for this exercise. They are not Weatherford information, research findings, or claims about any real organization.</p>
+        </div>
+        <details class="scenario">
+          <summary>Open the included input pack: program facts, fictional digest, and synthetic learning summary</summary>
+          <div class="scenario-body">
+            <div class="scenario-grid">
+              <article>
+                <h3>Program facts</h3>
+                <p>Juniper Works is a made-up company. Its learning team is considering a 30-day “Everyday Coaching” manager enablement initiative for 12 volunteer people managers. A draft concept is four 30-minute virtual practice sessions across 30 days, with brief practice between sessions. A learning partner may be available to facilitate; the start date, accountable owner, and evaluation approach are not confirmed. Participation is voluntary. The initiative has not been approved, and no business impact has been demonstrated.</p>
+              </article>
+              <article>
+                <h3>Fictional research digest</h3>
+                <p>For this scenario only, an invented learning-design note suggests using short, spaced practice; showing a worked example before role-play; and making time for peer reflection. These are fictional design ideas, not sourced or validated research. Treat them as options to consider, not evidence that a program will work.</p>
+              </article>
+              <article>
+                <h3>Synthetic learning summary</h3>
+                <p>A fictional concept check-in shared with 12 volunteer managers had 9 responses: 6 requested more practice examples, 5 appreciated peer practice, and 4 said a 30-minute session felt manageable. This is preference feedback before any initiative; it is not evidence of program outcomes. There is no comparison group, pre/post measure, demographic or individual-level data. The small volunteer sample cannot represent all managers.</p>
+              </article>
+            </div>
+            <p class="small" style="margin-top:16px">The editable source field below already contains this full pack, so you can use the exercise without finding or attaching anything.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="section" id="compare">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">A conversation or an assignment?</p>
+          <h2>Different working styles. Same clear boundaries.</h2>
+          <p>Chat is a good fit when you want to think together and request one piece at a time. Cowork is a fit for a scoped task that can work across connected experiences—with a plan and review points. Availability and controls vary.</p>
+        </div>
+        <div class="compare">
+          <article class="card">
+            <h3>Chat · work it through together</h3>
+            <pre class="example">Using the supplied fictional Juniper Works pack, propose a manager enablement package for a 30-day Everyday Coaching initiative. The primary deliverables are a one-page executive brief, a manager communication draft, and a 30-day implementation outline. First show a short plan, how the supplied facts support each deliverable, and open questions or dependencies. Then stop and wait for me to choose what to draft. Do not create the materials yet.</pre>
+            <p class="small" style="margin-top:12px">Chat drafts in the conversation. It does not execute background work or create a connected-work assignment for you.</p>
+          </article>
+          <article class="card strong">
+            <h3>Cowork · commission scoped work</h3>
+            <pre class="example">Use the supplied fictional Juniper Works pack to prepare a manager enablement package for a 30-day Everyday Coaching initiative: a one-page executive brief, a manager communication draft, and a 30-day implementation outline. First show your work plan, source boundaries, assumptions, open questions, dependencies, and owner-review checkpoints; then pause for my approval. After approval, create drafts only in the authorized connected workspace and return the executive brief for review before proceeding. Do not send, publish, finalize, or make employee-level decisions.</pre>
+            <p class="small" style="margin-top:12px">Cowork access is not available to everyone; it depends on your organization’s setup and your account. If you don’t see it, use the Chat path.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="assignment-builder">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Make the assignment yours</p>
+          <h2>Shape the request before you hand it over</h2>
+          <p>The supplied pack is included in the draft. Adjust the outcome, source boundaries, deliverables, and working agreement; your assignment rebuilds as you edit until you change the assignment text itself.</p>
+        </div>
+        <div class="builder">
+          <fieldset class="mode-box">
+            <legend>Where will you use this assignment?</legend>
+            <div class="mode-options">
+              <label class="mode-option" for="mode-chat"><input id="mode-chat" name="mode" type="radio" value="chat" checked> Chat · collaborate in conversation</label>
+              <label class="mode-option" for="mode-cowork"><input id="mode-cowork" name="mode" type="radio" value="cowork"> Cowork · commission connected work</label>
+            </div>
+            <p class="mode-note" id="mode-note">Chat drafts in the conversation; it does not run background tasks. Cowork access varies by account and organization—if you do not have it, use the Chat path.</p>
+          </fieldset>
+
+          <div class="canvas-grid">
+            <div class="fields">
+              <div class="field">
+                <label for="outcome">Outcome</label>
+                <p class="small" id="outcome-help">What should the work help the team decide or prepare?</p>
+                <textarea id="outcome" aria-describedby="outcome-help">Prepare a clear manager enablement package for the fictional 30-day Everyday Coaching initiative. Help its owners review a practical proposal without implying approval, commitment, or proven impact.</textarea>
+              </div>
+              <div class="field">
+                <label for="source-pack">Source pack</label>
+                <p class="small" id="source-help">The complete fictional brief is included here and in the assignment. Keep or edit it; no attachment is needed.</p>
+                <textarea id="source-pack" aria-describedby="source-help">FICTIONAL PRACTICE SCENARIO — JUNIPER WORKS (not Weatherford or any real organization)
+
+Program facts: The fictional learning team is considering a 30-day “Everyday Coaching” manager enablement initiative for 12 volunteer people managers. Draft concept: four 30-minute virtual practice sessions across 30 days, with brief practice between sessions. A learning partner may be available to facilitate. The start date, accountable owner, and evaluation approach are not confirmed. Participation is voluntary. The initiative has not been approved; no business impact has been demonstrated.
+
+Fictional research digest (invented for this exercise; not external research): A learning-design note suggests short, spaced practice; a worked example before role-play; and time for peer reflection. These are options to consider, not validated findings or proof of effectiveness.
+
+Synthetic learning summary (invented concept check-in before the initiative): 12 volunteer managers were invited; 9 responded. Six requested more practice examples, five appreciated peer practice, and four said a 30-minute session felt manageable. This is preference feedback, not evidence of initiative outcomes. No comparison group, pre/post measure, demographic or individual-level data is supplied. This small volunteer sample does not represent all managers.</textarea>
+              </div>
+              <div class="field">
+                <label for="deliverables">Deliverables</label>
+                <p class="small" id="deliverables-help">Name the useful outputs and the order you want them in.</p>
+                <textarea id="deliverables" aria-describedby="deliverables-help">Prepare these three primary deliverables, in order: (1) a one-page executive brief explaining the proposed 30-day initiative, rationale grounded in the supplied pack, and decisions needed; (2) a draft communication for the 12 volunteer managers, with placeholders for unconfirmed details and clear voluntary participation; and (3) a practical 30-day implementation outline with phases, proposed activities, timing, dependencies, and items to confirm. Finish with a concise section for open questions, dependencies, and owner-review notes. Keep each deliverable separate and reviewable.</textarea>
+              </div>
+              <div class="field">
+                <label for="agreement">Working agreement</label>
+                <p class="small" id="agreement-help">Set the source limits, approval point, and what must remain human-led.</p>
+                <textarea id="agreement" aria-describedby="agreement-help">Use only the supplied pack; do not search connected files or add outside research. Label all scenario details as fictional. Separate supplied facts, suggestions, and unknowns. Do not invent dates, owners, approvals, policies, or results. Treat the digest as an unverified fictional design note, and the check-in as a small volunteer sample—not proof or a workforce-wide view. Keep all work as drafts for human review; do not send, publish, finalize, or make employee-level decisions.</textarea>
+              </div>
+            </div>
+
+            <div class="output">
+              <div class="output-top">
+                <label class="prompt-label" for="assignment">Your assignment</label>
+                <button class="btn primary" id="copy-assignment" type="button">Copy Chat draft</button>
+              </div>
+              <div class="draft-tags" aria-label="Draft and selected mode">
+                <span class="draft-tag">Assignment draft: <strong id="draft-mode">Chat</strong></span>
+                <span class="draft-tag">Selected mode: <strong id="selected-mode">Chat</strong></span>
+              </div>
+              <textarea id="assignment" spellcheck="true" aria-describedby="assignment-help draft-status"></textarea>
+              <p class="small" id="assignment-help">Edit this assignment directly if you like. Once you do, ingredient and mode changes will not replace your wording.</p>
+              <p class="status" id="draft-status" role="status" aria-live="polite">Your draft is ready. Copy it into the tool you can access.</p>
+              <div class="sync-note" id="sync-note" role="status" aria-live="polite" hidden>
+                <p id="sync-copy"></p>
+                <div class="actions"><button class="btn" id="update-assignment" type="button">Update assignment…</button></div>
+              </div>
+              <p class="notice"><strong>Practice safely:</strong> The scenario and numbers are fictional and not Weatherford claims. For real work, use only approved material and minimize personal information. A reference here does not give a tool access to a file. Review outputs before anyone acts on them.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="next-prompts">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Keep the work moving</p>
+          <h2>In Chat, ask for the next piece—not everything at once</h2>
+          <p>Start with the plan. If it looks right, request a single deliverable with one of these follow-ups, then review it before continuing.</p>
+        </div>
+        <div class="continuations">
+          <article class="continuation">
+            <div><h3>1 · Draft the executive brief</h3><p>Start with the one-page proposal and the decisions its owner needs to review.</p></div>
+            <button class="btn" type="button" data-copy="brief">Copy next-step prompt</button>
+          </article>
+          <article class="continuation">
+            <div><h3>2 · Draft the manager communication</h3><p>Continue after reviewing the brief; keep dates and other unknowns as placeholders.</p></div>
+            <button class="btn" type="button" data-copy="communication">Copy next-step prompt</button>
+          </article>
+          <article class="continuation">
+            <div><h3>3 · Draft the 30-day implementation outline</h3><p>After reviewing the communication, map a practical sequence and its dependencies across 30 days.</p></div>
+            <button class="btn" type="button" data-copy="implementation">Copy next-step prompt</button>
+          </article>
+        </div>
+        <p class="continuation-status" id="continuation-status" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="final">
+      <div class="container">
+        <div class="final-card">
+          <h2>Clear scope. Human review.<br>A better handoff.</h2>
+          <p>Choose the working style that fits, make the boundaries explicit, and keep the decisions that matter with people.</p>
+          <div class="actions"><a class="btn" href="#assignment-builder">Return to your assignment ↑</a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <span>Delegate the Work · Copilot for HR<br>Private by design. No sign-in, tracking, or saved responses.</span>
+        <nav class="footer-links" aria-label="More workshop resources">
+          <a href="https://learn.microsoft.com/en-us/copilot/cowork/cowork-access" target="_blank" rel="noopener noreferrer">Microsoft Learn: Cowork access ↗</a>
+          <a href="https://learn.microsoft.com/en-us/copilot/agents" target="_blank" rel="noopener noreferrer">Microsoft Learn: Copilot agents ↗</a>
+        </nav>
+      </div>
+      <span>Your edits stay in this tab and in your browser’s current page only. Refresh clears them.<br>Copy anything you would like to keep.</span>
+    </div>
+  </footer>
+  <noscript><p class="container">Enable JavaScript to build and copy the assignment. The supplied fictional scenario and the two working approaches are described on this page.</p></noscript>
+
+  <dialog id="replace-dialog" aria-labelledby="replace-title" aria-describedby="replace-message">
+    <h2 id="replace-title">Keep your draft or update it?</h2>
+    <p id="replace-message"></p>
+    <div class="actions">
+      <button class="btn" id="keep-draft" type="button">Keep my current draft</button>
+      <button class="btn primary" id="replace-draft" type="button">Replace from current fields</button>
+    </div>
+  </dialog>
+  <dialog id="manual-copy-dialog" aria-labelledby="manual-title" aria-describedby="manual-copy-help">
+    <h2 id="manual-title">Copy manually</h2>
+    <p id="manual-copy-help">Automatic copying is unavailable. Select this text and use Ctrl+C, Command+C, or your device’s Copy command.</p>
+    <textarea id="manual-copy-text" readonly aria-label="Text to copy manually"></textarea>
+    <div class="actions"><button class="btn primary" id="manual-close" type="button">Done</button></div>
+  </dialog>
+
+  <script>
+    "use strict";
+    const $ = id => document.getElementById(id);
+    const fieldIds = ["outcome", "source-pack", "deliverables", "agreement"];
+    const modeNames = { chat: "Chat", cowork: "Cowork" };
+    const continuationPrompts = {
+      brief: "Continue with primary deliverable 1 only: draft a one-page executive brief for the fictional 30-day Everyday Coaching manager enablement initiative. Use only the supplied pack; distinguish the proposed program, fictional design suggestions, concept-check-in preferences, and unknowns. State that the initiative is unapproved and that the small volunteer feedback is not outcome evidence. Include the decision needed and concise open questions, dependencies, and owner-review notes. Do not draft the other deliverables yet; return a reviewable draft and pause.",
+      communication: "Continue with primary deliverable 2 only: draft a clear communication for the 12 volunteer managers about the fictional 30-day Everyday Coaching initiative, using the supplied pack and the brief we reviewed. Make participation voluntary; use placeholders for the unconfirmed start date, owner, and other missing details. Do not imply approval, commitments, or proven impact. Do not send it or draft the other deliverable; return a reviewable draft and pause.",
+      implementation: "Continue with primary deliverable 3 only: draft a practical implementation outline spanning the full 30 days for the fictional Everyday Coaching initiative, using the supplied pack and the brief and communication we reviewed. Show a proposed sequence, activities, timing, dependencies, and what the owner must confirm; clearly label suggestions and do not invent dates or commitments. Do not create other deliverables; end with concise open questions and owner-review notes, then pause."
+    };
+    const state = { mode: "chat", builtMode: "chat", builtSignature: "", manuallyEdited: false };
+    const signature = () => JSON.stringify(fieldIds.map(id => $(id).value));
+    const selectedMode = () => document.querySelector('input[name="mode"]:checked').value;
+    const valueFor = id => $(id).value.trim() || `[Add ${id === "outcome" ? "the outcome" : id === "source-pack" ? "the approved source material" : id === "deliverables" ? "the requested deliverables" : "the working agreement"}]`;
+
+    function buildAssignment(mode) {
+      const outcome = valueFor("outcome");
+      const source = valueFor("source-pack");
+      const deliverables = valueFor("deliverables");
+      const agreement = valueFor("agreement");
+      const sourceRules = `Use only the source pack included below. Do not search connected files, add outside research, or assume access to referenced files. The company and all scenario details are fictional and are not claims about Weatherford or any real organization. Distinguish supplied facts, fictional design suggestions, and unknowns.`;
+      if (mode === "cowork") {
+        return `WORK REQUEST — COPILOT COWORK\n\nOUTCOME\n${outcome}\n\nSOURCE BOUNDARIES\n${sourceRules}\n\nSUPPLIED SOURCE PACK\n${source}\n\nDELIVERABLES\n${deliverables}\n\nWORKING AGREEMENT AND REVIEW CHECKPOINT\n${agreement}\n\nFirst, return a concise work plan that names the sequence, deliverables, which supplied material supports each, assumptions or missing decisions, and the review checkpoint. Then pause and wait for my explicit approval before doing the work. After approval, carry out only the approved drafting work in the authorized connected workspace; if the destination or required access is unclear, ask before writing. Return the first deliverable as a draft for human review, then pause before proceeding to another deliverable. Do not send, publish, finalize, overwrite existing work, or make employee-level decisions.`;
+      }
+      return `CHAT REQUEST — COLLABORATE IN THIS CONVERSATION\n\nOUTCOME\n${outcome}\n\nSOURCE BOUNDARIES\n${sourceRules}\n\nSUPPLIED SOURCE PACK\n${source}\n\nDELIVERABLES\n${deliverables}\n\nWORKING AGREEMENT\n${agreement}\n\nFirst, propose a concise plan for the deliverables, the supplied facts you would use, assumptions or questions to resolve, and a review point. Do not draft any deliverable yet. Stop and wait for my response. If I approve the plan, wait for me to explicitly request a specific first deliverable; approval alone is not permission to draft it. Produce only the one deliverable I request, as a draft, then pause for review. Continue only when I explicitly ask for the next piece. Chat works in this conversation; it does not run background tasks or create connected-work assignments.`;
+    }
+
+    function updateModeLabels() {
+      $("draft-mode").textContent = modeNames[state.builtMode];
+      $("selected-mode").textContent = modeNames[selectedMode()];
+      $("copy-assignment").textContent = `Copy ${modeNames[state.builtMode]} draft`;
+      const modeDiffers = state.builtMode !== selectedMode();
+      $("mode-note").textContent = modeDiffers
+        ? `Your assignment is still a ${modeNames[state.builtMode]} draft; the selected mode is ${modeNames[selectedMode()]}. Update it explicitly if you want a ${modeNames[selectedMode()]} version. Chat does not run background work, and Cowork access varies.`
+        : "Chat drafts in the conversation; it does not run background tasks. Cowork access varies by account and organization—if you do not have it, use the Chat path.";
+    }
+
+    function refreshSyncNotice() {
+      const changedFields = signature() !== state.builtSignature;
+      const changedMode = selectedMode() !== state.builtMode;
+      const outOfSync = state.manuallyEdited && (changedFields || changedMode);
+      $("sync-note").hidden = !outOfSync;
+      if (outOfSync) {
+        const reasons = [];
+        if (changedFields) reasons.push("your fields have changed");
+        if (changedMode) reasons.push(`you selected ${modeNames[selectedMode()]}`);
+        $("sync-copy").textContent = `Your assignment text is still your edited ${modeNames[state.builtMode]} draft; ${reasons.join(" and ")}. It has not been overwritten. Copy is clearly labeled with the draft’s mode. Choose Update assignment to keep this draft or replace it using the current fields and ${modeNames[selectedMode()]} mode.`;
+      }
+      updateModeLabels();
+    }
+
+    function rebuild() {
+      state.mode = selectedMode();
+      state.builtMode = state.mode;
+      state.builtSignature = signature();
+      state.manuallyEdited = false;
+      $("assignment").value = buildAssignment(state.builtMode);
+      refreshSyncNotice();
+      $("draft-status").textContent = `Updated from your fields as a ${modeNames[state.builtMode]} draft.`;
+    }
+
+    async function copyText(text, statusElement) {
+      if (!text.trim()) {
+        statusElement.textContent = "There is no text to copy yet.";
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(text);
+        statusElement.textContent = "Copied. Paste it into the tool you can access.";
+      } catch {
+        statusElement.textContent = "Automatic copying is unavailable. Use the manual-copy window.";
+        $("manual-copy-text").value = text;
+        const dialog = $("manual-copy-dialog");
+        dialog.showModal();
+        $("manual-copy-text").focus();
+        $("manual-copy-text").select();
+      }
+    }
+
+    function openUpdateDialog() {
+      const modeDiffers = selectedMode() !== state.builtMode;
+      const fieldsDiffer = signature() !== state.builtSignature;
+      const detail = [
+        `Your current assignment is a ${modeNames[state.builtMode]} draft.`,
+        modeDiffers ? `The selected mode is now ${modeNames[selectedMode()]}.` : "",
+        fieldsDiffer ? "One or more fields have changed since that draft was built." : ""
+      ].filter(Boolean).join(" ");
+      $("replace-message").textContent = `${detail} You can keep the assignment text exactly as it is, or replace it with a new draft built from the current fields and selected mode.`;
+      $("replace-dialog").showModal();
+    }
+
+    fieldIds.forEach(id => {
+      $(id).addEventListener("input", () => {
+        if (state.manuallyEdited) {
+          refreshSyncNotice();
+          return;
+        }
+        rebuild();
+      });
+    });
+
+    document.querySelectorAll('input[name="mode"]').forEach(input => {
+      input.addEventListener("change", () => {
+        if (state.manuallyEdited) {
+          refreshSyncNotice();
+          return;
+        }
+        rebuild();
+      });
+    });
+
+    $("assignment").addEventListener("input", () => {
+      state.manuallyEdited = true;
+      refreshSyncNotice();
+      $("draft-status").textContent = `Your assignment text is preserved as a ${modeNames[state.builtMode]} draft.`;
+    });
+    $("copy-assignment").addEventListener("click", () => void copyText($("assignment").value, $("draft-status")));
+    $("update-assignment").addEventListener("click", openUpdateDialog);
+    $("keep-draft").addEventListener("click", () => {
+      $("replace-dialog").close();
+      $("draft-status").textContent = `Kept your ${modeNames[state.builtMode]} draft. Your field and mode changes remain visible and have not been applied.`;
+      refreshSyncNotice();
+    });
+    $("replace-draft").addEventListener("click", () => {
+      $("replace-dialog").close();
+      rebuild();
+      $("assignment").focus();
+    });
+    $("manual-close").addEventListener("click", () => $("manual-copy-dialog").close());
+
+    $("theme-button").addEventListener("click", () => {
+      const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+      document.documentElement.dataset.theme = next;
+      $("theme-button").textContent = next === "dark" ? "Light theme" : "Dark theme";
+    });
+    $("theme-button").textContent = document.documentElement.dataset.theme === "dark" ? "Light theme" : "Dark theme";
+
+    document.querySelectorAll("button[data-copy]").forEach(button => {
+      button.addEventListener("click", () => void copyText(continuationPrompts[button.dataset.copy], $("continuation-status")));
+    });
+
+    rebuild();
+  </script>
+</body>
+</html>
