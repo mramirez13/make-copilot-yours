@@ -34,7 +34,9 @@ Accessibility support includes keyboard-visible focus, focusable skip-link desti
 
 ### Delegate the Work
 
-`delegate-the-work.html` supports a 6-8 minute manager-enablement exercise. It includes a fictional source pack, editable outcome, deliverables, and working agreement, plus a copy-ready assignment. Copilot Chat is the default route: propose a plan, then draft deliverables one at a time when asked. Participants with Cowork access can instead commission connected work with a plan-first pause and human checkpoint. The page does not imply Chat performs background execution, and it does not require Cowork access.
+`delegate-the-work.html` compares when to use Copilot Chat versus Cowork, how to frame each request, and what outputs to expect. It has no fictional HR scenario, source pack, or prescribed manager-enablement deliverables. A brief everyday project-review example illustrates the same goal as a conversational ask and a delegated work brief.
+
+The editable canvas uses participant-supplied context/goal, sources, output expectations, and a working agreement, with bracketed template values instead of invented facts. Chat is the default: ask for a useful first answer or draft to refine in the conversation. Cowork asks for a plan and approval, followed by execution of the agreed drafting work, links to actual files, and a completion/blockers handoff. A mode-specific output explanation follows the actual draft mode, including when manual edits prevent switching. The comparison does not imply that Chat is limited to plain text or simple tasks. Cowork tools and access depend on the account and organization; no Cowork access is needed to compare the request styles here. Generic copyable follow-ups refine a Chat answer, approve an already-reviewed Cowork plan, or request the completion handoff.
 
 ### Build Your Guidelines Guide
 
