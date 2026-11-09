@@ -22,7 +22,7 @@ Drafts and final prompt edits live only in memory in the current tab and are pre
 
 ## Companion exercises
 
-The two additional pages use the same visual family and open, editable-copy interaction. Each links to all four workshop experiences. The original personalization and prompting pages remain unchanged.
+All four pages include top-level workshop navigation linking the four experiences, with the current exercise identified. This family navigation is separate from the personalization journey and the prompt page's section links; those existing exercise flows remain intact. The two additional pages use the same visual family and open, editable-copy interaction.
 
 ### Delegate the Work
 
