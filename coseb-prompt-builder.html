@@ -70,6 +70,8 @@
       --cp-highlight: rgba(253, 142, 161, 0.12);
     }
     * { box-sizing: border-box; }
+    body { overflow-wrap: anywhere; }
+    .family-inner a { max-width: 100%; }
     html { scroll-behavior: smooth; scroll-padding-top: 24px; }
     body { margin: 0; background: var(--cp-bg); color: var(--cp-text); font: 17px/1.55 "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif; }
     button, textarea, select, input { font: inherit; }
@@ -82,7 +84,7 @@
     h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); line-height: 1.25; letter-spacing: -.025em; font-weight: 650; }
     h3 { font-size: 1.08rem; line-height: 1.35; font-weight: 650; }
     strong { font-weight: 650; }
-    a { color: var(--cp-link); text-underline-offset: 3px; }
+    a { color: var(--cp-accent); text-underline-offset: 3px; }
     p + p { margin-top: 12px; }
     .container { width: min(calc(100% - 80px), 1040px); margin-inline: auto; }
     .skip { position: fixed; top: -100px; left: 16px; z-index: 20; padding: 12px; background: var(--cp-surface); }
@@ -98,7 +100,7 @@
     .primary { background: var(--cp-accent); color: var(--cp-accent-fg); border-color: var(--cp-accent); }
     .primary:hover { background: var(--cp-accent-hover); }
     .family-nav { border-block: 1px solid var(--cp-border); background: var(--cp-surface); }
-    .family-inner { display: flex; min-height: 58px; align-items: center; gap: 8px; overflow-x: auto; padding-block: 4px; }
+    .family-inner { display: flex; flex-wrap: wrap; min-height: 60px; align-items: center; gap: 8px; padding-block: 8px; }
     .family-inner a { display: inline-flex; align-items: center; min-height: 44px; flex-shrink: 0; padding: 7px 12px; border-radius: 10px; background: var(--cp-accent-soft); color: var(--cp-accent); font-size: 14px; font-weight: 650; text-decoration: none; }
     .family-inner a[aria-current="page"] { background: var(--cp-accent); color: var(--cp-accent-fg); }
     .hero { padding: 56px 0 40px; }
@@ -168,6 +170,9 @@
     dialog h2 { font-size: 24px; }
     dialog p, dialog textarea { margin-top: 16px; }
     dialog::backdrop { background: var(--cp-overlay); }
+    dialog { max-height: calc(100dvh - 32px); overflow-y: auto; }
+    html[data-theme="dark"] :is(input, textarea, select, .btn) { border-color: var(--cp-text-soft); }
+    html[data-theme="dark"] .final-card .formula-line { color: var(--cp-text); }
     @media(max-width:950px) { .hero-grid { grid-template-columns: 1fr; gap: 28px; } .formula-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } .canvas-grid { grid-template-columns: 1fr; } .output { position: static; } .prompt-editor { min-height: 440px; } }
     @media(max-width:680px) { .container { width: calc(100% - 32px); } .header-inner { gap: 8px; } .brand { font-size: 14px; gap: 8px; } .brand small { font-size: 10px; } .hero { padding: 36px 0; } .hero h1 { font-size: 2.4rem; } .lead { font-size: 18px; } .section { padding: 36px 0; } .formula-grid, .compare { grid-template-columns: 1fr; } .builder { padding: 18px; } .hero-card { padding: 22px; } .prompt-top { flex-wrap: wrap; } .footer-inner { flex-direction: column; } .pattern summary { padding: 16px; gap: 10px; } .pattern strong { font-size: 16px; } .formula-line { font-size: 17px; } }
     @media(prefers-reduced-motion:reduce) { html { scroll-behavior: auto; } }
@@ -187,7 +192,7 @@
       </div>
     </nav>
   </header>
-  <main id="main">
+  <main id="main" tabindex="-1">
     <section class="hero" id="home"><div class="container hero-grid">
       <div><p class="eyebrow">Microsoft 365 Copilot · HR edition</p><h1>Better prompts.<br><span>Better HR work.</span></h1>
       <p class="lead">Prepare for a meeting. Draft a manager update. Turn a good idea into a useful first draft. Give Copilot a clearer starting point with four simple ingredients.</p>
