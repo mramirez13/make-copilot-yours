@@ -70,7 +70,7 @@
       --cp-highlight: rgba(253, 142, 161, 0.12);
     }
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 150px; }
+    html { scroll-behavior: smooth; scroll-padding-top: 212px; }
     body { margin: 0; background: var(--cp-bg); color: var(--cp-text); font: 17px/1.55 "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif; }
     button, textarea, select, input { font: inherit; }
     button { cursor: pointer; }
@@ -98,7 +98,11 @@
     .primary { background: var(--cp-accent); color: var(--cp-accent-fg); border-color: var(--cp-accent); }
     .primary:hover { background: var(--cp-accent-hover); }
     .theme { padding: 8px 12px; font-size: 13px; }
-    .subnav { position: sticky; top: 72px; z-index: 9; background: var(--cp-surface); border-bottom: 1px solid var(--cp-border); }
+    .family-nav { border-top: 1px solid var(--cp-border); background: var(--cp-surface); }
+    .family-inner { display: flex; min-height: 58px; align-items: center; gap: 8px; overflow-x: auto; padding-block: 4px; }
+    .family-inner a { display: inline-flex; align-items: center; min-height: 44px; flex-shrink: 0; padding: 7px 12px; border-radius: 10px; background: var(--cp-accent-soft); color: var(--cp-accent); font-size: 14px; font-weight: 650; text-decoration: none; }
+    .family-inner a[aria-current="page"] { background: var(--cp-accent); color: var(--cp-accent-fg); }
+    .subnav { position: sticky; top: 130px; z-index: 9; background: var(--cp-surface); border-bottom: 1px solid var(--cp-border); }
     .subnav-inner { display: flex; align-items: center; gap: 8px; min-height: 58px; overflow-x: auto; }
     .subnav a { flex-shrink: 0; padding: 7px 12px; border-radius: 10px; background: var(--cp-accent-soft); color: var(--cp-accent); font-size: 14px; font-weight: 650; text-decoration: none; }
     .hero { padding: 56px 0 40px; }
@@ -138,7 +142,7 @@
     .field p { margin-bottom: 8px; }
     textarea { display: block; width: 100%; min-height: 108px; padding: 14px; border: 1px solid var(--cp-border-strong); border-radius: 10px; background: var(--cp-surface-soft); color: var(--cp-text); font-size: 16px; line-height: 1.6; resize: vertical; }
     #source, #expectations { min-height: 172px; }
-    .output { position: sticky; top: 154px; min-width: 0; }
+    .output { position: sticky; top: 212px; min-width: 0; }
     .prompt-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
     .prompt-top label { font-size: 18px; font-weight: 650; }
     .prompt-editor { min-height: 560px; background: var(--cp-surface); color: var(--cp-text); border-color: var(--cp-border-strong); }
@@ -178,7 +182,16 @@
   <header class="site-header"><div class="container header-inner">
     <a class="brand" href="#home"><span class="mark" aria-hidden="true">✦</span><span>Prompting Essentials<small>For HR · AI in Practice</small></span></a>
     <div class="header-actions"><a class="btn" href="#builder">Build a prompt</a><button class="btn theme" id="theme" type="button" aria-label="Switch color theme">Dark theme</button></div>
-  </div></header>
+  </div>
+    <nav class="family-nav" aria-label="Workshop microsites">
+      <div class="container family-inner">
+        <a href="https://mramirez13.github.io/make-copilot-yours/">Make Copilot Yours</a>
+        <a href="https://mramirez13.github.io/make-copilot-yours/coseb-prompt-builder.html" aria-current="page">Build a prompt</a>
+        <a href="https://mramirez13.github.io/make-copilot-yours/delegate-the-work.html">Delegate the work</a>
+        <a href="https://mramirez13.github.io/make-copilot-yours/build-your-guidelines-guide.html">Build your guidelines</a>
+      </div>
+    </nav>
+  </header>
   <nav class="subnav" aria-label="Page sections"><div class="container subnav-inner"><a href="#formula">Prompt Formula</a><a href="#builder">Prompt Builder</a><a href="#patterns">HR Prompt Patterns</a></div></nav>
   <main id="main">
     <section class="hero" id="home"><div class="container hero-grid">
