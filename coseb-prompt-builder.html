@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Make Your Prompt Work: an editable HR prompt canvas using Context, Goal, Source, and Expectations. Adapt prompts and copy them into Microsoft 365 Copilot.">
+  <meta name="description" content="Prompting Essentials for HR: friendly examples and an editable prompt canvas using Context, Goal, Source, and Expectations. Make a prompt yours and copy it into Copilot.">
   <meta name="referrer" content="no-referrer">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
   <link rel="icon" href="data:,">
-  <title>Make Your Prompt Work | HR AI in Practice</title>
+  <title>Prompting Essentials for HR</title>
   <script>
     (() => {
       const param = new URLSearchParams(window.location.search).get("scoutTheme");
@@ -69,120 +69,181 @@
       --cp-sheen: rgba(255, 255, 255, 0.04);
       --cp-highlight: rgba(253, 142, 161, 0.12);
     }
+    :root {
+      --cp-bg: #f5f7fb; --cp-bg-elevated: #f8faff; --cp-surface-soft: #f8faff;
+      --cp-text: #142238; --cp-text-muted: #5c697b; --cp-text-soft: #5c697b;
+      --cp-border: #d9e1ec; --cp-border-strong: #91a2ba;
+      --cp-accent: #0f6cbd; --cp-accent-hover: #074f8c; --cp-accent-soft: #e8f3ff;
+      --cp-link: #0f6cbd; --cp-highlight: #e8f3ff; --cp-prompt-bg: #101827; --cp-prompt-text: #f2f7ff;
+      --cp-secondary: #6b4eff; --cp-secondary-soft: #f0edff;
+      --cp-shadow: 0 14px 40px rgba(25,48,80,.10);
+    }
+    html[data-theme="dark"] {
+      --cp-bg: #0f1720; --cp-bg-elevated: #1d2937; --cp-surface: #17212d; --cp-surface-soft: #1d2937;
+      --cp-text: #f4f7fb; --cp-text-muted: #bcc6d4; --cp-text-soft: #bcc6d4;
+      --cp-border: #354457; --cp-border-strong: #718198;
+      --cp-accent: #68b7ff; --cp-accent-hover: #a4d5ff; --cp-accent-soft: #123757; --cp-accent-fg: #0f1720;
+      --cp-link: #68b7ff; --cp-highlight: #123757; --cp-prompt-bg: #0b1220; --cp-prompt-text: #f5f7fb;
+      --cp-secondary: #b4a8ff; --cp-secondary-soft: #2b2750; --cp-shadow: 0 14px 40px rgba(0,0,0,.28);
+    }
     * { box-sizing: border-box; }
-    body { margin: 0; background: var(--cp-bg); color: var(--cp-text); font: 17px/1.55 "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif; }
-    button, textarea, input { font: inherit; }
-    button, a { -webkit-tap-highlight-color: var(--cp-highlight); }
+    html { scroll-behavior: smooth; scroll-padding-top: 150px; }
+    body { margin: 0; background: radial-gradient(circle at 92% 0, var(--cp-accent-soft), var(--cp-bg) 34rem); color: var(--cp-text); font: 16px/1.55 "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif; }
+    button, textarea, select, input { font: inherit; }
     button { cursor: pointer; }
     :focus-visible { outline: 3px solid var(--cp-accent); outline-offset: 3px; }
     [hidden] { display: none !important; }
     h1, h2, h3, p { margin: 0; }
-    h1 { font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.12; letter-spacing: -.035em; font-weight: 650; }
-    h2 { font-size: 1.2rem; line-height: 1.3; }
-    h3 { font-size: 1rem; }
+    h1 { font-size: clamp(2.6rem, 5.4vw, 5rem); line-height: .99; letter-spacing: -.055em; }
+    h1 span { color: var(--cp-accent); }
+    h2 { font-size: clamp(1.9rem, 3.8vw, 3rem); line-height: 1.15; letter-spacing: -.035em; }
+    h3 { font-size: 1.15rem; }
     a { color: var(--cp-link); text-underline-offset: 3px; }
     p + p { margin-top: 12px; }
-    .shell { max-width: 1000px; margin: auto; padding: 0 32px; }
-    .skip { position: absolute; top: -100px; left: 16px; z-index: 5; padding: 12px; background: var(--cp-surface); }
+    .container { width: min(calc(100% - 40px), 1160px); margin-inline: auto; }
+    .skip { position: fixed; top: -100px; left: 16px; z-index: 20; padding: 12px; background: var(--cp-surface); }
     .skip:focus { top: 8px; }
-    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 24px; }
-    .brand { display: flex; align-items: center; gap: 12px; font-size: 16px; font-weight: 650; }
-    .mark { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; background: var(--cp-accent); color: var(--cp-accent-fg); }
-    .brand-sub { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--cp-text-muted); }
-    .btn { min-height: 44px; padding: 10px 16px; border: 1px solid var(--cp-border-strong); border-radius: 10px; background: var(--cp-surface); color: var(--cp-text); font-size: 15px; font-weight: 650; }
-    .btn:hover { background: var(--cp-surface-soft); border-color: var(--cp-accent); }
-    .primary { background: var(--cp-accent); border-color: var(--cp-accent); color: var(--cp-accent-fg); }
+    .site-header { position: sticky; top: 0; z-index: 10; background: var(--cp-bg); border-bottom: 1px solid var(--cp-border); }
+    .header-inner { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .brand { display: flex; gap: 12px; align-items: center; font-weight: 800; text-decoration: none; color: var(--cp-text); line-height: 1.15; }
+    .mark { display: grid; place-items: center; flex-shrink: 0; width: 36px; height: 36px; background: var(--cp-accent); color: var(--cp-accent-fg); border-radius: 10px; font-size: 24px; }
+    .brand small { display: block; margin-top: 4px; color: var(--cp-text-muted); font-size: 12px; font-weight: 500; }
+    .header-actions, .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 10px 18px; border: 1px solid var(--cp-border); border-radius: 10px; background: var(--cp-surface); color: var(--cp-text); font-weight: 750; text-decoration: none; }
+    .btn:hover { border-color: var(--cp-accent); }
+    .primary { background: var(--cp-accent); color: var(--cp-accent-fg); border-color: var(--cp-accent); }
     .primary:hover { background: var(--cp-accent-hover); }
-    .theme { font-size: 12px; padding: 8px 12px; }
-    .journey { margin-top: 24px; }
-    .journey ol { display: grid; grid-template-columns: repeat(4, 1fr); list-style: none; padding: 0; margin: 0; gap: 10px; }
-    .journey li { border-top: 3px solid var(--cp-border); padding-top: 8px; font-size: 13px; color: var(--cp-text-muted); }
-    .journey li.active, .journey li.done { border-color: var(--cp-accent); }
-    .journey li.active { color: var(--cp-accent); font-weight: 700; }
-    .progress-meta { display: flex; justify-content: space-between; gap: 12px; font-size: 12px; margin-top: 12px; color: var(--cp-text-muted); }
-    main { padding-top: 32px; }
-    .eyebrow { margin-bottom: 10px; color: var(--cp-accent); text-transform: uppercase; letter-spacing: .1em; font-size: 12px; font-weight: 700; }
-    .intro { color: var(--cp-text-muted); margin-top: 16px; max-width: 760px; }
-    .section { margin-top: 24px; }
-    .small { font-size: 14px; color: var(--cp-text-muted); }
-    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-    .card { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; padding: 20px; min-width: 0; }
-    .card p { margin-top: 8px; }
-    .callout { padding: 16px 20px; border: 1px solid var(--cp-border); border-left: 4px solid var(--cp-accent); border-radius: 10px; background: var(--cp-surface); font-size: 15px; }
-    .callout p { margin-top: 6px; }
-    .tint { background: var(--cp-accent-soft); }
-    .formula { font-size: 16px; font-weight: 650; color: var(--cp-accent); overflow-wrap: anywhere; }
-    .actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 16px; }
-    .steps { padding-left: 24px; margin: 12px 0 0; }
-    .steps li + li { margin-top: 12px; }
-    .choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-    .choice { display: flex; gap: 12px; align-items: flex-start; padding: 16px; border: 1px solid var(--cp-border-strong); border-radius: 10px; background: var(--cp-surface); cursor: pointer; }
-    .choice:has(input:checked) { border-color: var(--cp-accent); background: var(--cp-accent-soft); box-shadow: inset 0 0 0 1px var(--cp-accent); }
-    .choice:has(input:focus-visible) { outline: 3px solid var(--cp-accent); outline-offset: 3px; }
-    .choice input { width: 20px; height: 20px; flex-shrink: 0; margin: 3px 0 0; accent-color: var(--cp-accent); }
-    .choice input:focus-visible { outline: none; }
-    .choice strong { display: block; font-size: 16px; }
-    .choice span span { display: block; margin-top: 4px; font-size: 14px; color: var(--cp-text-muted); }
-    fieldset { padding: 0; margin: 0; border: 0; min-width: 0; }
-    legend { margin-bottom: 12px; font-weight: 650; }
-    .field-label { display: block; margin: 20px 0 8px; font-weight: 650; }
-    textarea { display: block; width: 100%; min-height: 140px; resize: vertical; padding: 16px; border: 1px solid var(--cp-border-strong); border-radius: 10px; background: var(--cp-surface); color: var(--cp-text); line-height: 1.6; }
-    .source-editor { min-height: 220px; }
-    .prompt-editor { min-height: 360px; font-size: 16px; }
-    .prompt-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 20px 0 10px; }
-    .example { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 15px; margin-top: 8px; }
-    .mini { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-    .mini span { background: var(--cp-accent-soft); color: var(--cp-accent); border-radius: 10px; padding: 4px 8px; font-size: 12px; }
-    details { margin-top: 16px; padding: 16px; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 10px; }
-    summary { cursor: pointer; font-size: 15px; font-weight: 650; }
-    .status { min-height: 22px; margin-top: 8px; font-size: 14px; color: var(--cp-text-muted); }
-    .error { color: var(--cp-danger); font-weight: 650; margin-top: 16px; }
-    .nav { display: flex; gap: 16px; justify-content: space-between; align-items: center; border-top: 1px solid var(--cp-border); margin-top: 28px; padding: 20px 0; position: sticky; bottom: 0; z-index: 2; background: var(--cp-bg); }
-    .nav-right { display: flex; align-items: center; gap: 16px; }
-    footer { padding-bottom: 24px; font-size: 12px; color: var(--cp-text-muted); }
-    footer p + p { margin-top: 4px; }
-    dialog { width: min(560px, calc(100% - 32px)); border: 1px solid var(--cp-border); border-radius: 16px; padding: 24px; background: var(--cp-surface); color: var(--cp-text); box-shadow: var(--cp-shadow); }
+    .theme { padding: 8px 12px; font-size: 13px; }
+    .subnav { position: sticky; top: 72px; z-index: 9; background: var(--cp-surface); border-bottom: 1px solid var(--cp-border); }
+    .subnav-inner { display: flex; align-items: center; gap: 8px; min-height: 58px; overflow-x: auto; }
+    .subnav a { flex-shrink: 0; padding: 7px 12px; border-radius: 999px; background: var(--cp-accent-soft); color: var(--cp-accent); font-size: 14px; font-weight: 700; text-decoration: none; }
+    .hero { padding: 80px 0 60px; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(300px,.8fr); gap: 52px; align-items: center; }
+    .eyebrow { display: inline-block; padding: 7px 11px; margin-bottom: 18px; border-radius: 999px; background: var(--cp-accent-soft); color: var(--cp-accent); border: 1px solid var(--cp-border); font-size: 12px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; }
+    .lead { margin-top: 24px; color: var(--cp-text-muted); font-size: 20px; max-width: 720px; }
+    .actions { margin-top: 24px; }
+    .pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .pill { padding: 8px 11px; border: 1px solid var(--cp-border); border-radius: 999px; background: var(--cp-surface); color: var(--cp-text-muted); font-size: 13px; }
+    .card { padding: 24px; border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-surface); min-width: 0; }
+    .hero-card { padding: 28px; border-radius: 24px; box-shadow: var(--cp-shadow); }
+    .hero-card h2 { font-size: 24px; letter-spacing: -.02em; }
+    .hero-card > p { margin-top: 8px; color: var(--cp-text-muted); }
+    .learn-list { display: grid; gap: 10px; padding: 0; margin: 20px 0 0; list-style: none; }
+    .learn-list li { display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid var(--cp-border); border-radius: 12px; }
+    .number { display: grid; place-items: center; width: 32px; height: 32px; flex-shrink: 0; border-radius: 10px; background: var(--cp-accent-soft); color: var(--cp-accent); font-weight: 800; }
+    .section { padding: 64px 0; }
+    .alt { background: var(--cp-bg-elevated); }
+    .section-head { max-width: 760px; margin-bottom: 28px; }
+    .section-head p:last-child { margin-top: 14px; color: var(--cp-text-muted); font-size: 17px; }
+    .formula-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 16px; }
+    .formula-card h3 { margin-top: 16px; }
+    .formula-card p { margin-top: 8px; color: var(--cp-text-muted); }
+    .formula-card .small { font-size: 14px; }
+    .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 28px; }
+    .compare .card { border-top: 4px solid var(--cp-border-strong); }
+    .compare .strong { border-top-color: var(--cp-accent); }
+    .prompt-example { margin: 14px 0 0; padding: 20px; border-radius: 12px; background: var(--cp-prompt-bg); color: var(--cp-prompt-text); white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; line-height: 1.65; }
+    .small { color: var(--cp-text-muted); font-size: 14px; }
+    .builder { padding: 26px; border: 1px solid var(--cp-border); border-radius: 24px; background: var(--cp-surface); box-shadow: var(--cp-shadow); }
+    .task-label { display: block; font-size: 18px; font-weight: 750; margin-bottom: 8px; }
+    select { width: 100%; min-height: 48px; padding: 10px 12px; background: var(--cp-surface-soft); color: var(--cp-text); border: 1px solid var(--cp-border-strong); border-radius: 10px; }
+    .task-help { margin-top: 8px; }
+    .canvas-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 28px; margin-top: 28px; align-items: start; }
+    .field + .field { margin-top: 20px; }
+    .field label { display: block; font-weight: 750; margin-bottom: 4px; }
+    .field p { margin-bottom: 8px; }
+    textarea { display: block; width: 100%; min-height: 108px; padding: 14px; border: 1px solid var(--cp-border-strong); border-radius: 10px; background: var(--cp-surface-soft); color: var(--cp-text); font-size: 16px; line-height: 1.6; resize: vertical; }
+    #source, #expectations { min-height: 172px; }
+    .output { position: sticky; top: 154px; min-width: 0; }
+    .prompt-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+    .prompt-top label { font-size: 18px; font-weight: 750; }
+    .prompt-editor { min-height: 560px; background: var(--cp-prompt-bg); color: var(--cp-prompt-text); border-color: var(--cp-border-strong); }
+    .status { min-height: 24px; margin-top: 8px; color: var(--cp-text-muted); font-size: 14px; }
+    .notice { margin-top: 20px; padding: 14px 16px; background: var(--cp-accent-soft); border-radius: 10px; font-size: 14px; }
+    .sync-note { padding: 14px; border: 1px solid var(--cp-border); border-radius: 10px; margin-top: 12px; }
+    .sync-note .actions { margin-top: 12px; }
+    .patterns { display: grid; gap: 16px; }
+    .pattern { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; overflow: hidden; }
+    .pattern summary { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 14px; padding: 20px 22px; cursor: pointer; list-style: none; }
+    .pattern summary::-webkit-details-marker { display: none; }
+    .pattern .number { background: var(--cp-secondary-soft); color: var(--cp-secondary); width: 42px; height: 42px; }
+    .pattern strong { display: block; font-size: 18px; }
+    .pattern-body { padding: 0 22px 24px; }
+    .final { padding: 40px 0 64px; }
+    .final-card { padding: clamp(28px,5vw,56px); border-radius: 24px; background: linear-gradient(135deg,var(--cp-prompt-bg),var(--cp-accent-hover)); color: var(--cp-prompt-text); text-align: center; }
+    .final-card h2 { font-size: clamp(2rem,4vw,3.3rem); }
+    .final-card p { margin-top: 16px; }
+    html[data-theme="dark"] .final-card { background: linear-gradient(135deg,var(--cp-prompt-bg),var(--cp-accent-soft)); }
+    .formula-line { font-size: 20px; font-weight: 800; }
+    footer { padding: 0 0 36px; color: var(--cp-text-muted); font-size: 13px; }
+    .footer-inner { border-top: 1px solid var(--cp-border); padding-top: 24px; display: flex; justify-content: space-between; gap: 24px; }
+    dialog { width: min(560px,calc(100% - 32px)); padding: 24px; border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-surface); color: var(--cp-text); box-shadow: var(--cp-shadow); }
+    dialog h2 { font-size: 24px; }
+    dialog p, dialog textarea { margin-top: 16px; }
     dialog::backdrop { background: var(--cp-overlay); }
-    dialog p { margin-top: 12px; }
-    .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
-    html[data-theme="dark"] .small, html[data-theme="dark"] .intro, html[data-theme="dark"] .choice span span,
-    html[data-theme="dark"] footer,
-    html[data-theme="dark"] .status, html[data-theme="dark"] .progress-meta, html[data-theme="dark"] .brand-sub { color: var(--cp-text-soft); }
-    @media (max-width: 760px) {
-      .shell { padding: 0 20px; }
-      .grid, .choices { grid-template-columns: 1fr; }
-      .nav-hint { display: none; }
-      main { padding-top: 24px; }
-    }
-    @media (max-width: 420px) {
-      .shell { padding: 0 16px; }
-      .brand { font-size: 14px; gap: 8px; }
-      .journey ol { gap: 6px; }
-      .journey li { font-size: 12px; }
-      .card { padding: 16px; }
-      .prompt-top { align-items: flex-start; flex-direction: column; }
-      .nav .btn { padding: 10px 12px; }
-    }
+    @media(max-width:950px) { .hero-grid { grid-template-columns: 1fr; gap: 28px; } .formula-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } .canvas-grid { grid-template-columns: 1fr; } .output { position: static; } .prompt-editor { min-height: 440px; } }
+    @media(max-width:680px) { .container { width: calc(100% - 24px); } .header-inner { gap: 8px; } .header-actions > a { display: none; } .brand { font-size: 14px; gap: 8px; } .hero { padding: 48px 0; } .hero h1 { font-size: 2.8rem; } .lead { font-size: 18px; } .section { padding: 48px 0; } .formula-grid, .compare { grid-template-columns: 1fr; } .builder { padding: 18px; } .hero-card { padding: 22px; } .prompt-top { flex-wrap: wrap; } .footer-inner { flex-direction: column; } .pattern summary { padding: 16px; gap: 10px; } .pattern strong { font-size: 16px; } .formula-line { font-size: 17px; } }
+    @media(prefers-reduced-motion:reduce) { html { scroll-behavior: auto; } }
   </style>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to workshop</a>
-  <div class="shell">
-    <header class="topbar">
-      <div class="brand"><span class="mark" aria-hidden="true">✦</span><div>Make Your Prompt Work<div class="brand-sub">HR AI in Practice</div></div></div>
-      <button class="btn theme" id="theme" type="button" aria-label="Switch color theme">Dark theme</button>
-    </header>
-    <nav class="journey" aria-label="Prompt builder steps"><ol id="journey"></ol><div class="progress-meta"><span id="step-label">Your HR prompt canvas</span><span id="step-count">Ready when you are</span></div></nav>
-    <main id="main" tabindex="-1"></main>
-    <p class="error" id="error" role="alert" hidden></p>
-    <div class="nav"><button class="btn" id="back" type="button">← Back</button><div class="nav-right"><span class="small nav-hint" id="nav-hint"></span><button class="btn primary" id="next" type="button">Let's get started →</button></div></div>
-    <footer><p>Private by design. No sign-in, tracking, or saved responses. Refresh clears your work; copy anything you want to keep.</p><p>This page guides you. It does not send information to Copilot. Use fictional or approved details only.</p></footer>
-  </div>
-  <noscript><p class="shell">Enable JavaScript to use the guided builder. The framework is Context, Goal, Source, Expectations. Work in your organization's approved Copilot and review every output.</p></noscript>
-  <div id="status" class="sr" role="status" aria-live="polite"></div>
+  <a class="skip" href="#main">Skip to main content</a>
+  <header class="site-header"><div class="container header-inner">
+    <a class="brand" href="#home"><span class="mark" aria-hidden="true">✦</span><span>Prompting Essentials<small>For HR · AI in Practice</small></span></a>
+    <div class="header-actions"><a class="btn" href="#builder">Build a prompt</a><button class="btn theme" id="theme" type="button" aria-label="Switch color theme">Dark theme</button></div>
+  </div></header>
+  <nav class="subnav" aria-label="Page sections"><div class="container subnav-inner"><a href="#formula">Prompt Formula</a><a href="#builder">Prompt Builder</a><a href="#patterns">HR Prompt Patterns</a></div></nav>
+  <main id="main">
+    <section class="hero" id="home"><div class="container hero-grid">
+      <div><p class="eyebrow">Microsoft 365 Copilot · HR edition</p><h1>Better prompts.<br><span>Better HR work.</span></h1>
+      <p class="lead">Prepare for a meeting. Draft a manager update. Turn a good idea into a useful first draft. Give Copilot a clearer starting point with four simple ingredients.</p>
+      <div class="actions"><a class="btn primary" href="#builder">Build your prompt →</a><a class="btn" href="#formula">Explore the formula</a></div>
+      <div class="pills"><span class="pill">Made for everyday HR work</span><span class="pill">Ready-to-edit examples</span><span class="pill">Use alongside Copilot</span></div></div>
+      <aside class="card hero-card"><h2>A little structure. A lot less starting over.</h2><p>No perfect wording required. Start with an example and make it yours.</p><ol class="learn-list"><li><span class="number">1</span><span>Choose an HR task that feels familiar.</span></li><li><span class="number">2</span><span>Add the details that matter to you.</span></li><li><span class="number">3</span><span>Copy your prompt into Copilot.</span></li></ol><div class="actions"><a href="https://m365.cloud.microsoft/chat" target="_blank" rel="noopener noreferrer">Open Microsoft 365 Copilot ↗</a></div></aside>
+    </div></section>
+    <section class="section" id="formula"><div class="container">
+      <div class="section-head"><p class="eyebrow">The prompt formula</p><h2>Great prompts have four ingredients</h2><p>Tell Copilot who the work is for, what you want to accomplish, which information to use, and what a helpful answer looks like.</p></div>
+      <div class="formula-grid">
+        <article class="card formula-card"><span class="number">C</span><h3>Context</h3><p>What's the situation?</p><p class="small">Your role, the audience, and why this work matters.</p></article>
+        <article class="card formula-card"><span class="number">G</span><h3>Goal</h3><p>What do you want to get done?</p><p class="small">An invitation, a briefing, a summary, or a practical plan.</p></article>
+        <article class="card formula-card"><span class="number">S</span><h3>Source</h3><p>What should Copilot work from?</p><p class="small">The brief, notes, or approved material you actually provide.</p></article>
+        <article class="card formula-card"><span class="number">E</span><h3>Expectations</h3><p>What does good look like?</p><p class="small">The format, tone, length, and how to handle missing facts.</p></article>
+      </div>
+      <div class="compare"><article class="card"><h3>A starting point</h3><pre class="prompt-example">Write an email about manager training.</pre><p class="small" style="margin-top:12px">A topic is a start. A little more detail helps Copilot do something useful with it.</p></article>
+      <article class="card strong"><h3>A clearer ask</h3><pre class="prompt-example">I'm an HR partner writing to people managers.
+
+Draft an invitation to our coaching workshop.
+
+Use the program brief below for the session details.
+
+Keep it approachable and under 175 words, with a subject line and a clear next action. Use placeholders for any missing dates or links.</pre><p class="small" style="margin-top:12px">Same task. Clear audience, outcome, source, and format.</p></article></div>
+    </div></section>
+    <section class="section alt" id="builder"><div class="container">
+      <div class="section-head"><p class="eyebrow">Make it yours</p><h2>Build a prompt for your HR work</h2><p>Pick a starting point, change the details, and copy it into Copilot. Everything is here on one canvas—no steps to complete.</p></div>
+      <div class="builder">
+        <label class="task-label" for="task">What would you like a hand with?</label><select id="task" aria-describedby="task-help"></select><p class="small task-help" id="task-help"></p>
+        <div class="canvas-grid"><div id="fields"></div><div class="output">
+          <div class="prompt-top"><label for="prompt">Your prompt, ready to make yours</label><button class="btn primary" id="copy" type="button">Copy prompt</button></div>
+          <textarea class="prompt-editor" id="prompt" spellcheck="true" aria-describedby="copy-status"></textarea>
+          <p class="status" id="copy-status" role="status" aria-live="polite">Edit here or change the ingredients. Copy whenever you're ready.</p>
+          <div class="sync-note" id="sync-note" hidden><p class="small">You've edited the prompt directly. Your ingredient changes are kept separately so nothing gets overwritten.</p><div class="actions"><button class="btn" id="update-prompt" type="button">Update prompt from ingredients</button></div></div>
+          <div class="actions"><a class="btn" href="https://m365.cloud.microsoft/chat" target="_blank" rel="noopener noreferrer">Open Copilot ↗</a><button class="btn" id="clear" type="button">Start fresh</button></div>
+          <p class="small" style="margin-top:16px">Keep this page beside Copilot. Paste your prompt there, then come back here whenever you want to change it.</p>
+        </div></div>
+        <p class="notice">The examples use fictional details. For your own work, use approved, non-sensitive material. Attach any real files inside Copilot; naming one here doesn't give Copilot access to it.</p>
+      </div>
+    </div></section>
+    <section class="section" id="patterns"><div class="container">
+      <div class="section-head"><p class="eyebrow">A few good starting points</p><h2>Everyday HR work. Reusable prompts.</h2><p>Find something familiar, open the example, and bring it into your canvas. Each pattern includes a fictional brief so you can try it straight away.</p></div>
+      <div class="patterns" id="pattern-list"></div>
+    </div></section>
+    <section class="final"><div class="container"><div class="final-card"><h2>You don't need a perfect prompt.<br>Just a clearer starting point.</h2><p>A little context. A clear goal. The right source. A few expectations.</p><p class="formula-line">Context → Goal → Source → Expectations</p><div class="actions" style="justify-content:center"><a class="btn" href="#builder">Make your next prompt →</a></div></div></div></section>
+  </main>
+  <footer><div class="container footer-inner"><span>Prompting Essentials for HR<br>Private by design. No sign-in, tracking, or saved responses.</span><span>Your drafts stay in this tab. Refresh clears them.<br>Copy anything you'd like to keep.</span></div></footer>
+  <noscript><p class="container">Enable JavaScript to use the prompt canvas. The framework is Context, Goal, Source, Expectations.</p></noscript>
   <dialog id="manual-copy" aria-labelledby="manual-title"><h2 id="manual-title">Copy manually</h2><p>Clipboard access is unavailable. Select this text and use Ctrl+C, Command+C, or your device's Copy command.</p><textarea id="manual-text" readonly aria-label="Text to copy"></textarea><div class="actions"><button class="btn primary" id="manual-close" type="button">Done</button></div></dialog>
   <dialog id="replace" aria-labelledby="replace-title"><h2 id="replace-title">Keep your edits or rebuild?</h2><p>Your four prompt fields changed after you edited the final prompt. Keep your edited prompt, or replace it with a new version from those fields.</p><div class="actions"><button class="btn" id="keep" type="button">Keep my edited prompt</button><button class="btn primary" id="rebuild" type="button">Replace from my fields</button></div></dialog>
-  <dialog id="restart" aria-labelledby="restart-title"><h2 id="restart-title">Start a fresh activity?</h2><p>This clears all prompt drafts and edits in this tab. Copy your prompt first if you want to keep it.</p><div class="actions"><button class="btn" id="restart-cancel" type="button">Keep my work</button><button class="btn primary" id="restart-confirm" type="button">Start fresh</button></div></dialog>
+  <dialog id="restart" aria-labelledby="restart-title"><h2 id="restart-title">Start a fresh canvas?</h2><p>This clears the drafts for every task in this tab. Copy any prompts you'd like to keep first.</p><div class="actions"><button class="btn" id="restart-cancel" type="button">Keep my work</button><button class="btn primary" id="restart-confirm" type="button">Start fresh</button></div></dialog>
   <script>
     "use strict";
     const tasks = [
@@ -226,20 +287,15 @@
     ];
     const fields = ["context", "goal", "source", "expectations"];
     const labels = { context: "Context", goal: "Goal", source: "Source", expectations: "Expectations" };
-    const groups = ["Start", "Choose", "Build", "Copy"];
-    const stages = [0, 0, 1, 2, 2, 2, 2, 3];
-    const screenLabels = ["Welcome", "The four-part framework", "Choose your HR task", "Context", "Goal", "Source", "Expectations", "Your prompt canvas"];
-    const nextLabels = ["Let's get started →", "Choose my HR task →", "Shape my prompt →", "Next: Goal →", "Next: Source →", "Next: Expectations →", "Open my prompt canvas →", "Choose another task →"];
-    const guides = {
-      context: { title: "Who is this work for?", intro: "Give Copilot the situation and audience. This is the task's context, not your whole professional profile.", label: "My context", tip: "Situation + audience", example: "I am an HR partner helping people managers understand a new learning session.", help: "Include your role, what is happening, and who will use the result." },
-      goal: { title: "What do you want to accomplish?", intro: "Name the action and the outcome. A topic tells Copilot what to talk about; a goal tells it what to do.", label: "My goal", tip: "Action + useful outcome", example: "Draft an invitation that explains why the session matters and makes the next action clear.", help: "Start with a verb: draft, summarize, prepare, compare, organize, or challenge." },
-      source: { title: "What should Copilot work from?", intro: "Give it the material, not just the name of a document. The practice brief below will travel with your prompt.", label: "My source material", tip: "Ground the work in supplied information", example: "Use only the fictional brief below. If a date or link is missing, leave a placeholder.", help: "Keep or edit the fictional brief. For your own task, paste approved non-sensitive facts, or explicitly say no source is available and ask for an outline with placeholders." },
-      expectations: { title: "What does a useful result look like?", intro: "Set the format, tone, length, and quality bar. Include how Copilot should handle missing facts here; there is no separate fifth prompt element.", label: "My expectations", tip: "Format + tone + quality", example: "Write an approachable email under 175 words with a subject line. Use placeholders for missing facts and list what needs confirmation.", help: "Be specific about the output you can use. Ask it not to invent policy or unsupported facts." }
+    const help = {
+      context: "Who is this for, and what's happening?",
+      goal: "What would you like Copilot to help you get done?",
+      source: "Keep the practice brief or add approved facts to work from.",
+      expectations: "Choose the format, tone, length, and anything not to assume."
     };
     const $ = id => document.getElementById(id);
     const esc = value => String(value).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
-    let state = { step: 0, task: "manager", drafts: {} };
-    let pendingStep = null;
+    let state = { task: "manager", drafts: {} };
     function draft() {
       if (!state.drafts[state.task]) {
         const task = tasks.find(item => item.id === state.task);
@@ -248,86 +304,37 @@
       return state.drafts[state.task];
     }
     const signature = () => JSON.stringify(fields.map(key => draft()[key].trim()));
-    function makePrompt() {
+    function makePrompt(values = draft()) {
+      const source = values.source.trim();
+      const sourceText = source
+        ? `Use only the material or source instructions below. If a file is referenced, use it only once it has been supplied in this conversation.\n\n${source}`
+        : "No source material supplied yet. Ask me for the information you need, or use clearly marked placeholders. Do not invent company-specific facts.";
+      return `CONTEXT\n${values.context.trim() || "[Add the situation and audience]"}\n\nGOAL\n${values.goal.trim() || "[Add the outcome you want]"}\n\nSOURCE\n${sourceText}\n\nEXPECTATIONS\n${values.expectations.trim() || "[Add the format, tone, length, and quality you need]"}`;
+    }
+    function syncNote() {
+      $("sync-note").hidden = !draft().edited || draft().signature === signature();
+    }
+    function render() {
       const d = draft();
-      return `CONTEXT\n${d.context.trim()}\n\nGOAL\n${d.goal.trim()}\n\nSOURCE\nUse only the material or source instructions supplied below. Do not assume access to any file that has not been provided in this conversation.\n\n${d.source.trim()}\n\nEXPECTATIONS\n${d.expectations.trim()}`;
+      if (!d.signature) {
+        d.prompt = makePrompt();
+        d.signature = signature();
+      }
+      $("task").value = state.task;
+      $("task-help").textContent = tasks.find(task => task.id === state.task).use;
+      $("fields").innerHTML = fields.map(key => `<div class="field"><label for="${key}">${labels[key]}</label><p class="small" id="${key}-help">${help[key]}</p><textarea id="${key}" aria-describedby="${key}-help" spellcheck="true">${esc(d[key])}</textarea></div>`).join("");
+      $("prompt").value = d.prompt;
+      $("copy-status").textContent = "Edit here or change the ingredients. Copy whenever you're ready.";
+      syncNote();
     }
-    function heading(title, intro) {
-      return `<div class="eyebrow">${esc(screenLabels[state.step])}</div><h1 id="screen-title" tabindex="-1">${title}</h1><p class="intro">${intro}</p>`;
-    }
-    function fieldScreen(key) {
-      const guide = guides[key];
-      return heading(guide.title, guide.intro) + `<div class="callout section"><strong>${guide.tip}</strong><p>${guide.example}</p></div>
-        <label class="field-label" for="${key}">${guide.label}</label><p class="small" id="field-help">${guide.help}</p>
-        <textarea class="section ${key === "source" ? "source-editor" : ""}" id="${key}" aria-describedby="field-help" spellcheck="true">${esc(draft()[key])}</textarea>
-        <p class="small section">Your task: ${esc(tasks.find(task => task.id === state.task).title)}. Your edits stay with this task while this tab is open.</p>`;
-    }
-    function render(focus = true) {
+    function rebuild() {
       const d = draft();
-      const s = state.step;
-      $("error").hidden = true;
-      $("error").textContent = "";
-      $("journey").innerHTML = groups.map((group, i) => `<li class="${i === stages[s] ? "active" : i < stages[s] ? "done" : ""}" ${i === stages[s] ? 'aria-current="step"' : ""}>${i + 1}. ${group}</li>`).join("");
-      $("step-label").textContent = screenLabels[s];
-      $("step-count").textContent = `Step ${s + 1} of ${screenLabels.length}`;
-      $("back").hidden = s === 0;
-      $("next").textContent = nextLabels[s];
-      $("nav-hint").textContent = s < 7 ? "Build at your own pace" : "Edit, copy, and keep working";
-      let html = "";
-      if (s === 0) {
-        html = heading("Make your prompt work.", "A clear ask. A useful draft. A better next version. Build an HR prompt using the same four parts from your workshop deck.") +
-          `<p class="formula section">Context → Goal → Source → Expectations</p>
-          <div class="grid section"><div class="card"><h2>Set up side by side</h2><ol class="steps"><li>Keep this guide in one window.</li><li>Open your organization's approved Copilot in another.</li><li>Follow a step here, then try the prompt there.</li></ol><div class="actions"><a class="btn" href="https://m365.cloud.microsoft/chat" target="_blank" rel="noopener noreferrer">Open Microsoft 365 Copilot ↗</a></div><p class="small">On Windows, use Win+Left / Win+Right to snap the windows. Opening Copilot does not transfer your prompt.</p></div>
-          <div class="card"><h2>Your prompt canvas</h2><p>Choose an HR task and adapt its Context, Goal, Source, and Expectations.</p><p>Edit the assembled prompt and copy it into Copilot. Come back here to change the wording or work on another task.</p><p class="small">Every practice task includes fictional source material.</p></div></div>
-          <div class="callout tint section"><strong>Practice safely, then review.</strong><p>Use the fictional examples or approved non-sensitive details. Do not paste employee records, candidate materials, compensation, or employee-relations cases. You decide what is ready to use; a polished draft is not proof.</p></div>`;
-      } else if (s === 1) {
-        html = heading("Four parts. One clear ask.", "The goal is not a longer prompt. It is work that fits your audience, uses the right information, and is easier to review.") +
-          `<div class="grid section">${fields.map(key => `<article class="card"><div class="eyebrow">${labels[key]}</div><h2>${guides[key].tip}</h2><p class="small">${guides[key].example}</p></article>`).join("")}</div>
-          <details><summary>See the difference: broad ask → useful ask</summary><p class="example"><strong>Broad:</strong> Write an email about manager training.</p><p class="example"><strong>Context:</strong> I am an HR partner writing to people managers.<br><strong>Goal:</strong> Invite them to a coaching workshop and make the next action clear.<br><strong>Source:</strong> Use the supplied program brief; do not assume access to other files.<br><strong>Expectations:</strong> An approachable email under 175 words, with a subject line and placeholders for missing facts.</p></details>
-          <div class="callout section"><strong>Personalization + prompting</strong><p>Make Copilot Yours describes how you like to work. This framework describes what you need <em>for this task</em>. Use them together.</p></div>`;
-      } else if (s === 2) {
-        html = heading("Choose one useful HR task.", "Pick a starting point you can use immediately. You will edit its four parts next; you do not need to write a prompt from scratch.") +
-          `<fieldset class="section"><legend>What would you like to work on?</legend><div class="choices">${tasks.map(task => `<label class="choice"><input type="radio" name="task" value="${task.id}" ${state.task === task.id ? "checked" : ""}><span><strong>${task.title}</strong><span>${task.use}</span></span></label>`).join("")}</div></fieldset>`;
-      } else if (s >= 3 && s <= 6) {
-        html = fieldScreen(fields[s - 3]);
-        if (s === 5) html += `<details><summary>Using a real file instead of this practice brief?</summary><p class="small">Attach or reference the actual approved file inside Copilot using the tools your organization permits. Naming a file on this page does not give Copilot access to it. Keep sensitive information out of this exercise.</p></details>`;
-      } else if (s === 7) {
-        html = heading("Your prompt canvas.", "Alter the wording here and copy it into Copilot. Keep this canvas open beside Copilot so you can return, edit, and copy again.") +
-          `<div class="prompt-top"><label for="prompt"><strong>Your editable prompt</strong></label><button class="btn primary" type="button" data-copy="prompt">Copy prompt</button></div>
-          <textarea class="prompt-editor" id="prompt" spellcheck="true">${esc(d.prompt)}</textarea><p class="status" id="copy-status" role="status" aria-live="polite">Copies the current text exactly as you have edited it.</p>
-          <div class="actions"><button class="btn" type="button" data-edit-fields>Edit my four parts</button><a class="btn" href="https://m365.cloud.microsoft/chat" target="_blank" rel="noopener noreferrer">Open Microsoft 365 Copilot ↗</a><button class="btn" type="button" data-restart>Clear and start fresh</button></div>
-          <p class="small section">Paste into Copilot and send. If you reference a real file, supply or attach it there using approved tools. This page does not send your prompt or source material automatically.</p>`;
-      }
-      $("main").innerHTML = html;
-      if (focus) { $("screen-title").focus({ preventScroll: true }); window.scrollTo(0, 0); }
-    }
-    function validate() {
-      if (state.step === 7) return true;
-      const required = state.step >= 6 ? fields : state.step >= 3 && state.step <= 5 ? [fields[state.step - 3]] : [];
-      const missing = required.filter(key => !draft()[key].trim());
-      if (missing.length) {
-        $("error").textContent = `Add ${missing.map(key => labels[key]).join(", ")} before continuing. For Source, you can say no source is available and ask for placeholders.`;
-        $("error").hidden = false;
-        const input = $(missing[0]);
-        if (input) { input.setAttribute("aria-invalid", "true"); input.focus(); }
-        else { state.step = 3 + fields.indexOf(missing[0]); render(); $("error").textContent = `Add your ${labels[missing[0]]} before continuing.`; $("error").hidden = false; $(missing[0]).focus(); }
-        return false;
-      }
-      return true;
-    }
-    function go(step) {
-      if (step === 7) {
-        const d = draft();
-        const sig = signature();
-        if (d.signature !== sig && d.edited) {
-          pendingStep = step;
-          $("replace").showModal();
-          return;
-        }
-        if (!d.signature || d.signature !== sig) { d.prompt = makePrompt(); d.signature = sig; d.edited = false; }
-      }
-      state.step = step;
-      render();
+      d.prompt = makePrompt();
+      d.signature = signature();
+      d.edited = false;
+      $("prompt").value = d.prompt;
+      syncNote();
+      $("copy-status").textContent = "Your prompt is updated from the four ingredients.";
     }
     async function copy(text, button) {
       const status = $("copy-status");
@@ -339,7 +346,6 @@
       try {
         await navigator.clipboard.writeText(text);
         if (status) status.textContent = "Copied. Paste into Copilot or your own notes.";
-        $("status").textContent = "Copied to clipboard.";
       } catch {
         if (status) status.textContent = "Automatic copying is unavailable. Use the manual-copy window.";
         $("manual-text").value = text;
@@ -348,52 +354,47 @@
         $("manual-text").select();
       } finally { button.disabled = false; }
     }
-    $("main").addEventListener("input", event => {
-      const input = event.target;
-      if (fields.includes(input.id)) {
-        draft()[input.id] = input.value; input.removeAttribute("aria-invalid");
-      }
-      if (input.id === "prompt") {
-        draft().prompt = input.value; draft().edited = true; input.removeAttribute("aria-invalid");
-      }
+    $("task").innerHTML = tasks.map(task => `<option value="${task.id}">${task.title}</option>`).join("");
+    $("task").addEventListener("change", event => { state.task = event.target.value; render(); });
+    $("fields").addEventListener("input", event => {
+      if (!fields.includes(event.target.id)) return;
+      draft()[event.target.id] = event.target.value;
+      if (!draft().edited) rebuild();
+      else syncNote();
     });
-    $("main").addEventListener("change", event => {
-      const input = event.target;
-      if (input.name === "task") { state.task = input.value; draft(); }
+    $("prompt").addEventListener("input", event => {
+      draft().prompt = event.target.value;
+      draft().edited = true;
+      syncNote();
+      $("copy-status").textContent = "Your wording is kept exactly as you edit it.";
     });
-    $("main").addEventListener("click", event => {
-      const button = event.target.closest("button");
+    $("copy").addEventListener("click", () => void copy(draft().prompt, $("copy")));
+    $("update-prompt").addEventListener("click", () => $("replace").showModal());
+    $("clear").addEventListener("click", () => $("restart").showModal());
+    $("pattern-list").innerHTML = tasks.filter(task => task.id !== "custom").map((task, index) => `<details class="pattern"><summary><span class="number">${index + 1}</span><span><strong>${task.title}</strong><span class="small">${task.use}</span></span><span aria-hidden="true">⌄</span></summary><div class="pattern-body"><pre class="prompt-example" id="pattern-${task.id}"></pre><div class="actions"><button class="btn primary" type="button" data-load="${task.id}">Make this prompt mine →</button></div></div></details>`).join("");
+    tasks.filter(task => task.id !== "custom").forEach(task => { $(`pattern-${task.id}`).textContent = makePrompt(task); });
+    $("pattern-list").addEventListener("click", event => {
+      const button = event.target.closest("button[data-load]");
       if (!button) return;
-      if (button.dataset.copy) {
-        void copy(draft().prompt, button);
-      }
-      if (button.hasAttribute("data-edit-fields")) go(3);
-      if (button.hasAttribute("data-restart")) $("restart").showModal();
+      state.task = button.dataset.load;
+      render();
+      $("builder").scrollIntoView();
+      $("task").focus({ preventScroll: true });
     });
-    $("next").addEventListener("click", () => { if (validate()) go(state.step === 7 ? 2 : state.step + 1); });
-    $("back").addEventListener("click", () => go(Math.max(0, state.step - 1)));
     $("manual-close").addEventListener("click", () => $("manual-copy").close());
     $("keep").addEventListener("click", () => {
-      draft().signature = signature();
-      const target = pendingStep;
-      pendingStep = null;
       $("replace").close();
-      if (target !== null) { state.step = target; render(); }
     });
     $("rebuild").addEventListener("click", () => {
-      draft().prompt = makePrompt(); draft().signature = signature(); draft().edited = false;
-      const target = pendingStep;
-      pendingStep = null;
+      rebuild();
       $("replace").close();
-      if (target !== null) { state.step = target; render(); }
     });
-    $("replace").addEventListener("cancel", () => { pendingStep = null; });
     $("restart-cancel").addEventListener("click", () => $("restart").close());
-    $("restart-confirm").addEventListener("click", () => { $("restart").close(); state = { step: 0, task: "manager", drafts: {} }; render(); });
+    $("restart-confirm").addEventListener("click", () => { $("restart").close(); state = { task: "manager", drafts: {} }; render(); $("task").focus(); });
     function themeLabel() { $("theme").textContent = document.documentElement.dataset.theme === "dark" ? "Light theme" : "Dark theme"; }
     $("theme").addEventListener("click", () => { document.documentElement.dataset.theme = document.documentElement.dataset.theme === "dark" ? "light" : "dark"; themeLabel(); });
     themeLabel();
-    render(false);
+    render();
   </script>
 </body>
 </html>
