@@ -87,13 +87,15 @@
     .container { width: min(calc(100% - 80px),1040px); margin-inline: auto; }
     .skip { position: absolute; top: -100px; left: 16px; padding: 12px; background: var(--cp-surface); z-index: 20; }
     .skip:focus { top: 8px; }
-    header { border-bottom: 1px solid var(--cp-border); }
-    .header-inner { min-height: 80px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
+    header { background: var(--cp-bg); }
+    .header-inner { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
     .brand { display: flex; align-items: center; gap: 12px; font-size: 16px; font-weight: 650; line-height: 1.15; text-decoration: none; color: var(--cp-text); }
     .brand small { display: block; margin-top: 4px; color: var(--cp-text-muted); font-size: 12px; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; }
     .mark { display: grid; place-items: center; flex-shrink: 0; width: 40px; height: 40px; border-radius: 10px; background: var(--cp-accent); color: var(--cp-accent-fg); font-size: 25px; }
-    .family { display: flex; flex-wrap: wrap; gap: 8px 20px; padding-block: 12px 16px; font-size: 14px; }
-    .family a[aria-current] { color: var(--cp-accent); font-weight: 650; }
+    .family-nav { border-block: 1px solid var(--cp-border); background: var(--cp-surface); }
+    .family-inner { display: flex; min-height: 58px; align-items: center; gap: 8px; overflow-x: auto; padding-block: 4px; }
+    .family-inner a { display: inline-flex; align-items: center; min-height: 44px; flex-shrink: 0; padding: 7px 12px; border-radius: 10px; background: var(--cp-accent-soft); color: var(--cp-accent); font-size: 14px; font-weight: 650; text-decoration: none; overflow-wrap: normal; }
+    .family-inner a[aria-current="page"] { background: var(--cp-accent); color: var(--cp-accent-fg); }
     .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 11px 20px; border: 1px solid var(--cp-border-strong); border-radius: 10px; background: var(--cp-surface); color: var(--cp-text); font-size: 15px; font-weight: 650; text-decoration: none; }
     .btn:hover { border-color: var(--cp-accent); }
     .primary { background: var(--cp-accent); border-color: var(--cp-accent); color: var(--cp-accent-fg); }
@@ -151,7 +153,7 @@
     html[data-theme="dark"] .brand small, html[data-theme="dark"] .section-head > p:last-child,
     html[data-theme="dark"] footer { color: var(--cp-text-soft); }
     @media(max-width:900px) { .hero-grid, .canvas { grid-template-columns: 1fr; } .tests { grid-template-columns: 1fr; } #build-description { min-height: 460px; } }
-    @media(max-width:640px) { .container { width: calc(100% - 32px); } .hero, .section { padding-block: 32px; } .brand { font-size: 14px; gap: 8px; } .brand small { font-size: 10px; } .header-inner { gap: 8px; } .card { padding: 20px; } summary { padding: 18px; } .details-body { padding: 0 18px 20px; } .lead { font-size: 18px; } .family { gap: 10px 16px; } }
+    @media(max-width:640px) { .container { width: calc(100% - 32px); } .hero, .section { padding-block: 32px; } .brand { font-size: 14px; gap: 8px; } .brand small { font-size: 10px; } .header-inner { gap: 8px; } .card { padding: 20px; } summary { padding: 18px; } .details-body { padding: 0 18px 20px; } .lead { font-size: 18px; } }
     @media(prefers-reduced-motion:reduce) { html { scroll-behavior: auto; } }
     @media print { .theme, .actions, button, dialog { display: none; } .hero-grid, .canvas, .tests { display: block; } .card { break-inside: avoid; } }
   </style>
@@ -163,13 +165,13 @@
       <a class="brand" href="https://mramirez13.github.io/make-copilot-yours/index.html"><span class="mark" aria-hidden="true">✦</span><span>Make Copilot Yours<small>AI in Practice · Guidelines Guide</small></span></a>
       <button class="btn theme" id="theme" type="button" aria-label="Switch color theme">Dark theme</button>
     </div>
-    <nav class="family" aria-label="Workshop family">
-      <a href="https://mramirez13.github.io/make-copilot-yours/index.html">Make Copilot Yours</a>
+  </div></header>
+    <nav class="family-nav" aria-label="Workshop microsites"><div class="container family-inner">
+      <a href="https://mramirez13.github.io/make-copilot-yours/">Make Copilot Yours</a>
       <a href="https://mramirez13.github.io/make-copilot-yours/coseb-prompt-builder.html">Build Your Prompt</a>
       <a href="https://mramirez13.github.io/make-copilot-yours/delegate-the-work.html">Delegate the Work</a>
       <a href="https://mramirez13.github.io/make-copilot-yours/build-your-guidelines-guide.html" aria-current="page">Build Your Guidelines Guide</a>
-    </nav>
-  </div></header>
+    </div></nav>
   <main id="main">
     <section class="hero"><div class="container">
       <div class="hero-grid">
@@ -256,12 +258,6 @@
   </main>
   <footer><div class="container footer-inner">
     <p><strong>Make Copilot Yours · Build Your Guidelines Guide</strong></p>
-    <nav class="family" aria-label="Workshop family footer">
-      <a href="https://mramirez13.github.io/make-copilot-yours/index.html">Make Copilot Yours</a>
-      <a href="https://mramirez13.github.io/make-copilot-yours/coseb-prompt-builder.html">Build Your Prompt</a>
-      <a href="https://mramirez13.github.io/make-copilot-yours/delegate-the-work.html">Delegate the Work</a>
-      <a href="https://mramirez13.github.io/make-copilot-yours/build-your-guidelines-guide.html" aria-current="page">Build Your Guidelines Guide</a>
-    </nav>
     <p>Microsoft guidance: <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/agent-builder-build-agents" target="_blank" rel="noopener noreferrer">Build agents in Agent Builder</a> · <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/agent-builder-add-knowledge" target="_blank" rel="noopener noreferrer">Add knowledge sources</a> · <a href="https://support.microsoft.com/en-gb/microsoft-365-copilot/build-your-own-agent-with-microsoft-365-copilot" target="_blank" rel="noopener noreferrer">Create your agent</a></p>
     <p>UI guidance checked November 8, 2026. Labels and availability may vary by rollout, language, license, and administrator settings. No tracking, network requests, or saved inputs on this page. Refreshing clears your edits. Opening a link takes you to that site.</p>
   </div></footer>
