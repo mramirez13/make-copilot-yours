@@ -10,7 +10,9 @@ Open `index.html` in a browser.
 
 `coseb-prompt-builder.html` hosts **Prompting Essentials for HR**, the companion HR prompting page. The filename is retained so existing links, including `https://aka.ms/cosebpromptbuilder`, continue to work; the participant-facing framework is **Context, Goal, Source, Expectations**.
 
-The page adapts the original Prompting Essentials layout, blue/navy theme, and conversational writing for HR: a welcoming hero, four ingredient cards, a simple-to-strong example, an open prompt canvas, reusable patterns, and a closing takeaway. Section links provide direct access without wizard screens or completion gates. There are no response-analysis steps, checkboxes, partner-debrief screens, or assessments.
+The page combines the original Prompting Essentials' friendly reading flow with the **Make Copilot Yours visual family**: warm off-white backgrounds, rose accents, Segoe UI typography, charcoal dark mode, 650-weight headings, restrained borders, and 16px cards. It does not import the original Prompting Essentials blue/navy palette, purple accents, gradients, or elevated card shadows.
+
+The open layout includes a welcoming hero, four ingredient cards, a simple-to-strong example, an editable prompt canvas, reusable patterns, and a closing takeaway. Section links provide direct access without wizard screens or completion gates. There are no response-analysis steps, checkboxes, partner-debrief screens, or assessments.
 
 Seven HR starters include fictional source material: communications, meeting preparation, process changes, role descriptions, learning plans, aggregate feedback, and draft-plan review. A custom task can start blank. Source naming does not grant Copilot access to a file; participants must supply or attach actual approved material inside Copilot.
 
