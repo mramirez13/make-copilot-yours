@@ -114,8 +114,8 @@
     .hero-card h2 { font-size: 24px; letter-spacing: -.02em; }
     .hero-card > p { margin-top: 8px; color: var(--cp-text-muted); }
     .time-list { display: grid; gap: 10px; margin: 20px 0 0; padding: 0; list-style: none; }
-    .time-list li { display: grid; grid-template-columns: 58px 1fr; gap: 12px; align-items: start; padding: 12px; border: 1px solid var(--cp-border); border-radius: 10px; }
-    .time { color: var(--cp-accent); font-weight: 650; }
+    .time-list li { display: grid; grid-template-columns: max-content minmax(0,1fr); gap: 12px; align-items: start; padding: 12px; border: 1px solid var(--cp-border); border-radius: 10px; }
+    .time { color: var(--cp-accent); font-weight: 650; white-space: nowrap; }
     .section { padding: 48px 0; }
     .alt { background: var(--cp-bg-elevated); }
     .section-head { max-width: 760px; margin-bottom: 28px; }
@@ -192,7 +192,7 @@
       .output-top { align-items: flex-start; flex-wrap: wrap; }
       .output-top .btn { width: 100%; }
       .footer-inner { flex-direction: column; }
-      .time-list li { grid-template-columns: 54px 1fr; }
+      .time-list li { grid-template-columns: 1fr; gap: 4px; }
     }
     @media(prefers-reduced-motion:reduce) { html { scroll-behavior: auto; } }
   </style>
