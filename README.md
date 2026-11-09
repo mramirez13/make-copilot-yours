@@ -24,6 +24,8 @@ Drafts and final prompt edits live only in memory in the current tab and are pre
 
 The shared rose-star header identifies each site as **Make Copilot Yours**, **Prompting Essentials**, **Cowork Delegation**, or **Your First Agent**, respectively. Every header uses the same subheader: **HR AI IN PRACTICE**. These header identities do not change navigation labels or exercise copy.
 
+Headers contain no top-right theme switches or exercise shortcut buttons. Light/dark styling is selected on page load from the browser preference (or the explicit `scoutTheme` query parameter). The shared workshop navigation and in-content exercise actions remain available.
+
 All four pages use one cohesive top-level workshop navigation: identical exercise names, order, rose button styling, 44px touch targets, and a filled current-page indicator. It scrolls horizontally on narrow screens and scrolls away with the page, rather than adding stacked sticky menus. Build Your Prompt has no additional section-navigation row, and Guidelines Guide has no separate underlined-link family navigation or duplicate footer site tree. The personalization journey remains an activity progress indicator, not another site menu. Preserve this shared navigation treatment across future changes; matching colors alone is not enough to make the experiences familial. The two additional pages use the same visual family and open, editable-copy interaction.
 
 ### Delegate the Work
