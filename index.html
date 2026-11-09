@@ -95,6 +95,10 @@
     .brand-sub { font-size: 12px; color: var(--cp-text-muted); letter-spacing: .08em; text-transform: uppercase; }
     .theme { min-height: 44px; padding: 8px 12px; border: 1px solid var(--cp-border); border-radius: 10px; color: var(--cp-text); background: var(--cp-surface); font-size: 14px; }
     .journey { padding-top: 28px; }
+    .family-nav { margin-top: 20px; border-block: 1px solid var(--cp-border); background: var(--cp-surface); }
+    .family-inner { display: flex; min-height: 58px; align-items: center; gap: 8px; overflow-x: auto; padding: 4px; }
+    .family-inner a { display: inline-flex; align-items: center; min-height: 44px; flex-shrink: 0; padding: 7px 12px; border-radius: 10px; background: var(--cp-accent-soft); color: var(--cp-accent); font-size: 14px; font-weight: 650; text-decoration: none; }
+    .family-inner a[aria-current="page"] { background: var(--cp-accent); color: var(--cp-accent-fg); }
     .journey-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
     .journey-list li { color: var(--cp-text-muted); font-size: 14px; border-top: 3px solid var(--cp-border); padding-top: 10px; display: flex; align-items: center; gap: 8px; }
     .journey-list li.active, .journey-list li.done { border-color: var(--cp-accent); }
@@ -261,6 +265,14 @@
       <div class="brand"><span class="brand-mark" aria-hidden="true">✦</span><div><div class="brand-title">Make Copilot Yours</div><div class="brand-sub">HR AI in Practice</div></div></div>
       <button class="theme" id="theme" type="button" aria-label="Switch color theme">Dark theme</button>
     </header>
+    <nav class="family-nav" aria-label="Workshop microsites">
+      <div class="family-inner">
+        <a href="https://mramirez13.github.io/make-copilot-yours/" aria-current="page">Make Copilot Yours</a>
+        <a href="https://mramirez13.github.io/make-copilot-yours/coseb-prompt-builder.html">Build a prompt</a>
+        <a href="https://mramirez13.github.io/make-copilot-yours/delegate-the-work.html">Delegate the work</a>
+        <a href="https://mramirez13.github.io/make-copilot-yours/build-your-guidelines-guide.html">Build your guidelines</a>
+      </div>
+    </nav>
     <nav class="journey" aria-label="Workshop journey">
       <ol class="journey-list" id="journey"></ol>
       <div class="progress-meta"><span id="step-label">Your 10-minute personalization journey</span><span id="percent">Ready when you are</span></div>
