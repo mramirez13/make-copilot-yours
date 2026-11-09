@@ -8,13 +8,15 @@ Open `index.html` in a browser.
 
 ## Prompt workshop
 
-`coseb-prompt-builder.html` hosts **Make Your Prompt Work**, the companion HR prompting activity. The filename is retained so existing links, including `https://aka.ms/cosebpromptbuilder`, continue to work; the participant-facing framework is **Context, Goal, Source, Expectations**.
+`coseb-prompt-builder.html` hosts **Prompting Essentials for HR**, the companion HR prompting page. The filename is retained so existing links, including `https://aka.ms/cosebpromptbuilder`, continue to work; the participant-facing framework is **Context, Goal, Source, Expectations**.
 
-The builder follows the personalization site's one-screen-at-a-time pattern: setup, framework, task selection, four prompt fields, and an editable prompt canvas to copy into Copilot. The canvas is the final screen, with controls to edit the four parts, copy repeatedly, choose another task, or clear drafts. There are no response-analysis steps, checkboxes, partner-debrief screens, or toolkit gates.
+The page adapts the original Prompting Essentials layout, blue/navy theme, and conversational writing for HR: a welcoming hero, four ingredient cards, a simple-to-strong example, an open prompt canvas, reusable patterns, and a closing takeaway. Section links provide direct access without wizard screens or completion gates. There are no response-analysis steps, checkboxes, partner-debrief screens, or assessments.
 
 Seven HR starters include fictional source material: communications, meeting preparation, process changes, role descriptions, learning plans, aggregate feedback, and draft-plan review. A custom task can start blank. Source naming does not grant Copilot access to a file; participants must supply or attach actual approved material inside Copilot.
 
-Drafts and final prompt edits live only in memory in the current tab and are preserved separately for each task. There is no sign-in, tracking, storage, or network submission. Refresh clears the activity. Changing fields protects manually edited final prompts with a keep-or-rebuild choice. Clipboard failures open a manual-copy dialog. Empty prompts produce an explicit copy message without preventing navigation to another task.
+All four ingredient fields and the editable output are available together. Ingredient changes update the prompt automatically until it is edited directly; after that, a visible notice and explicit keep-or-rebuild confirmation protect manual edits. Blank ingredients produce clear placeholders, not navigation errors. Pattern buttons load the corresponding task and preserve any existing draft.
+
+Drafts and final prompt edits live only in memory in the current tab and are preserved separately for each task. There is no sign-in, tracking, storage, or network submission. Refresh clears the activity. Clipboard failures open a manual-copy dialog. Empty prompts produce an explicit copy message without preventing task switching.
 
 ## Host with GitHub Pages
 
