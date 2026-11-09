@@ -100,7 +100,6 @@
     .btn:hover { border-color: var(--cp-accent); }
     .primary { background: var(--cp-accent); border-color: var(--cp-accent); color: var(--cp-accent-fg); }
     .primary:hover { background: var(--cp-accent-hover); }
-    .theme { padding-inline: 12px; font-size: 13px; flex-shrink: 0; }
     .actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 20px; }
     .hero { padding: 56px 0 40px; }
     .hero-grid { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(0,.8fr); gap: 32px; align-items: center; }
@@ -155,7 +154,7 @@
     @media(max-width:900px) { .hero-grid, .canvas { grid-template-columns: 1fr; } .tests { grid-template-columns: 1fr; } #build-description { min-height: 460px; } }
     @media(max-width:640px) { .container { width: calc(100% - 32px); } .hero, .section { padding-block: 32px; } .brand { font-size: 14px; gap: 8px; } .brand small { font-size: 10px; } .header-inner { gap: 8px; } .card { padding: 20px; } summary { padding: 18px; } .details-body { padding: 0 18px 20px; } .lead { font-size: 18px; } }
     @media(prefers-reduced-motion:reduce) { html { scroll-behavior: auto; } }
-    @media print { .theme, .actions, button, dialog { display: none; } .hero-grid, .canvas, .tests { display: block; } .card { break-inside: avoid; } }
+    @media print { .actions, button, dialog { display: none; } .hero-grid, .canvas, .tests { display: block; } .card { break-inside: avoid; } }
   </style>
 </head>
 <body>
@@ -163,7 +162,6 @@
   <header><div class="container">
     <div class="header-inner">
       <a class="brand" href="https://mramirez13.github.io/make-copilot-yours/index.html"><span class="mark" aria-hidden="true">✦</span><span>Your First Agent<small>HR AI IN PRACTICE</small></span></a>
-      <button class="btn theme" id="theme" type="button" aria-label="Switch color theme">Dark theme</button>
     </div>
   </div></header>
     <nav class="family-nav" aria-label="Workshop microsites"><div class="container family-inner">
@@ -270,7 +268,7 @@
     <label for="manual-text" style="margin-top:16px">Text to copy</label><textarea id="manual-text" readonly></textarea>
     <div class="actions"><button class="btn primary" id="close-copy" type="button">Done</button></div>
   </dialog>
-  <noscript><div class="container notice">This page needs JavaScript to generate text, copy, download the handbook, and switch themes. Enable it and reload to do the exercise. The build guidance above remains readable.</div></noscript>
+  <noscript><div class="container notice">This page needs JavaScript to generate text, copy, and download the handbook. Enable it and reload to do the exercise. The build guidance above remains readable.</div></noscript>
   <script>
     (() => {
       'use strict';
@@ -457,17 +455,7 @@ This is a personal learning prototype only. Do not share or organization-publish
           if (url) setTimeout(() => URL.revokeObjectURL(url), 30000);
         }
       });
-      function themeLabel() {
-        const dark = document.documentElement.getAttribute('data-theme') === 'dark';
-        $('theme').textContent = dark ? 'Light theme' : 'Dark theme';
-        $('theme').setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
-      }
-      $('theme').addEventListener('click', () => {
-        document.documentElement.setAttribute('data-theme', document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-        themeLabel();
-      });
       refresh();
-      themeLabel();
     })();
   </script>
 </body>
